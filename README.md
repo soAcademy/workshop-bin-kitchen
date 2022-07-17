@@ -1,4 +1,4 @@
-# Workshop Bin Kitchen
+# Workshop Bin kitchen
 
 ## Setup
 
