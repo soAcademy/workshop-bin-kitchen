@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "sprinttech-born"
+  },
+  "targets": {
+    "sprinttech-born": {
+      "hosting": {
+        "sprinttech-born-kitchen": [
+          "sprinttech-born-kitchen"
+        ]
+      }
+    }
+  }
+}

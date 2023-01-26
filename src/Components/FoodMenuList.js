@@ -10,7 +10,7 @@ const FoodMenuList = ({ props, category }) => {
             <img src={item.image} className="object-cover rounded w-32 h-32" />
             <div className="ml-10">
               <p className="mt-4">{item.name}</p>
-              <p className="mt-8 text-red-600">{item.price}</p>
+              <p className="mt-8 text-red-600">{`฿${item.price}`}</p>
             </div>
           </div>
           <div>
