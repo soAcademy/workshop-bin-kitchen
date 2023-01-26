@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "sprinttech-teak"
+  },
+  "targets": {
+    "sprinttech-teak": {
+      "hosting": {
+        "sprinttech-teak-kitchen": [
+          "sprinttech-teak-kitchen"
+        ]
+      }
+    }
+  }
+}

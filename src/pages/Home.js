@@ -16,7 +16,7 @@ const Home = ({ info }) => {
   }, []);
 
   return (
-    <div>
+    <div className="bg-green-200 w-full mx-2">
       <div className="flex flex-col m-1 mt-11">
         <div className="text-5xl m-5 mx-auto text-bold text-sky-700">
           {info.title}
