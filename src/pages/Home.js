@@ -4,12 +4,15 @@ import { datakitchenboeing } from "../datakitchen";
 export const Home = () => {
   return (
     <>
-      <div>
-        <h1 className="text-xl text-center">{datakitchenboeing.name}</h1>
-        <div>
-          <img src={datakitchenboeing.url} />
+      <div className="flex flex-col items-center">
+        <h1 className="text-xl text-center my-3">{datakitchenboeing.name}</h1>
+        <div className="w-[250px] h-[250px]">
+          <img
+            className="w-[100%] h-[100%] object-cover"
+            src={datakitchenboeing.url}
+          />
         </div>
-        <div>{datakitchenboeing.datadescription}</div>
+        <div className="mx-7 my-3">{datakitchenboeing.datadescription}</div>
       </div>
     </>
   );
