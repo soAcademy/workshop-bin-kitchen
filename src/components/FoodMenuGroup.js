@@ -7,7 +7,7 @@ const FoodMenuGroup = (props) => {
   // console.log(test);
   return (
     <>
-      {props.category}
+      <p className="mb-3.5">เมนู{props.category}</p>
       {test.map((r, idx) => (
         <TestMenusList key={idx} data={r} />
       ))}

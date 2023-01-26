@@ -45,16 +45,19 @@ export const Home = () => {
             {shopInfo.name}
           </p>
         </div>
-        <div className="h-28 mt-4">
-          <p className="font-normal font-[Prompt] text-sm">{shopInfo.desc}</p>
+        <div className="flex h-28 w-full md:justify-center mt-4">
+          <div className="font-normal font-[Prompt] text-sm md:text-left md:indent-8 w-5/6 px-4">
+            {shopInfo.desc}
+          </div>
         </div>
-        <div className="mt-4">
-          <img src={logo} alt="logo" className="w-[385px] h-[243px]" />
+        <div className="flex mt-4 md:justify-center">
+          <img
+            src={logo}
+            alt="logo"
+            className="w-[385px] h-[243px] md:w-[500px]"
+          />
         </div>
         <div className="mt-10">
-          <p className="text-sm">รายการแนะนำ</p>
-        </div>
-        <div className="mt-3.5">
           {/* <FoodMenuGroup
             foodMenus={menus}
             categories={type}
