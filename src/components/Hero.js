@@ -11,9 +11,9 @@ const heroContent = {
 
 const Hero = () => (
   <>
-    <h1 className="text-4xl font-bold mb-4 font-prompt">{heroContent.title}</h1>
+    <h1 className="mb-4 font-prompt text-4xl font-bold">{heroContent.title}</h1>
     <p className="mb-4">{heroContent.description}</p>
-    <img src={banner} alt="Food" className="m-auto rounded-xl w-full mb-4" />
+    <img src={banner} alt="Food" className="m-auto mb-4 w-full rounded-xl" />
   </>
 );
 

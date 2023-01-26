@@ -19,17 +19,17 @@ const FoodMenuList = (props) => {
   return props.menu
     .filter((food) => food.category === props.category)
     .map((food) => (
-      <div key={food.id} className="flex mb-4 gap-4">
+      <div key={food.id} className="mb-4 flex gap-4">
         <img
-          className="rounded-[10px] w-[72px] h-[72px] object-cover"
+          className="h-[72px] w-[72px] rounded-[10px] object-cover"
           src={food.image}
           alt={food.name}
         />
-        <div className="flex flex-col flex-auto">
+        <div className="flex flex-auto flex-col">
           <div className="flex-auto">{food.name}</div>
           <div className="text-red-600">฿{food.price}</div>
         </div>
-        <button className="self-center bg-red-200 hover:bg-red-300 px-6 py-3 rounded-[10px]">
+        <button className="self-center rounded-[10px] bg-red-200 px-6 py-3 hover:bg-red-300">
           เพิ่ม
         </button>
         {/* <div>{food.description}</div> */}

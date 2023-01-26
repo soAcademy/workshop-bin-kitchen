@@ -4,7 +4,7 @@ import Hero from "../components/Hero";
 
 export const Home = () => {
   return (
-    <div className="font-nstl text-sm px-4 pt-4">
+    <div className="px-4 pt-4 font-nstl text-sm">
       <Hero />
       <FoodMenuGroup />
     </div>
