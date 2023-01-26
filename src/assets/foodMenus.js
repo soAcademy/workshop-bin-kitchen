@@ -1,4 +1,4 @@
-const foodMenus = [
+export const foodMenus = [
   {
     id: 1,
     name: "แกงส้มชะอมกุ้ง",
@@ -138,4 +138,10 @@ const foodMenus = [
   },
 ];
 
-export default foodMenus;
+const category= foodMenus.reduce((acc, e)=>{
+  acc = [...acc, e.category]
+  return acc
+},[])
+export const uniqueCategory = [...new Set(category)]
+
+// export default foodMenus;
