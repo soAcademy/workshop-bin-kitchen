@@ -1,6 +1,8 @@
-import { Home } from "./pages/Home";
+import {Home} from "./Pages/Home";
+import Nav from "./Components/Nav";
 
 const App = () => (
+  <Nav />,
   <Home />
 );
 
