@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.19937c68.css",
+    "main.js": "/static/js/main.91525cf9.js",
+    "static/js/787.d1cac07a.chunk.js": "/static/js/787.d1cac07a.chunk.js",
+    "static/media/thaifood.jpeg": "/static/media/thaifood.2121cdea1d27578f8b3c.jpeg",
+    "index.html": "/index.html",
+    "main.19937c68.css.map": "/static/css/main.19937c68.css.map",
+    "main.91525cf9.js.map": "/static/js/main.91525cf9.js.map",
+    "787.d1cac07a.chunk.js.map": "/static/js/787.d1cac07a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.19937c68.css",
+    "static/js/main.91525cf9.js"
+  ]
+}

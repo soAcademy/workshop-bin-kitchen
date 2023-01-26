@@ -4,6 +4,7 @@ import FoodMenuListComponent from "../components/FoodMenuListComponent";
 import { mockData } from "../foodMenu";
 import FoodMenuGroup from "../components/FoodMenuGroup";
 import axios from "axios";
+import Nav from "../components/Nav";
 
 export const Home = () => {
   const [foodMenu, setFoodMenu] = useState([]);
@@ -19,11 +20,12 @@ export const Home = () => {
   }, [foodMenu]);
   return (
     <>
+      <Nav />
       <div className="flex flex-col items-center">
         <h1 className="text-xl text-center my-3">{datakitchenboeing.name}</h1>
-        <div className="w-[250px] h-[250px]">
+        <div className="w-full ">
           <img
-            className="w-[100%] h-[100%] object-cover"
+            className="w-[100%] px-8 object-cover"
             src={datakitchenboeing.url}
           />
         </div>
