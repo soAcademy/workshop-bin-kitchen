@@ -1,9 +1,5 @@
-import {Home} from "./Pages/Home";
-import Nav from "./Components/Nav";
+import { Home } from "./Pages/Home";
 
-const App = () => (
-  <Nav />,
-  <Home />
-);
+const App = () => <Home />;
 
 export default App;
