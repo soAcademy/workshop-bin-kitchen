@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "sprinttech-keng"
+  },
+  "targets": {
+    "sprinttech-keng": {
+      "hosting": {
+        "sprinttech-keng-kitchen": [
+          "sprinttech-keng-kitchen"
+        ]
+      }
+    }
+  }
+}
