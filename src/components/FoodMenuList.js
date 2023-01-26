@@ -13,7 +13,7 @@ const FoodMenuList = () =>
         />
       </div>
       <div className="flex flex-col">
-        <div>{food.name}</div>
+        <div className="flex-auto">{food.name}</div>
         <div className="text-red-600">฿{food.price}</div>
       </div>
       {/* <div>{food.description}</div> */}
