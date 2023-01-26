@@ -44,7 +44,9 @@ export const Home = () => {
       </div>
       <h1 className="mx-4 mt-4">รายการแนะนำ</h1>
 
-      <div className="flex w-full mt-4">
+      <FoodMenuList props={mockData} />
+
+      {/* <div className="flex w-full mt-4">
         <img src="menu1.jpeg" className="object-cover rounded mx-4 w-32 h-32" />
         <div>
           <p className="mt-4 bg-red-200">แกงส้มชะอมกุ้ง</p>
@@ -79,7 +81,7 @@ export const Home = () => {
             เพิ่ม
           </button>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
