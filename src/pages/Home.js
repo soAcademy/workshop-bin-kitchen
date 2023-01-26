@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import FoodMenuList from "../components/FoodMenuList";
+import FoodMenuGroup from "../components/FoodMenuGroup";
 const Home = ({ info }) => {
   const [menus, setMenus] = useState();
 
@@ -27,7 +28,13 @@ const Home = ({ info }) => {
         className="mx-auto w-[600px] h-[300px] px-5"
       ></img>
       <div>
-        <FoodMenuList data={menus} category="รายการแนะนำ" />
+        <FoodMenuList data={menus} />
+      </div>
+      <div>
+        <FoodMenuGroup
+          foodMenus={menus}
+          categories={[...new Set(menus?.map((r) => r.category))]}
+        />
       </div>
     </div>
   );
