@@ -21,14 +21,17 @@ const FoodMenuList = (props) => {
     .map((food) => (
       <div key={food.id} className="flex mb-4 gap-4">
         <img
-          className="rounded-xl w-[72px] h-[72px] object-cover"
+          className="rounded-[10px] w-[72px] h-[72px] object-cover"
           src={food.image}
           alt={food.name}
         />
-        <div className="flex flex-col">
+        <div className="flex flex-col flex-auto">
           <div className="flex-auto">{food.name}</div>
           <div className="text-red-600">฿{food.price}</div>
         </div>
+        <button className="self-center bg-red-200 hover:bg-red-300 px-6 py-3 rounded-[10px]">
+          เพิ่ม
+        </button>
         {/* <div>{food.description}</div> */}
       </div>
     ));
