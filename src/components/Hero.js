@@ -1,4 +1,4 @@
-import banner from "../assets/banner.jpg";
+import banner from "../assets/hero-image.png";
 
 const heroContent = {
   title: "ร้านอาหารครัวคุณเก่ง",
