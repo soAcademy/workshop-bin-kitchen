@@ -6,6 +6,7 @@ module.exports = {
     extend: {
       fontFamily: {
         prompt: ["Prompt", ...defaultTheme.fontFamily.sans],
+        nstl: ["'Noto Sans Thai Looped'", ...defaultTheme.fontFamily.sans],
       },
     },
   },
