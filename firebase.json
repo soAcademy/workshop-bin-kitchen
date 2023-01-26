@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "target": "sprinttech-dew-kitchen",
+    "public": "build",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
