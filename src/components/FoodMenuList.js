@@ -6,7 +6,11 @@ const FoodMenuList = () =>
   foodMenu.map((food) => (
     <div className="flex mb-4 gap-4">
       <div>
-        <img className="rounded-xl h-[72px]" src={food.image} alt={food.name} />
+        <img
+          className="rounded-xl w-[72px] h-[72px] object-cover"
+          src={food.image}
+          alt={food.name}
+        />
       </div>
       <div className="flex flex-col">
         <div>{food.name}</div>
