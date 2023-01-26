@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "sprinttech-first"
+  },
+  "targets": {
+    "sprinttech-first": {
+      "hosting": {
+        "sprinttech-first-kitchen": [
+          "sprinttech-first-kitchen"
+        ]
+      }
+    }
+  }
+}
