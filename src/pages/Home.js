@@ -1,5 +1,7 @@
 import React from "react";
 import { datakitchenboeing } from "../datakitchen";
+import FoodMenuListComponent from "../components/FoodMenuListComponent";
+import { mockData } from "../foodMenu";
 
 export const Home = () => {
   return (
@@ -14,6 +16,7 @@ export const Home = () => {
         </div>
         <div className="mx-7 my-3">{datakitchenboeing.datadescription}</div>
       </div>
+      <FoodMenuListComponent foodMenus={mockData} />
     </>
   );
 };
