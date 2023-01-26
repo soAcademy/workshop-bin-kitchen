@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import FoodMenuList from "./FoodMenuList";
 
@@ -20,10 +20,10 @@ const FoodMenuGroup = (props) => {
   // console.log(categoryList);
 
   return [...new Set(foodMenu.map((food) => food.category))].map((category) => (
-    <>
+    <React.Fragment key={category}>
       <h2 className="mb-4">เมนู{category}</h2>
       <FoodMenuList menu={foodMenu} category={category} />
-    </>
+    </React.Fragment>
   ));
 };
 
