@@ -5,7 +5,7 @@ const FoodMenuList = ({ props, category }) => {
     .filter((item) => item.category === category)
     .map((item) => (
       <>
-        <div className="flex w-full mt-4 mx-4 justify-between">
+        <div className="flex mt-4 mx-4 justify-between">
           <div className="flex">
             <img src={item.image} className="object-cover rounded w-32 h-32" />
             <div className="ml-10">

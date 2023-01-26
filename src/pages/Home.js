@@ -28,7 +28,7 @@ export const Home = () => {
         <div className="mt-4">
           <img
             src="pichome.jpeg"
-            className="object-cover rounded mx-auto w-11/12 h-64"
+            className="object-contain rounded-xl mx-auto h-72"
           />
         </div>
 
