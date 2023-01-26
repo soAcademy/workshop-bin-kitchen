@@ -1,37 +1,17 @@
-
 import { useState, useEffect } from "react";
 import axios from "axios";
 import FoodMenuGroup from "../components/FoodMenuGroupComponent";
+import ShopDetail from "../components/ShopDetailComponent";
+import NavBar from "../components/NavBarComponent";
 
 export const Home = (props) => {
-  const mockData = [
-    {
-      id: 1,
-      name: "แกงส้มชะอมกุ้ง",
-      image:
-        "https://img.wongnai.com/p/1920x0/2018/12/17/bf69cc77dfb94a5ab6df20ffb0622cd2.jpg",
-      price: 150,
-      category: "แนะนำ",
-    },
-    {
-      id: 2,
-      name: "ผัดคะน้าเห็ดหอม",
-      image:
-        "https://tourdefood.net/wp-content/uploads/2020/11/%E0%B8%84%E0%B8%B0%E0%B8%99%E0%B9%89%E0%B8%B2-%E0%B9%80%E0%B8%AB%E0%B9%87%E0%B8%94%E0%B8%AB%E0%B8%AD%E0%B8%A1-%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%E0%B8%AB%E0%B8%AD%E0%B8%A2-%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%94%E0%B8%B5%E0%B8%95%E0%B9%88%E0%B8%AD%E0%B8%AA%E0%B8%B8%E0%B8%82%E0%B8%A0%E0%B8%B2%E0%B8%9E.jpg",
-      price: 130,
-      category: "ผัด",
-    },
-    {
-      id: 3,
-      name: "ผัดคะน้าเห็ดหอม",
-      image:
-        "https://tourdefood.net/wp-content/uploads/2020/11/%E0%B8%84%E0%B8%B0%E0%B8%99%E0%B9%89%E0%B8%B2-%E0%B9%80%E0%B8%AB%E0%B9%87%E0%B8%94%E0%B8%AB%E0%B8%AD%E0%B8%A1-%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%E0%B8%AB%E0%B8%AD%E0%B8%A2-%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%94%E0%B8%B5%E0%B8%95%E0%B9%88%E0%B8%AD%E0%B8%AA%E0%B8%B8%E0%B8%82%E0%B8%A0%E0%B8%B2%E0%B8%9E.jpg",
-      price: 130,
-      category: "แนะนำ",
-    },
-  ];
+  const homeContent = {
+    shopName: `ครัวคุณบิน`,
+    shopDescription: `สวรรค์ของคนรักอาหารไทย ดื่มด่ำไปกับอาหารมื้อโปรดที่ห้องอาหาร Bangkok'78 โดดเด่นเรื่องความพิถีพิถันตั้งแต่การคัดสรรวัตถุดิบ ไปจนถึงขั้นตอนการปรุงรส ทำให้อาหารของที่นี่มีเอกลักษณ์เฉพาะตัว จัดจ้านถึงเครื่อง ถูกปากคนไทย ครบรสไม่มีกั๊ก เมื่อใครได้กินเป็นต้องติดใจไปทุกราย นอกจากอาหารแล้วยังมาพร้อมกับบรรยากาศดี ๆ ตกแต่งในสไตล์เรโทรเหมาะสำหรับการพาครอบครัวหรือคนรักไปย้อนวันวาน กินอาหารไทยแท้ ๆ ที่คุ้นเคย`,
+    shopLogo: `/shoplogo.jpg`,
+  };
   const [foodMenu, setFoodMenu] = useState([]);
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
   useEffect(() => {
     axios({
       method: "get",
@@ -40,10 +20,9 @@ export const Home = (props) => {
       console.log("only Res : " + response);
       console.log("Res.Data : ", response.data);
       setFoodMenu(response.data);
-      setCategories([...new Set(response.data?.map(item => item.category))])
+      setCategories([...new Set(response.data?.map((item) => item.category))]);
     });
   }, []);
-  console.log("Categ : ", categories);
 
   // return (
   //   <>
@@ -56,38 +35,14 @@ export const Home = (props) => {
   return (
     <div className="px-8">
       {/* START NAV BAR */}
-      <div className="bg-gray-200 px-4">THIS IS NAV BAR</div>
+      <NavBar/>
       {/* END NAV BAR */}
 
-      {/* START CONTENT BOX */}
-      <div className="pt-3 flex flex-col items-center">
-        {/* START NAME AND DESCRIPTION */}
-        <div>
-          <div className="text-center text-4xl">
-            <h1 className="">{props.homeContent.shopName}</h1>
-          </div>
-          <div className="pt-3 text-lg">
-            <p>{props.homeContent.shopDescription}</p>
-          </div>
-        </div>
-        {/* SEND NAME AND DESCRIPTION */}
+      <ShopDetail homeContent={homeContent} />
 
-        {/* START IMAGE */}
-        <div className="w-full pt-3">
-          <img
-            className="rounded-xl w-[100%]"
-            src={props.homeContent.shopLogo}
-            alt="Shop Logo"
-          />
-        </div>
-        {/* END IMAGE */}
-      </div>
-      {/* END CONTENT BOX */}
       {/* START MENU */}
-      <div className="">
-        {/* <FoodMenuList menus={foodMenu} categories="Recommended" /> */}
-        <FoodMenuGroup menus={foodMenu} categories={categories} />
-      </div>
+      {/* <FoodMenuList menus={foodMenu} categories="Recommended" /> */}
+      <FoodMenuGroup menus={foodMenu} categories={categories} />
       {/* END MENU */}
     </div>
   );

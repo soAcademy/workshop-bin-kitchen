@@ -6,7 +6,7 @@ const FoodMenuList = ({ menus , category}) => {
     <>
       {/* START MENU BOX */}
       <div className="mt-3">
-        <h1 className="text-lg">{`เมนู${category}`}</h1> 
+        <h1 className="text-md md:text-lg lg:text-xl xl:text-2xl">{`เมนู${category}`}</h1> 
         {menus?.map((menu) => (
           <div className="flex p-3 bg-gray-100 mt-3 rounded-lg">
             {/* START IMAGE */}
@@ -16,16 +16,16 @@ const FoodMenuList = ({ menus , category}) => {
             {/* END IMAGE */}
             {/*START NAME AND price */}
             <div className="pl-2 w-3/6">
-              <div className="text-lg">
+              <div className="text-md md:text-lg lg:text-xl xl:text-2xl">
                 <h1 className="">{menu.name}</h1>
               </div><br />
-              <div className="text-lg text-red-500">
+              <div className="text-md md:text-lg lg:text-xl xl:text-2xl text-red-500">
                 <p>{menu.price} ฿</p>
               </div>
             </div>
             {/* END NAME AND price */}
             {/* START BUTTON */}
-            <div className="w-1/6 flex flex-col items-center my-auto">
+            <div className="w-1/6 flex flex-col items-center my-auto text-md md:text-lg lg:text-xl xl:text-2xl">
               <button className="p-3 bg-pink-200 rounded-lg">ADD</button>
             </div>
             {/* END BUTTON */}

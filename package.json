@@ -15,7 +15,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy:firebase": "gcloud config set project sprinttech-cake && npx firebase deploy --only hosting:sprinttech-cake-kitchen",
+    "build:firebase": "yarn run build && yarn run deploy:firebase"
   },
   "eslintConfig": {
     "extends": [
