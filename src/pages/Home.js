@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import image from "../assets/banner.jpg";
-import FoodMenuList from "../components/FoodMenuList";
+// import FoodMenuList from "../components/FoodMenuList";
+import FoodMenuGroup from "../components/FoodGroup";
 import axios from "axios";
+import { GiHamburgerMenu } from "react-icons/gi"
 
 
 const info = `ร้านอาหารครัวคุณกอปรุงด้วยใจ เหมือนทำให้คนในครอบครัวทาน
@@ -43,6 +45,7 @@ const info = `ร้านอาหารครัวคุณกอปรุง
 
 export const Home = () => {
   const [foodMenus, setFoodMenus] = useState([])
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     axios ({
@@ -52,17 +55,27 @@ export const Home = () => {
       console.log("response", response);
       setFoodMenus(response.data)
     })
-  })
+  },[])
 
   return (
-    <div className="px-4 flex flex-col">
-      <div className="text-xl font-bold my-2">ครัวคุณกอ</div>
-      <div className="px-2 text-center">ร้านอาหารคุณกอ</div>
-      <div className="px10">{info}</div>
-      <div className="flex flex-col justify-center">
-        <img src={image} className="w-[500px] h-auto" />
+    <div className="flex flex-col">
+      <div>
+      <button className="mt-1 float-left text-xl" onClick={() => setToggle(!toggle)}><GiHamburgerMenu /></button>
+      <div className="ml-6">ครัวคุณกอ</div>
       </div>
-      <FoodMenuList data={foodMenus} category="รายการแนะนำ" />
+      <hr className="border-2 drop-shadow-md"/>
+      <div className="px-2 text-center my-1">ร้านอาหารคุณกอ</div>
+      <div className="m40">{info}</div>
+      <div className="flex flex-row justify-center">
+        <img src={image} className="w-[500px] my-2 rounded-lg" />
+      </div>
+      {/* <FoodMenuList data={foodMenus} category="รายการแนะนำ" /> */}
+      <div className="my-2">
+      <FoodMenuGroup
+        foodMenus={foodMenus}
+        categories={[...new Set(foodMenus?.map((r) => r.category))]}
+        />
+        </div>
     </div>
   );
 };
