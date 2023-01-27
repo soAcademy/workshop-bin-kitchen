@@ -16,11 +16,11 @@ const Home = ({ info }) => {
   }, []);
 
   return (
-    <div className="bg-slate-100 w-full mx-2 rounded-lg shadow-lg border border-8 border-lime-200">
+    <div className="bg-neutral-900 w-full mx-2 rounded-lg shadow-lg border border-8 border-lime-200">
       <div className="flex flex-col m-1 mt-11">
-        <div className="md:text-5xl text-3xl m-5 mx-auto">{info.title}</div>
+        <div className="md:text-5xl text-3xl m-5 mx-auto text-neutral-50">{info.title}</div>
       </div>
-      <div className="m-3">{info.intro}</div>
+      <div className="m-3 text-neutral-50">{info.intro}</div>
       <img
         src="/thaifood.jpg"
         className="mx-auto sm:w-[600px] sm:h-[300px] w-56 h-32 object-cover rounded-lg"
