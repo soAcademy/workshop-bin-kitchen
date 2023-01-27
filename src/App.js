@@ -14,8 +14,8 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <div className="h-20 bg-white drop-shadow-md fixed w-full flex justify-between">
-        <div className="my-6 md:invisible w-1/2">
+      <div className="h-20 bg-white drop-shadow-md fixed w-full flex">
+        <div className="my-6 md:invisible w-full">
           <button className="text-3xl px-8" onClick={() => setToggle(!toggle)}>
             <GiHamburgerMenu />
           </button>
@@ -45,41 +45,49 @@ const App = () => {
             </div>
           )}
         </div>
-        <div className="invisible md:visible w-1/2 text-right">
-          <div className="flex my-6">
-            <div>
-              <Link
-                to="/"
-                className="my-auto mx-8 text-xl text-center hover:drop-shadow hover:text-gray-400"
-              >
-                เมนูอาหาร
-              </Link>
-            </div>
-            <div>
-              <Link
-                to="/order"
-                className="my-auto mx-8 text-xl text-center hover:drop-shadow hover:text-gray-400"
-              >
-                รายการสั่งอาหาร
-              </Link>
-            </div>
-            <div>
-              <Link
-                to="/stats"
-                className="my-auto mx-8 text-xl text-center hover:drop-shadow hover:text-gray-400"
-              >
-                สถิติ
-              </Link>
-            </div>
+        <div className="invisible md:visible w-full">
+          <div className="flex justify-between my-6 mr-14">
+            <Link to="/" className="text-xl hover:drop-shadow hover:underline">
+              เมนูอาหาร
+            </Link>
+
+            <Link
+              to="/order"
+              className="text-xl hover:drop-shadow hover:underline"
+            >
+              รายการสั่งอาหาร
+            </Link>
+
+            <Link
+              to="/stats"
+              className="text-xl hover:drop-shadow hover:underline"
+            >
+              สถิติ
+            </Link>
           </div>
         </div>
       </div>
+
+      {toggle && (
+        <div className="flex justify-between fixed w-full h-full mt-20">
+          <div className="h-full w-1/2"></div>
+          <div className="bg-black opacity-75 w-1/2 h-full"></div>
+        </div>
+      )}
 
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/order" element={<Order />} />
         <Route exact path="/stats" element={<Stats />} />
-        <Route className="mt-30" exact path="*" element={<>404 Not found</>} />
+        <Route
+          exact
+          path="*"
+          element={
+            <>
+              <div className="pt-20">404 Not found</div>
+            </>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
