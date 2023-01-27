@@ -32,7 +32,7 @@ export const Home = () => {
 
   useEffect(() => {
     // console.log(menuData);
-    const menuAllTypes = menuData.map((r) => r.category);
+    const menuAllTypes = menuData?.map((r) => r.category);
     const filterMenuType = [...new Set(menuAllTypes)];
     // console.log(filterMenuType);
     setMenuType(filterMenuType);
@@ -42,24 +42,37 @@ export const Home = () => {
   return (
     <div>
       <Navbar />
-      <div className="pt-16 px-4 ">
-        <div className="shopName mb-4">
-          <h1 className="text-3xl text-center">{shopData.name}</h1>
+      <div className="pt-20 pb-4 px-4">
+        <div className="md:flex justify-center mb-10">
+          <div className="md:flex flex-row-reverse gap-x-4 md:w-2/3">
+
+            <div className="md:w-1/2 md:flex items-center">
+              <div className="md:flex flex-col gap-y-8">
+                <div className="shopName mb-4">
+                  <h1 className="text-3xl text-center">{shopData.name}</h1>
+                </div>
+                <div className="shopDetail mb-4">
+                  <p className="text-sm">{shopData.detail}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="shopImage md:w-1/2">
+              <img
+                className="w-full rounded-lg"
+                src={shopData.imgUrl}
+                alt="banner"
+              />
+            </div>
+          </div>
         </div>
-        <div className="shopDetail mb-4">
-          <p className="text-sm">{shopData.detail}</p>
-        </div>
-        <div className="shopImage mb-10">
-          <img
-            className="w-full rounded-lg"
-            src={shopData.imgUrl}
-            alt="banner"
-          />
-        </div>
-        <div className="menu text-sm">
-          {menuType.map((r, idx) => (
-            <FoodMenusCategory key={idx} type={r} foodMenus={menuData} />
-          ))}
+
+        <div className="md:flex justify-center">
+          <div className="menu md:w-2/3 md:grid grid-cols-2 gap-8 text-sm">
+            {menuType?.map((r, idx) => (
+              <FoodMenusCategory key={idx} type={r} foodMenus={menuData} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

@@ -4,15 +4,17 @@ const FoodMenusCategory = (props) => {
   // console.log(props);
 
   return (
-    <div className="mb-8">
+    <div className="mb-8 md:mb-0">
       <div className="menuType mb-4">
-        <p>{props.type}</p>
+        <p className="font-bold">{props.type}</p>
       </div>
-      {props.foodMenus
-        .filter((menu) => menu.category === props.type)
-        .map((filtered, idx) => (
-          <FoodMenusList key={idx} data={filtered} />
-        ))}
+      <div className="flex flex-col gap-2">
+        {props.foodMenus
+          .filter((menu) => menu.category === props.type)
+          .map((filtered, idx) => (
+            <FoodMenusList key={idx} data={filtered} />
+          ))}
+      </div>
     </div>
   );
 };
