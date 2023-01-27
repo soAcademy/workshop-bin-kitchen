@@ -1,11 +1,14 @@
 import FoodMenuList from "./FoodMenuList";
 
-const FoodMenuGroup = (props) => 
-  props.categories?.map((category) => (
-    <FoodMenuList
-      category={category}
-      foodMenus={props.foodMenus.filter((r) => r.category === category)}
-  />
-  ))
+const FoodMenuGroup = (props) => (
+  // <div className={props.className}>
+    props.categories?.map((category) => (
+      <FoodMenuList
+        category={category}
+        foodMenus={props.foodMenus.filter((r) => r.category === category)}
+      />
+    ))
+  // </div>
+);
 
-  export default FoodMenuGroup;
+export default FoodMenuGroup;
