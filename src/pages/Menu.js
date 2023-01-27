@@ -1,9 +1,12 @@
 import axios from "axios";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 
 const Menu = () => {
   const [foodMenus, setFoodMenus] = useState();
   const [isOrderOpen, setIsOrderOpen] = useState();
+  const [removeOrderPopup, setRemoveOrderPopup] = useState();
+  const [removeMenuName, setRemoveMenuName] = useState();
+  // FETCH MENU DATA
   useEffect(() => {
     axios({
       method: "get",
@@ -13,30 +16,32 @@ const Menu = () => {
     });
   }, []);
 
-  useEffect(() => {
-    // console.log(isOrderOpen);
-  }, [isOrderOpen]);
+  // useEffect(() => {
+  //   console.log(isOrderOpen);
+  // }, [isOrderOpen]);
 
   const [menuSelected, setMenuSelected] = useState({});
   const [menuNameArray, setMenuNameArray] = useState();
   const [menuAmountArray, setMenuAmountArray] = useState();
   const [buttonClicked, setButtonClicked] = useState();
-  // const [isMenuUpdated, setIsMenuUpdated] = useState()
   const updateMenuAmount = (menuName, amount) => {
     menuSelected[menuName] = amount;
     setMenuSelected(menuSelected);
   };
 
+  // UPDATE menuNameArray , menuAmountArray WHEN menuSelected HAS BEEN UPDATED
   useEffect(() => {
     setMenuNameArray(Object.keys(menuSelected));
     setMenuAmountArray(Object.values(menuSelected));
   }, [JSON.stringify(menuSelected)]);
 
+  // CREATE UNIQUE MENU NAMES
   const category = foodMenus?.reduce((acc, e) => {
     acc = [...acc, e.category];
     return acc;
   }, []);
   const uniqueCategory = [...new Set(category)];
+
   return (
     <div>
       {uniqueCategory.map((category, idx) => {
@@ -68,16 +73,10 @@ const Menu = () => {
                       <button
                         className="rounded-lg px-4 py-2 w-2/12 h-1/2 bg-red-100 flex items-center justify-center"
                         onClick={() => {
-                          setIsOrderOpen(true);
-                          menuSelected[menu.name] = (menuSelected[menu.name] ?? 0) + 1;
+                          setIsOrderOpen(true); // OPEN ORDER POPUP
+                          menuSelected[menu.name] =
+                            (menuSelected[menu.name] ?? 0) + 1; // ADD OR UPDATE SELECTED MENU
                           setMenuSelected(menuSelected);
-                          // updateMenuAmount(
-                          //   menu.name,
-                          //   (menuSelected[menu.name] ?? 0) + 1
-                          // );
-                          // console.log(menuSelected);
-                          // console.log(menuNameArray);
-                          // console.log(menuAmountArray);
                         }}
                       >
                         <p className="hidden sm:block">เพิ่ม</p>
@@ -90,50 +89,106 @@ const Menu = () => {
           </div>
         );
       })}
-      <div className="fixed bottom-0 left-0 z-30 bg-gray-400 w-full p-10 h-72 space-y-4">
+      <div
+        className={`fixed bottom-0 left-0 z-30 bg-white w-full p-10 min-h-[400px] max-h-[500px] overflow-scroll space-y-4 duration-500 ${
+          isOrderOpen ? "" : "translate-y-full"
+        }`}
+      >
         <div className="flex justify-between">
           <span>หมายเลขโต๊ะ</span>
-          <input type="text"></input>
+          <input
+            type="number"
+            placeholder="No."
+            className="w-14 rounded-lg text-center border-[1px] border-gray-400"
+            onChange={(e) => {
+              e.target.value = e.target.value.slice(0, 3); // LIMIT INPUT LENGTH
+            }}
+          ></input>
         </div>
-        <div>รายการ</div>
-        {/* <span>{menuSelected}</span> */}
-        {menuNameArray?.map((e, idx) => {
-          return (
-            <div className="flex justify-between">
-              <span>{e}</span>
-              <span className="flex">
-                <button
-                  className={`w-6 h-6 bg-red-300 rounded-md`}
-                  onClick={() => {
-                    updateMenuAmount(e, (menuSelected[e] ?? 0) - 1);
-                    setButtonClicked(!buttonClicked);
-                  }}
-                >
-                  -
-                </button>
-                <p className="mx-4 w-fit">{menuAmountArray.at(idx)}</p>
-                <button
-                  className="w-6 h-6 bg-red-300 rounded-md"
-                  onClick={() => {
-                    menuSelected[e] = (menuSelected[e] ?? 0) + 1;
-                    setMenuSelected(menuSelected);
-                    // updateMenuAmount(e, (menuSelected[e] ?? 0) + 1);
-                    setButtonClicked(!buttonClicked);
-                  }}
-                >
-                  +
-                </button>
-              </span>
-            </div>
-          );
-        })}
+        <div className="text-center w-full border-b border-gray-600 py-4">
+          รายการอาหาร
+        </div>
+        <div className="h-[200px] overflow-scroll space-y-1">
+          {menuNameArray?.map((e, idx) => {
+            return (
+              <div className="flex justify-between py-1">
+                <span>{e}</span>
+                <span className="flex">
+                  <button
+                    className={`w-8 h-6 bg-red-300 rounded-md`}
+                    onClick={() => {
+                      if (menuSelected[e] > 1) {
+                        updateMenuAmount(e, (menuSelected[e] ?? 0) - 1); // UPDATE MENU AMOUNT
+                        setButtonClicked(!buttonClicked); // WHEN THE BUTTON IS CLICKED
+                      } else {
+                        setRemoveOrderPopup(true);
+                        setRemoveMenuName(e);
+                      }
+                    }}
+                  >
+                    -
+                  </button>
+                  <span className="w-6 mx-2 text-center">
+                    {menuAmountArray.at(idx)}
+                  </span>
+                  <button
+                    className="w-8 h-6 bg-red-300 rounded-md"
+                    onClick={() => {
+                      updateMenuAmount(e, (menuSelected[e] ?? 0) + 1); // UPDATE MENU AMOUNT
+                      setButtonClicked(!buttonClicked); // WHEN THE BUTTON IS CLICKED
+                    }}
+                  >
+                    +
+                  </button>
+                </span>
+              </div>
+            );
+          })}
+        </div>
+        <div className="w-full flex justify-center pt-4 ">
+          <button className="w-32 h-10 text-center rounded-xl bg-blue-500 relative bottom-0">
+            สั่งอาหาร
+          </button>
+        </div>
       </div>
       <div
-        className={`bg-black opacity-10 fixed top-0 left-0 h-screen w-screen md:hidden duration-500 ${
+        // DISPLAY SHADER WHEN ORDER POPPED-UP
+        className={`BLACK-SHADER bg-black opacity-10 fixed top-0 left-0 h-screen w-screen md:hidden duration-500 ${
           isOrderOpen ? "z-20" : "opacity-0 z-0"
         }`}
         onClick={() => setIsOrderOpen(false)}
       ></div>
+      <div
+        className={`w-screen h-screen flex justify-center items-center fixed top-0 left-0 duration-500 ${
+          removeOrderPopup ? "z-40" : "scale-0"
+        }`}
+      >
+        <div
+          className={`w-60 h-36 bg-white text-center p-4 justify-between flex flex-col rounded-xl shadow-xl  duration-500 ${
+            removeOrderPopup ? "opacity-100 z-40" : "opacity-0"
+          }`}
+        >
+          <div className="text-xl">ลบรายการ</div>
+          <div className="flex justify-between p-4 px-4 space-x-2">
+            <button
+              className="bg-blue-400 border-blue-300 border-2 shadow-md w-20 h-10 rounded"
+              onClick={() => {
+                delete menuSelected[removeMenuName];
+                setButtonClicked(!buttonClicked);
+                setRemoveOrderPopup(false);
+              }}
+            >
+              ยืนยัน
+            </button>
+            <button
+              className="border-blue-300 border-2 shadow-md w-20 h-10 rounded"
+              onClick={() => setRemoveOrderPopup(false)}
+            >
+              ยกเลิก
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
