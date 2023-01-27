@@ -71,7 +71,7 @@ const Menu = () => {
                         </div>
                       </div>
                       <button
-                        className="rounded-lg px-4 py-2 w-2/12 h-1/2 bg-red-100 flex items-center justify-center"
+                        className="rounded-lg px-4 py-2 w-2/12 h-1/2 bg-red-100 flex items-center justify-center md:h-[50px]"
                         onClick={() => {
                           setIsOrderOpen(true); // OPEN ORDER POPUP
                           menuSelected[menu.name] =
@@ -108,14 +108,14 @@ const Menu = () => {
         <div className="text-center w-full border-b border-gray-600 py-4">
           รายการอาหาร
         </div>
-        <div className="h-[200px] overflow-scroll space-y-1">
+        <div className="h-[200px] overflow-y-auto no-scrollbar space-y-1">
           {menuNameArray?.map((e, idx) => {
             return (
               <div className="flex justify-between py-1">
                 <span>{e}</span>
                 <span className="flex">
                   <button
-                    className={`w-8 h-6 bg-red-300 rounded-md`}
+                    className={`w-10 h-8 bg-red-300 rounded-md md:w-10 md:h-6`}
                     onClick={() => {
                       if (menuSelected[e] > 1) {
                         updateMenuAmount(e, (menuSelected[e] ?? 0) - 1); // UPDATE MENU AMOUNT
@@ -128,11 +128,11 @@ const Menu = () => {
                   >
                     -
                   </button>
-                  <span className="w-6 mx-2 text-center">
+                  <span className="w-6 mx-2 text-center my-auto">
                     {menuAmountArray.at(idx)}
                   </span>
                   <button
-                    className="w-8 h-6 bg-red-300 rounded-md"
+                    className="w-10 h-8 bg-red-300 rounded-md md:w-10 md:h-6"
                     onClick={() => {
                       updateMenuAmount(e, (menuSelected[e] ?? 0) + 1); // UPDATE MENU AMOUNT
                       setButtonClicked(!buttonClicked); // WHEN THE BUTTON IS CLICKED
@@ -153,7 +153,7 @@ const Menu = () => {
       </div>
       <div
         // DISPLAY SHADER WHEN ORDER POPPED-UP
-        className={`BLACK-SHADER bg-black opacity-10 fixed top-0 left-0 h-screen w-screen md:hidden duration-500 ${
+        className={`BLACK-SHADER bg-black opacity-10 fixed top-0 left-0 h-screen w-screen  duration-500 ${
           isOrderOpen ? "z-20" : "opacity-0 z-0"
         }`}
         onClick={() => setIsOrderOpen(false)}
