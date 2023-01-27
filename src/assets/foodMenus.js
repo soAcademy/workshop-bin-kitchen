@@ -138,10 +138,12 @@ export const foodMenus = [
   },
 ];
 
-const category= foodMenus.reduce((acc, e)=>{
-  acc = [...acc, e.category]
-  return acc
-},[])
-export const uniqueCategory = [...new Set(category)]
+const category = foodMenus.reduce((acc, e) => {
+  acc = [...acc, e.category];
+  return acc;
+}, []);
+export const uniqueCategory = [...new Set(category)];
+
+
 
 // export default foodMenus;

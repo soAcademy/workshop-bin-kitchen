@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "sprinttech-earth-kitchen"
+  },
+  "targets": {
+    "sprinttech-earth-kitchen": {
+      "hosting": {
+        "sprinttech-earth-kitchen": [
+          "sprinttech-earth-kitchen"
+        ]
+      }
+    }
+  }
+}
