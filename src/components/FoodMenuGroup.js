@@ -2,12 +2,15 @@ import React from "react";
 import FoodMenuListComponent from "./FoodMenuListComponent";
 
 const FoodMenuGroup = (props) => {
-  const { categories, foodMenu } = props;
-  console.log("prop", props);
+  console.log("props", props);
+  console.count("render");
+  const { categories, foodMenu, addFoodOrder } = props;
   return (
     <div>
       {categories?.map((category) => (
         <FoodMenuListComponent
+          addFoodOrder={addFoodOrder}
+          key={category}
           foodMenus={foodMenu.filter((menu) => menu.category === category)}
           category={category}
         />
