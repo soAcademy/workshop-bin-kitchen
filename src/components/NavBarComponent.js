@@ -1,9 +1,64 @@
-import React from 'react'
+import React, { useState } from "react";
+import { ImSpoonKnife } from "react-icons/im";
+import { BsList, BsX, BsCart2 } from "react-icons/bs";
+import NavBarListButton from "./NavBarListButtonComponent";
+import Modal from "./ModalComponent";
 
 const NavBar = () => {
+  const Links = [
+    { id: "L1", name: "Home", link: "/" },
+    { id: "L2", name: "Page2", link: "/" },
+    { id: "L3", name: "Page3", link: "/" },
+    { id: "L4", name: "Page4", link: "/" },
+    { id: "L5", name: "Page5", link: "/" },
+  ];
+  const [toggle, setToggle] = useState(false);
   return (
-    <div className="pt-10 bg-gray-200 px-4">THIS IS NAV BAR</div>
-  )
-}
+    <div className="shadow-md w-full fixed top-0 left-0">
+      <div className="md:flex items-center justify-between bg-white py-4 px-7 md:px-10">
+        <div className="font-bold text-2xl cursor-pointer flex items-center font-[Poppins] text-gray-800">
+          <span className="text-3xl text-yellow-600 mr-1 pt-1">
+            <ImSpoonKnife />
+          </span>
+          Mr.Bin Kitchen
+        </div>
+        <div
+          onClick={() => setToggle(!toggle)}
+          className="text-3xl absolute right-8 top-6 cursor-pointer md:hidden"
+        >
+          {toggle ? <BsX /> : <BsList />}
+        </div>
+        <ul
+          className={`md:flex md:items-center md:pb-0 pb-10 absolute md:static bg-white md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${
+            toggle ? "top-15 " : "top-[-490px]"
+          }`}
+        >
+          {Links?.map((link) => (
+            <li key={link.id} className="md:ml-8 text-xl md:my-0 my-7">
+              <a
+                href={link.link}
+                className="text-gray-800 hover:text-gray-500 duration-500"
+              >
+                {link.name}
+              </a>
+            </li>
+          ))}
+          <NavBarListButton>
+            {" "}
+            <p className="flex">
+              {" "}
+              Order Now <BsCart2 className="ml-1 mt-1" />{" "}
+            </p>
+          </NavBarListButton>
+          {/* <NavBarListButton> Something </NavBarListButton> */}
+        </ul>
+      </div>
+      <Modal showBackdrop={toggle}></Modal>
+    </div>
+  );
+};
 
 export default NavBar;
+
+// BsList
+// BsXLg
