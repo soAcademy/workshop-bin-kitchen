@@ -44,7 +44,7 @@ export const Navbar = ({ links }) => {
         >
           <ul className="mt-2.5 flex flex-col bg-white md:mt-0 md:flex-row md:space-x-8">
             {links.map((link) => (
-              <li>
+              <li key={link.text}>
                 <NavLink
                   to={link.path}
                   className={({ isActive }) =>
