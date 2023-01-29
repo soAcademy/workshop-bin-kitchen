@@ -23,17 +23,16 @@ export const Menu = (props) => {
     });
   }, []);
 
-  // return (
-  //   <>
-  //     {/* <p>{JSON.stringify(data)}</p> */}
-  //     {
-  //       data !== "" && data.data.map((r) => <div key={r.id} className="bg-red-300 mt-1">{r.id} . {r.title}</div>)
-  //     }
-  //   </>)
-
   return (
-    <div className="pt-16">
-      <FoodMenuGroup menus={foodMenu} categories={categories} />
+    <div className="mt-4 pt-16 md:mx-8 2xl:mx-32">
+      <FoodMenuGroup
+        onBypassAddButtonClickedToMainPage={(e) => {
+          console.log("Main Page" + JSON.stringify(e));
+          props.onBypassAddButtonClickedToApps(e);
+        }}
+        menus={foodMenu}
+        categories={categories}
+      />
     </div>
   );
 };

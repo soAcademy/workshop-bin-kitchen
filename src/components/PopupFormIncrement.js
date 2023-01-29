@@ -12,5 +12,3 @@ const PopupFormIncrement = (props) => {
 }
 
 export default PopupFormIncrement
-
-//

@@ -16,7 +16,6 @@ export const Home = (props) => {
       method: "get",
       url: "https://api.allorigins.win/raw?url=https://pastebin.com/raw/x1EY0NL9",
     }).then((response) => {
-      console.log("only Res : " + response);
       console.log("Res.Data : ", response.data);
       setFoodMenu(response.data);
       setCategories([...new Set(response.data?.map((item) => item.category))]);
@@ -32,10 +31,17 @@ export const Home = (props) => {
   //   </>)
 
   return (
-    <div className="pt-16">
+    <div className="mt-4 pt-16 md:mx-8 2xl:mx-32">
       <ShopDetail homeContent={homeContent} />
       {/* <FoodMenuList menus={foodMenu} categories="Recommended" /> */}
-      <FoodMenuGroup menus={foodMenu} categories={categories?.filter((r)=>r==="แนะนำ")} />
+      <FoodMenuGroup
+        onBypassAddButtonClickedToMainPage={(e) => {
+          console.log("Main Page" + JSON.stringify(e));
+          props.onBypassAddButtonClickedToApps(e);
+        }}
+        menus={foodMenu}
+        categories={categories?.filter((r) => r === "แนะนำ")}
+      />
     </div>
   );
 };

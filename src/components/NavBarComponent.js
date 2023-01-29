@@ -3,17 +3,23 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { ImSpoonKnife } from "react-icons/im";
 import { BsList, BsX, BsCart2 } from "react-icons/bs";
 import NavBarListButton from "./NavBarListButtonComponent";
-import Modal from "./ModalComponent";
 
-const NavBar = () => {
+const NavBar = (props) => {
   const Links = [
     { id: "L1", name: "Home", link: "/" },
     { id: "L2", name: "Menu", link: "/menu" },
     { id: "L3", name: "Order", link: "/order" },
   ];
+
   const [toggle, setToggle] = useState(false);
+
+  React.useEffect(() => {
+    props.onToggleChanged(toggle)
+  }, [toggle])
+  
+
   return (
-    <div className="shadow-md w-full fixed top-0 left-0">
+    <div className="shadow-md w-full fixed top-0 left-0 z-[100]">
       <div className="md:flex items-center justify-between bg-white py-4 px-7 md:px-10">
         <div className="font-bold text-2xl cursor-pointer flex items-center font-[Poppins] text-gray-800">
           <span className="text-3xl text-yellow-600 mr-1 pt-1">
@@ -34,7 +40,7 @@ const NavBar = () => {
         >
           {Links?.map((link) => (
             <li key={link.id} className="md:ml-8 text-xl md:my-0 my-7">
-              <Link className="text-gray-800 hover:text-gray-500 duration-500" to={link.link}>{link.name}</Link>
+              <Link onClick={() => setToggle(false)} className="text-gray-800 hover:text-gray-500 duration-500" to={link.link}>{link.name}</Link>
             </li>
           ))}
           <NavBarListButton>
@@ -47,7 +53,7 @@ const NavBar = () => {
           {/* <NavBarListButton> Something </NavBarListButton> */}
         </ul>
       </div>
-      <Modal showBackdrop={toggle}></Modal>
+
     </div>
   );
 };

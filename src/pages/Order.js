@@ -32,9 +32,30 @@ export const Order = (props) => {
   //   </>)
 
   return (
-    <div className="pt-16">
-      <div className="pt-4 text-center text-4xl md:text-5xl lg:text-6xl xl:text-7xl">รายการสั่งอาหาร</div>
+    <div className="mt-4 pt-16 md:mx-8 2xl:mx-32">
+      <div className="pt-4 text-center text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+        รายการสั่งอาหาร
+      </div>
       <ShopTable />
+      {/* show when choose table with no order */}
+      <div className="text-center">--- ไม่มีรายการสั่งอาหาร ---</div>
+      {/* show when choose table with order */}
+      <div>
+        <div className="flex items-center justify-between">
+          <h1>โต๊ะ 2 ยอดรวม ฿520</h1>
+          <button className="bg-yellow-600 p-2 rounded-xl hover:bg-yellow-700">เก็บเงิน</button>
+        </div>
+        <div>
+          <h1>หมายเลขคำสั่งซื้อ #44444</h1>
+          <h1>สถานะ : on processing </h1>
+          <div className="flex items-center justify-between">
+            <h1>ชื่อเมนู</h1>
+            <h1>฿130 x 1</h1>
+          </div>
+          <h1 className="text-right">ยอดรวม ฿520</h1>
+          <button className="float-right bg-yellow-600 p-2 rounded-xl hover:bg-yellow-700">ทำเสร็จแล้ว</button>
+        </div>
+      </div>
     </div>
   );
 };
