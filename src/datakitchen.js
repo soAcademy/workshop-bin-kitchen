@@ -12,7 +12,7 @@ export const datakitchenboeing = {
   เกษตรกรในพื้นที่สุโขทัย ปรุงด้วยสูตรลับต้นตำรับชาววังที่สืบทอด
   กันมารุ่นสู่รุ่น จัดแต่งมาบนจาน พร้อมเสิร์ฟความอร่อยให้กับคุณ`,
   url: pickitchen,
-  name: "ตราต่ายบิน KITCHEN",
+  name: "ครัวต่ายบิน",
   nav_icon: hamburgericon,
   nav_icon2: mealicon,
   close_icon: closeicon,
