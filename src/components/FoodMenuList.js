@@ -2,10 +2,11 @@ const FoodMenuList = (props) => {
   return (
     <div>
       <h1 className="font-bold p-2 lg:text-3xl text-2xl text-center bg-yellow-200 w-[100px] rounded-lg m-2">
-        {props.category}
+        {props.category}         
+        {/* from FoodMenuGroup line 7 */}
       </h1>
       <div className="sm:grid sm:grid-cols-2 sm:gap-2">
-        {props?.foodMenus?.map((r) => (
+        {props?.foodMenus?.map((r) => (  //foodMenus props from Home.js line 36?
           <div className="flex">
             <img
               src={r.image}
