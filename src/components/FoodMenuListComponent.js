@@ -11,7 +11,7 @@ const FoodMenuListComponent = (props) => {
           <h2 className=" text-xl ml-4 mr-3  md:text-4xl md:text-center md:font-semibold">
             {`เมนู${category}`}
           </h2>
-          <img src={datakitchenboeing.egg_icon} />
+          <img src={datakitchenboeing.like_icon} />
         </div>
         {foodMenus?.map((menu) => (
           <div
@@ -30,7 +30,7 @@ const FoodMenuListComponent = (props) => {
             </div>
             <div className="flex flex-col items-center my-auto mr-4">
               <button
-                onClick={addFoodOrder}
+                onClick={() => addFoodOrder(menu)}
                 className="bg-rose-400 text-white px-3 rounded-[10px] md:p-6 md:text-3xl"
               >
                 เพิ่ม

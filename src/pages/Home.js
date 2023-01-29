@@ -10,7 +10,9 @@ export const Home = () => {
   const [foodMenu, setFoodMenu] = useState([]);
   const [isHamburgerOn, setIsHamburgerOn] = useState(false);
   const [FoodOrderOn, setFoodOrderOn] = useState(false);
-  const [quantity, setQuantity] = useState(0);
+  const [orders, setOrders] = useState([]);
+
+  // setState คือการลบค่าเดิม และแทนที่ค่าใหม่ เมื่อมีการเรียกใช้งาน setState()
 
   useEffect(() => {
     axios({
@@ -33,7 +35,16 @@ export const Home = () => {
     setIsHamburgerOn(false);
   };
 
-  const handleFoodOrderOn = () => {
+  const handleFoodOrderOn = (food) => {
+    // console.log(food);
+    food.amount = 1;
+    //เพิ่มจำนวนของอาหารชนิดนั้น ทุกครั้งที่กดเพิ่ม ก็จะได้เมนูนั้นมา 1 อัน
+    const isExists = orders.some(
+      (order) => order.id === food.id || order.name === food.name
+      // food.name คือสิ่งที่เรากดเข้ามา
+      //ถ้าตรงตามเงื่อนไขนี้ก็ไม่ต้องไป setState ใหม่
+    );
+    if (!isExists) setOrders([...orders, food]);
     setFoodOrderOn(true);
   };
 
@@ -41,27 +52,50 @@ export const Home = () => {
     setFoodOrderOn(false);
   };
 
-  const handlePlusQuantity = () => {
-    setQuantity(quantity + 1);
+  const handlePlusQuantity = (id) => {
+    // setQuantity(quantity + 1);
+    // const founded = orders.find((order) => order.id === id);
+    // founded.amount += 1;
+    // const clearSelf = orders.filter((order) => order.id !== id);
+    // setOrders([founded, ...clearSelf]);
+    const index = orders.findIndex((order) => order.id === id);
+    const temp = [...orders];
+    temp[index].amount += 1;
+    setOrders(temp);
+    // ตำแหน่งของ index มันไม่ขยับ
   };
-  const handleMinusQuantity = () => {
+  const handleMinusQuantity = (id) => {
     // if (quantity <= 0) {
     //   setQuantity(0);
     // } else {
     //   setQuantity(quantity - 1);
     // }
     // if(quantity!==0) setQuantity(quantity - 1);
-    if (quantity) setQuantity(quantity - 1);
+    // if (quantity) setQuantity(quantity - 1);
     //it's about truthy falsy
+    const index = orders.findIndex((order) => order.id === id);
+    const temp = [...orders];
+    temp[index].amount -= 1;
+    if (temp[index].amount === 0) {
+      const clearSelf = temp.filter((item) => item.id !== id);
+      // id ตัวท้ายมาจากการที่เรากดปุ่ม +,-
+      // item.id ตัวที่เรากดเพิ่ม
+      // console.log("temp:", temp);
+      // console.log("clearself:", clearSelf);
+      return setOrders(clearSelf);
+    }
+    setOrders(temp);
   };
 
+  console.log("order", orders);
+  console.log("foodmenu", foodMenu);
   return (
     <>
       <Nav hamOn={handleHamburgerToggle} isHamburgerOn={isHamburgerOn} />
       {isHamburgerOn && <Overlay handleClick={handleHamburgerOff} />}
       {FoodOrderOn && (
         <FoodOrder
-          quantity={quantity}
+          orders={orders}
           handlePlusQuantity={handlePlusQuantity}
           handleMinusQuantity={handleMinusQuantity}
           handleCloseFoodOrder={handleFoodOrderOff}

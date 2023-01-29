@@ -2,8 +2,6 @@ import React from "react";
 import FoodMenuListComponent from "./FoodMenuListComponent";
 
 const FoodMenuGroup = (props) => {
-  console.log("props", props);
-  console.count("render");
   const { categories, foodMenu, addFoodOrder } = props;
   return (
     <div>
