@@ -13,7 +13,7 @@ const FoodOrder = (props) => {
       <div className=" p-6 flex flex-col w-full bg-rose-50 fixed bottom-0 z-20 md:px-9">
         <div className="flex justify-between md:pt-4">
           <div className="flex gap-2">
-            <h1 className="md:text-3xl">สั่งอาหาร</h1>
+            <h1 className="md:text-3xl">สั่งอาหารครัวกาตุ่ย</h1>
             <img
               className="w-[40px] h-[40px]"
               src={datakitchenboeing.order_icon}
