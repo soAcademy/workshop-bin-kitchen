@@ -19,6 +19,9 @@ const Nav = (props) => {
             src={datakitchenboeing.nav_icon2}
           />
         </div>
+        <div className="text-white text-xl ml-4 md:text-4xl md:font-semibold md:ml-20 lg:text-5xl">
+          Flying Rabbit
+        </div>
       </div>
       {isHamburgerOn && <Hamburger />}
       {/* ข้างหน้าเป็นจริงมันจะทำข้างหลัง */}
