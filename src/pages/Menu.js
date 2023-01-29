@@ -3,7 +3,7 @@ import axios from "axios";
 import FoodMenuGroup from "../components/FoodMenuGroupComponent";
 import ShopDetail from "../components/ShopDetailComponent";
 
-export const Home = (props) => {
+export const Menu = (props) => {
   const homeContent = {
     shopName: `Mr.Bin Kitchen`,
     shopDescription: `สวรรค์ของคนรักอาหารไทย ดื่มด่ำไปกับอาหารมื้อโปรดที่ห้องอาหาร Mr.Bin Kitchen โดดเด่นเรื่องความพิถีพิถันตั้งแต่การคัดสรรวัตถุดิบ ไปจนถึงขั้นตอนการปรุงรส ทำให้อาหารของที่นี่มีเอกลักษณ์เฉพาะตัว จัดจ้านถึงเครื่อง ถูกปากคนไทย ครบรสไม่มีกั๊ก เมื่อใครได้กินเป็นต้องติดใจไปทุกราย นอกจากอาหารแล้วยังมาพร้อมกับบรรยากาศดี ๆ ตกแต่งในสไตล์เรโทรเหมาะสำหรับการพาครอบครัวหรือคนรักไปย้อนวันวาน กินอาหารไทยแท้ ๆ ที่คุ้นเคย`,
@@ -33,9 +33,7 @@ export const Home = (props) => {
 
   return (
     <div className="pt-16">
-      <ShopDetail homeContent={homeContent} />
-      {/* <FoodMenuList menus={foodMenu} categories="Recommended" /> */}
-      <FoodMenuGroup menus={foodMenu} categories={categories?.filter((r)=>r==="แนะนำ")} />
+      <FoodMenuGroup menus={foodMenu} categories={categories} />
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { ImSpoonKnife } from "react-icons/im";
 import { BsList, BsX, BsCart2 } from "react-icons/bs";
 import NavBarListButton from "./NavBarListButtonComponent";
@@ -7,10 +8,8 @@ import Modal from "./ModalComponent";
 const NavBar = () => {
   const Links = [
     { id: "L1", name: "Home", link: "/" },
-    { id: "L2", name: "Page2", link: "/" },
-    { id: "L3", name: "Page3", link: "/" },
-    { id: "L4", name: "Page4", link: "/" },
-    { id: "L5", name: "Page5", link: "/" },
+    { id: "L2", name: "Menu", link: "/menu" },
+    { id: "L3", name: "Order", link: "/order" },
   ];
   const [toggle, setToggle] = useState(false);
   return (
@@ -35,12 +34,7 @@ const NavBar = () => {
         >
           {Links?.map((link) => (
             <li key={link.id} className="md:ml-8 text-xl md:my-0 my-7">
-              <a
-                href={link.link}
-                className="text-gray-800 hover:text-gray-500 duration-500"
-              >
-                {link.name}
-              </a>
+              <Link className="text-gray-800 hover:text-gray-500 duration-500" to={link.link}>{link.name}</Link>
             </li>
           ))}
           <NavBarListButton>

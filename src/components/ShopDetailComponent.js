@@ -3,7 +3,7 @@ import React from 'react'
 const ShopDetail = (props) => {
   return ( <>
           {/* START CONTENT BOX */}
-          <div className="pt-3 flex flex-col items-center">
+          <div className="pt-3 flex flex-col items-center font-[Poppins]">
           {/* START NAME AND DESCRIPTION */}
           <div>
             <div className="text-center text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
