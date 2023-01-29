@@ -3,7 +3,6 @@ import image from "../assets/banner.jpg";
 // import FoodMenuList from "../components/FoodMenuList";
 import FoodMenuGroup from "../components/FoodGroup";
 import axios from "axios";
-import { GiHamburgerMenu } from "react-icons/gi"
 
 
 const info = `ร้านอาหารครัวคุณกอปรุงด้วยใจ เหมือนทำให้คนในครอบครัวทาน
@@ -12,40 +11,10 @@ const info = `ร้านอาหารครัวคุณกอปรุง
   เกษตรกรในพื้นที่สุโขทัย ปรุงด้วยสูตรลับต้นตำรับชาววังที่สืบทอด
   กันมารุ่นสู่รุ่น จัดแต่งมาบนจาน พร้อมเสิร์ฟความอร่อยให้กับคุณ`;
 
-// const mockData = [
-//   {
-//     id: 1,
-//     name: "แกงส้มชะอมกุ้ง",
-//     image:
-//       "https://img.wongnai.com/p/1920x0/2018/12/17/bf69cc77dfb94a5ab6df20ffb0622cd2.jpg",
-//     price: 150,
-//     category: "แนะนำ",
-//   },
-//   {
-//     id: 2,
-//     name: "แกงส้มชะอมกุ้ง",
-//     image:
-//       "https://img.wongnai.com/p/1920x0/2018/12/17/bf69cc77dfb94a5ab6df20ffb0622cd2.jpg",
-//     price: 150,
-//     category: "แกง",
-//   },
-//   {
-//     id: 3,
-//     name: "ผัดคะน้าเห็ดหอม",
-//     image:
-//       "https://tourdefood.net/wp-content/uploads/2020/11/%E0%B8%84%E0%B8%B0%E0%B8%99%E0%B9%89%E0%B8%B2-%E0%B9%80%E0%B8%AB%E0%B9%87%E0%B8%94%E0%B8%AB%E0%B8%AD%E0%B8%A1-%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%E0%B8%AB%E0%B8%AD%E0%B8%A2-%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%94%E0%B8%B5%E0%B8%95%E0%B9%88%E0%B8%AD%E0%B8%AA%E0%B8%B8%E0%B8%82%E0%B8%A0%E0%B8%B2%E0%B8%9E.jpg",
-//     price: 130,
-//     category: "แนะนำ",
-//   },
-// ];
 
-
-
-
-
-export const Home = () => {
+const Home = () => {
   const [foodMenus, setFoodMenus] = useState([])
-  const [toggle, setToggle] = useState(false);
+  // const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     axios ({
@@ -58,16 +27,14 @@ export const Home = () => {
   },[])
 
   return (
-    <div className="flex flex-col">
-      <div>
-      <button className="mt-1 float-left text-xl" onClick={() => setToggle(!toggle)}><GiHamburgerMenu /></button>
-      <div className="ml-6">ครัวคุณกอ</div>
-      </div>
+   <section className="flex py-20 md:flex-row flex-col items-center">
+   <div className="h-full flex flex-col justify-center mx-3">
       <hr className="border-2 drop-shadow-md"/>
-      <div className="px-2 text-center my-1">ร้านอาหารคุณกอ</div>
+      <div className="mx-5 text-center my-3 text-5xl uppercase font-bold">kor@
+      <span className="text-red-600">Kitchen</span></div>
       <div className="m40">{info}</div>
-      <div className="flex flex-row justify-center">
-        <img src={image} className="w-[500px] my-2 rounded-lg" />
+      <div className="flex justify-center items-center">
+        <img src={image} className="w-[500px] my-4 rounded-lg" />
       </div>
       {/* <FoodMenuList data={foodMenus} category="รายการแนะนำ" /> */}
       <div className="my-2">
@@ -77,5 +44,8 @@ export const Home = () => {
         />
         </div>
     </div>
+    </section>
   );
 };
+
+export default Home;
