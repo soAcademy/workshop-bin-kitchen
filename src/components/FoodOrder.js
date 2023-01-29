@@ -10,57 +10,69 @@ const FoodOrder = (props) => {
   } = props;
   return (
     <>
-      <div className=" p-6 flex flex-col w-full bg-rose-50 fixed bottom-0 z-20">
-        <div className="flex justify-between">
-          <div>สั่งอาหาร</div>
-          <div onClick={handleCloseFoodOrder} className="w-[20px] h-[20px]">
+      <div className=" p-6 flex flex-col w-full bg-rose-50 fixed bottom-0 z-20 md:px-9">
+        <div className="flex justify-between md:pt-4">
+          <div className="flex gap-2">
+            <h1 className="md:text-3xl">สั่งอาหาร</h1>
+            <img
+              className="w-[40px] h-[40px]"
+              src={datakitchenboeing.order_icon}
+            />
+          </div>
+          <div
+            onClick={handleCloseFoodOrder}
+            className="w-[20px] h-[20px] md:w-[40px] md:h-[40px] "
+          >
             <img
               className="w-[100%] h-[100%]"
               src={datakitchenboeing.close_icon}
             />
           </div>
         </div>
-        <div className="flex justify-between mt-2">
+        <div className="flex justify-between mt-2 md:mt-6">
           <div>
-            <p>หมายเลขโต๊ะ</p>
+            <p className="md:text-3xl">หมายเลขโต๊ะ</p>
           </div>
           <div>
             <input
               type="number"
               placeholder="0"
-              className="bg-pink-100 text-pink-500 border border-gray-400 rounded-[5px] w-[45px] pl-[10px]"
+              className="bg-pink-100 text-pink-500 border border-gray-400 rounded-[5px] w-[45px] pl-[10px] md:text-3xl md:px-3"
             />
           </div>
         </div>
-        <div className="mt-2">
-          <p>รายการอาหาร</p>
-        </div>
-        <div className="flex justify-between mt-2">
+        <div className="mt-2 md:mt-7">
           <div>
-            <p>คะน้าเห็ดหอม</p>
+            <p className="md:text-3xl">รายการอาหาร</p>
+          </div>
+        </div>
+        {/* add .map here */}
+        <div className="flex justify-between mt-2 md:mt-7">
+          <div className="">
+            <p className="text-rose-500 md:text-3xl">แกงส้มชะอมไก่</p>
           </div>
           <div className="">
             <button
               onClick={handleMinusQuantity}
-              className="bg-pink-400 w-6 rounded-[5px] mr-2"
+              className="bg-pink-400 text-white w-6 rounded-[5px] mr-2 md:text-3xl "
             >
               -
             </button>
             <input
               value={quantity}
               type="number"
-              className="bg-pink-100 text-pink-500 border border-gray-400 rounded-[5px] w-[45px] pl-[10px]"
+              className="bg-pink-100 text-pink-500  border border-gray-400 rounded-[5px] w-[45px] pl-[10px] md:text-3xl "
             />
             <button
               onClick={handlePlusQuantity}
-              className="bg-pink-400 w-6 rounded-[5px] ml-2"
+              className="bg-pink-400 text-white w-6 rounded-[5px] ml-2 md:text-3xl "
             >
               +
             </button>
           </div>
         </div>
         <div className="mt-24 flex justify-center ">
-          <button className="bg-pink-400 text-white px-6 w-[90%] py-2 rounded-[10px] text-xl">
+          <button className="bg-pink-400 text-white px-6 w-[90%] py-2 rounded-[10px] text-xl md:w-[100%] md:text-3xl md:py-4">
             สั่งอาหาร
           </button>
         </div>

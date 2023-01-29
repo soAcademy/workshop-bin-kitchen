@@ -52,6 +52,7 @@ export const Home = () => {
     // }
     // if(quantity!==0) setQuantity(quantity - 1);
     if (quantity) setQuantity(quantity - 1);
+    //it's about truthy falsy
   };
 
   return (
@@ -68,14 +69,18 @@ export const Home = () => {
       )}
       {FoodOrderOn && <Overlay handleClick={handleFoodOrderOff} />}
       <div className="flex flex-col items-center">
-        <h1 className="text-3xl text-center my-3 ">{datakitchenboeing.name}</h1>
+        <h1 className="text-3xl text-gray-900 bg-gray-200 px-7 py-3 rounded-md border-4 border-rose-200 text-center my-3 md:text-6xl md:my-10 shadow-lg">
+          {datakitchenboeing.name}
+        </h1>
         <div className="w-full ">
           <img
-            className="w-[100%] px-8 object-cover"
+            className="w-[100%] px-8 object-cover "
             src={datakitchenboeing.url}
           />
         </div>
-        <div className="mx-7 my-3">{datakitchenboeing.datadescription}</div>
+        <div className="mx-7 my-3 text-rose-500 md:text-3xl">
+          {datakitchenboeing.datadescription}
+        </div>
       </div>
       {/* <FoodMenuListComponent foodMenus={foodMenu} category="รายการคำแนะนำ" /> */}
       <FoodMenuGroup
