@@ -14,7 +14,6 @@ const info = `ร้านอาหารครัวคุณกอปรุง
 
 const Home = () => {
   const [foodMenus, setFoodMenus] = useState([])
-  // const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     axios ({
@@ -27,7 +26,7 @@ const Home = () => {
   },[])
 
   return (
-   <section className="flex py-20 md:flex-row flex-col items-center">
+   <section className="flex py-20 md:flex-row flex-col justify-center items-center">
    <div className="h-full flex flex-col justify-center mx-3">
       <hr className="border-2 drop-shadow-md"/>
       <div className="mx-5 text-center my-3 text-5xl uppercase font-bold">kor@
