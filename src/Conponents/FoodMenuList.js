@@ -1,5 +1,5 @@
 const FoodMenuListComponent = (props) => {
-  console.log("FoodMenuListComponent", props);
+  // console.log("FoodMenuListComponent", props);
   return (
     <div>
       <div className="font-mono font-bold m-8 ml-10">รายการแนะนำ</div>

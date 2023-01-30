@@ -3,6 +3,7 @@ import FoodMenuListComponent from "../Conponents/FoodMenuList";
 import Navbar from "../Conponents/Nav";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import FoodMenuGroup from "../Conponents/FoodMenuGroup";
 
 export const Home = () => {
   const info = {
@@ -17,13 +18,10 @@ export const Home = () => {
     axios({
       method: "get",
       url: "https://api.allorigins.win/raw?url=https://pastebin.com/raw/x1EY0NL9",
-    }).then((response) => {
-      console.log(response.data);
-      setMenus(response.data);
-      console.log(response);
+    }).then((res) => {
+      setMenus(res.data);
     });
   }, []);
-
   return (
     <div>
       <Navbar />
@@ -44,6 +42,9 @@ export const Home = () => {
       </div>
 
       <div className="mt-4 text-gray">
+        <FoodMenuGroup 
+          props={menus} 
+          categories={[...new Set(menus?.map((r)=> r.category))]}/>
         <FoodMenuListComponent menus={menus} />
         {/* {mockdata.map((menu) => (
           <div>{menu.name, }</div>
