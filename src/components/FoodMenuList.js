@@ -15,11 +15,12 @@ const FoodMenuList = (props) => {
   //     setFoodMenu(response.data);
   //   });
   // }, []);
+  const { menu, category, setFood } = props;
 
   return (
     <div className="mb-4 grid gap-4 md:grid-cols-2">
-      {props.menu
-        .filter((food) => food.category === props.category)
+      {menu
+        .filter((food) => food.category === category)
         .map((food) => (
           <div key={food.id} className="flex gap-4">
             <img
@@ -31,7 +32,10 @@ const FoodMenuList = (props) => {
               <div className="flex-auto">{food.name}</div>
               <div className="text-red-600">฿{food.price}</div>
             </div>
-            <button className="self-center rounded-[10px] bg-red-200 px-6 py-3 hover:bg-red-300">
+            <button
+              onClick={() => setFood(food)}
+              className="self-center rounded-[10px] bg-red-200 px-6 py-3 hover:bg-red-300"
+            >
               เพิ่ม
             </button>
             {/* <div>{food.description}</div> */}

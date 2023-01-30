@@ -4,6 +4,7 @@ import FoodMenuList from "./FoodMenuList";
 
 const FoodMenuGroup = (props) => {
   const [foodMenu, setFoodMenu] = useState([]);
+  // const { food, setFood } = props;
 
   useEffect(() => {
     axios({
@@ -22,7 +23,12 @@ const FoodMenuGroup = (props) => {
   return [...new Set(foodMenu.map((food) => food.category))].map((category) => (
     <React.Fragment key={category}>
       <h2 className="mb-4">เมนู{category}</h2>
-      <FoodMenuList menu={foodMenu} category={category} />
+      <FoodMenuList
+        menu={foodMenu}
+        category={category}
+        food={props.food}
+        setFood={props.setFood}
+      />
     </React.Fragment>
   ));
 };

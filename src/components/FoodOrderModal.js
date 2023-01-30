@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const FoodOrderModal = () => {
+const FoodOrderModal = (props) => {
   const [quantity, setQuantity] = useState(1);
 
   return (
@@ -30,7 +30,7 @@ const FoodOrderModal = () => {
             <div className="mb-4">รายการ</div>
             <div className="mb-20 flex items-center justify-between ">
               <label htmlFor="quantity" className="grow">
-                ผัดคะน้าเห็ดหอม
+                {props.food.name}
               </label>
               <button
                 className="h-8 w-8 bg-red-200 hover:bg-red-300"

@@ -5,13 +5,14 @@ import Hero from "../components/Hero";
 import FoodOrderModal from "../components/FoodOrderModal";
 
 export const Home = () => {
-  const [foodOrder, setFoodOrder] = useState("");
+  const [cart, setCart] = useState([]);
+  const [food, setFood] = useState({});
 
   return (
     <div className="px-4 pt-4 font-nstl text-sm">
       <Hero />
-      <FoodMenuGroup setFoodOrder={setFoodOrder} />
-      <FoodOrderModal foodOrder={foodOrder} />
+      <FoodMenuGroup food={food} setFood={setFood} />
+      <FoodOrderModal food={food} cart={cart} setCart={setCart} />
     </div>
   );
 };
