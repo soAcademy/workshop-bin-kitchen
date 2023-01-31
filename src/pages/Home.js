@@ -31,11 +31,12 @@ const Home = ({ info }) => {
         className="mx-auto sm:w-[600px] sm:h-[300px] w-56 h-32 object-cover rounded-lg"
       ></img>
       <div>
-        <FoodMenuList data={menus} setToggleCartPopup={setToggleCartPopup} />
+        {/* <FoodMenuList data={menus} setToggleCartPopup={setToggleCartPopup} /> */}
         {/* passes the menus state data to it as the data prop. */}
       </div>
       <div>
         <FoodMenuGroup
+          setToggleCartPopup={setToggleCartPopup}
           foodMenus={menus} //passes the menus state data as the foodMenus prop, and a set of unique categories obtained from the menus data as the categories prop.
           categories={[...new Set(menus?.map((r) => r.category))]} //The set of categories is obtained using the map method and the Set object to get only unique values from the category property of each menus item.
         />

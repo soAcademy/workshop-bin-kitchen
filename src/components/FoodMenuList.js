@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 const FoodMenuList = (props) => {
-  
   const { cart, setCart, toggleCartPopup, setToggleCartPopup } = props;
   return (
     <div>
@@ -8,6 +7,7 @@ const FoodMenuList = (props) => {
         {props.category}
         {/* from FoodMenuGroup line 7 */}
       </h1>
+
       <div className="sm:grid sm:grid-cols-2 sm:gap-2">
         {props?.foodMenus?.map(
           (
@@ -29,7 +29,9 @@ const FoodMenuList = (props) => {
               <div>
                 <button
                   className="lg:text-xl text-base button bg-red-200 active:bg-red-400 px-6 py-2 rounded-lg mr-4 mt-6"
-                  onClick={() => {setToggleCartPopup(true)}}
+                  onClick={() => {
+                    setToggleCartPopup(true);
+                  }}
                 >
                   เพิ่ม
                 </button>
