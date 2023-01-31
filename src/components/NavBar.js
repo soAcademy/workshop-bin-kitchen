@@ -1,4 +1,5 @@
 import { GiHamburgerMenu } from "react-icons/gi";
+import { MdOutlineFoodBank } from "react-icons/md";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -15,9 +16,15 @@ const NavBar = () => {
     <>
       <div className="w-full fixed ml-1 top-0">
         <nav className="bg-neutral-900 shadow-lg md:flex md:items-center md:justify-between p-3 mx-2">
-          <div className="align-left font-bold text-neutral-50 hidden md:block">
-            <p>ร้านอาหารครัวคุณบิน</p>
+          <div className="md:flex">
+            <h1 className="text-neutral-50 text-3xl -mt-1 float-left font-bold hidden md:block">
+              <MdOutlineFoodBank />
+            </h1>
+            <h1 className="align-left font-bold text-neutral-50 hidden md:block">
+              ร้านอาหารครัวคุณบิน
+            </h1>
           </div>
+
           <div>
             <div className="flex">
               <button
@@ -26,15 +33,20 @@ const NavBar = () => {
               >
                 <GiHamburgerMenu />
               </button>
-              <div className="ml-2 font-bold text-neutral-50 md:hidden">
-                <p>ร้านอาหารครัวคุณบิน</p>
+              <div className="flex">
+                <h1 className="text-neutral-50 text-3xl -mt-1 float-left ml-2 font-bold md:hidden">
+                  <MdOutlineFoodBank />
+                </h1>
+                <h1 className="ml-1 font-bold text-neutral-50 md:hidden">
+                  ร้านอาหารครัวคุณบิน
+                </h1>
               </div>
             </div>
             {toggle && (
               <div>
                 {routes.map((route) => (
                   <Link to={route.url}>
-                    <div className="text-base font-bold text-neutral-50 hover:bg-sky-100">
+                    <div className="text-base font-bold text-neutral-50 hover:bg-sky-700">
                       {route.name}
                     </div>
                   </Link>
@@ -46,7 +58,7 @@ const NavBar = () => {
             <div className=" md:flex md:items-center">
               {routes.map((route) => (
                 <Link to={route.url}>
-                  <div className="text-base font-bold text-neutral-50 hover:text-sky-100 md:mx-6 hidden md:block">
+                  <div className="text-base font-bold text-neutral-50 hover:text-sky-700 md:mx-6 hidden md:block">
                     {route.name}
                   </div>
                 </Link>
