@@ -3,7 +3,7 @@ import image from "../assets/banner.jpg";
 // import FoodMenuList from "../components/FoodMenuList";
 import FoodMenuGroup from "../components/FoodGroup";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 
 const info = `ร้านอาหารครัวคุณกอปรุงด้วยใจ เหมือนทำให้คนในครอบครัวทาน
   เราเปิดให้บริการตั้งแต่ปีพ.ศ. 2535 กว่า 30 ปีที่เรานำเสนอความ
@@ -11,38 +11,47 @@ const info = `ร้านอาหารครัวคุณกอปรุง
   เกษตรกรในพื้นที่สุโขทัย ปรุงด้วยสูตรลับต้นตำรับชาววังที่สืบทอด
   กันมารุ่นสู่รุ่น จัดแต่งมาบนจาน พร้อมเสิร์ฟความอร่อยให้กับคุณ`;
 
-
 const Home = () => {
-  const [foodMenus, setFoodMenus] = useState([])
+  const [foodMenus, setFoodMenus] = useState([]);
 
   useEffect(() => {
-    axios ({
+    axios({
       method: "get",
       url: "https://api.allorigins.win/raw?url=https://pastebin.com/raw/x1EY0NL9",
     }).then((response) => {
       console.log("response", response);
-      setFoodMenus(response.data)
-    })
-  },[])
+      setFoodMenus(response.data);
+    });
+  }, []);
 
   return (
-   <section className="flex py-20 md:flex-row flex-col justify-center items-center">
-   <div className="h-full flex flex-col justify-center mx-3">
-      <hr className="border-2 drop-shadow-md"/>
-      <div className="mx-5 text-center my-3 text-5xl uppercase font-bold">kor@
-      <span className="text-red-600">Kitchen</span></div>
-      <div className="m40">{info}</div>
-      <div className="flex justify-center items-center">
-        <img src={image} className="w-[500px] my-4 rounded-lg" />
-      </div>
-      {/* <FoodMenuList data={foodMenus} category="รายการแนะนำ" /> */}
-      <div className="my-2">
-      <FoodMenuGroup
-        foodMenus={foodMenus}
-        categories={[...new Set(foodMenus?.map((r) => r.category))]}
-        />
+    <section className="w-full flex py-28 md:flex-row flex-col justify-center items-center">
+      <div className="w-full h-full flex flex-col justify-center mx-3">
+        {/* <hr className="border-2 drop-shadow-md" /> */}
+        <h1 className="text-center my-7 text-7xl lg:text-9xl uppercase font-bold text-yellow-600">
+          kor<span className="text-6xl lg:text-8xl text-red-600">@</span>
+          <span className="lowercase font-normal text-slate-200">Kitchen</span>
+        </h1>
+        <div className="2xl:mx-[500px]">
+          <div className="m40 text-3xl lg:text-5xl my-5 leading-relaxed lg:leading-relaxed">
+            {info}
+          </div>
+          <div className="flex justify-center items-center">
+            <img
+              src={image}
+              className="w-[800px] lg:w-[1000px] my-5 rounded-3xl"
+              alt="Food"
+            />
+          </div>
+          {/* <FoodMenuList data={foodMenus} category="รายการแนะนำ" /> */}
+          <div>
+            <FoodMenuGroup
+              foodMenus={foodMenus}
+              categories={[...new Set(foodMenus?.map((r) => r.category))]}
+            />
+          </div>
         </div>
-    </div>
+      </div>
     </section>
   );
 };
