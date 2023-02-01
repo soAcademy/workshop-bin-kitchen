@@ -22,12 +22,6 @@ const Nav = (props) => {
         <div className="text-white text-xl ml-4 md:text-4xl md:font-semibold md:ml-20 lg:text-5xl">
           ครัวกาตุ่ย
         </div>
-        {/* <div className="ml-4 md:w-[90px] md:h-[90px]">
-          <img
-            className="md:ml-16 md:w-full md:h-full"
-            src={datakitchenboeing.bin_icon}
-          />
-        </div> */}
       </div>
       {isHamburgerOn && <Hamburger />}
       {/* ข้างหน้าเป็นจริงมันจะทำข้างหลัง */}

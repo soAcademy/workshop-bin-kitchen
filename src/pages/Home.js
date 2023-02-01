@@ -11,7 +11,6 @@ export const Home = () => {
   const [isHamburgerOn, setIsHamburgerOn] = useState(false);
   const [FoodOrderOn, setFoodOrderOn] = useState(false);
   const [orders, setOrders] = useState([]);
-
   // setState คือการลบค่าเดิม และแทนที่ค่าใหม่ เมื่อมีการเรียกใช้งาน setState()
 
   useEffect(() => {
@@ -83,12 +82,13 @@ export const Home = () => {
       // console.log("temp:", temp);
       // console.log("clearself:", clearSelf);
       return setOrders(clearSelf);
+      // *reduce.
     }
     setOrders(temp);
   };
 
-  console.log("order", orders);
-  console.log("foodmenu", foodMenu);
+  // console.log("order", orders);
+  // console.log("foodmenu", foodMenu);
   return (
     <>
       <Nav hamOn={handleHamburgerToggle} isHamburgerOn={isHamburgerOn} />
