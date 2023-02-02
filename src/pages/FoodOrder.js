@@ -1,6 +1,8 @@
 import React from "react";
 import { datakitchenboeing } from "../datakitchen";
 import { useNavigate } from "react-router-dom";
+import TableDetail from "../components/TableDetail";
+import TableStatus from "../components/TableStatus";
 
 const FoodOrder = () => {
   const navigate = useNavigate();
@@ -30,6 +32,8 @@ const FoodOrder = () => {
       >
         Back To Home Page {"<<"}{" "}
       </button>
+      <TableDetail />
+      <TableStatus />
     </div>
   );
 };

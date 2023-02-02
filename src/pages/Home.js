@@ -11,6 +11,8 @@ export const Home = () => {
   const [isHamburgerOn, setIsHamburgerOn] = useState(false);
   const [FoodOrderOn, setFoodOrderOn] = useState(false);
   const [orders, setOrders] = useState([]);
+  const [onSubmitMenu, setOnSubmitMenu] = useState();
+  const [tableId, setTableId] = useState();
   // setState คือการลบค่าเดิม และแทนที่ค่าใหม่ เมื่อมีการเรียกใช้งาน setState()
 
   useEffect(() => {
@@ -24,6 +26,28 @@ export const Home = () => {
       })
       .catch((error) => console.log(error));
   }, []);
+
+  useEffect(() => {
+    const data = {
+      table_id: tableId,
+      items: orders.map((order) => ({
+        menu_id: order.id,
+        price: order.price,
+        quantity: order.quantity,
+        total_price: order.price * order.quantity,
+      })),
+    };
+    axios({
+      method: "post",
+      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/create-order",
+      data: data,
+    })
+      .then((response) => {
+        console.log(response.data);
+        setOnSubmitMenu(response.data);
+      })
+      .catch((error) => console.log(error));
+  }, [onSubmitMenu]);
 
   const handleHamburgerToggle = () => {
     setIsHamburgerOn(!isHamburgerOn);
@@ -45,10 +69,6 @@ export const Home = () => {
     );
     if (!isExists) setOrders([...orders, food]);
     setFoodOrderOn(true);
-  };
-
-  const handleFoodOrderOff = () => {
-    setFoodOrderOn(false);
   };
 
   const handlePlusQuantity = (id) => {
@@ -86,7 +106,9 @@ export const Home = () => {
     }
     setOrders(temp);
   };
-
+  const handleFoodOrderOff = () => {
+    setFoodOrderOn(false);
+  };
   // console.log("order", orders);
   // console.log("foodmenu", foodMenu);
   return (
