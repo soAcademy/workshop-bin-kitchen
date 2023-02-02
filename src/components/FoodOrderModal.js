@@ -1,30 +1,43 @@
 import { useState } from "react";
+import axios from "axios";
 
 const FoodOrderModal = (props) => {
   const [quantity, setQuantity] = useState(1);
-  const [tableId, setTableId] = useState(0);
+  const [tableId, setTableId] = useState(1);
 
-  const updateCart = (foodId, quantity) => {
-    const newCart = [...props.cart];
-    const foundCartIndex = newCart.findIndex((c) => c.id === foodId);
+  const HandleSubmitOrder = (e) => {
+    e.preventDefault();
 
-    if (foundCartIndex > -1) {
-      newCart[foundCartIndex].quantity += Number(quantity);
-    } else {
-      newCart.push({
-        table_id: Number(tableId),
-        items: [
-          {
-            menu_id: props.food.id,
-            price: props.food.price,
-            quantity: Number(quantity),
-            total_price: props.food.id * props.food.price,
-          },
-        ],
-      });
-    }
+    updateCart(tableId, props.food, quantity);
+  };
+
+  const updateCart = (tableId, food, quantity) => {
+    const newCart = {
+      table_id: Number(tableId),
+      items: [
+        {
+          menu_id: food.id,
+          price: food.price,
+          quantity: Number(quantity),
+          total_price: food.price * quantity,
+        },
+      ],
+    };
 
     props.setCart(newCart);
+
+    axios({
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/create-order",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: newCart,
+    }).then((response) => {
+      // console.log(response.data);
+      props.toggleOrderModal(!props.isOrderModalOpen);
+    });
   };
 
   return (
@@ -38,7 +51,7 @@ const FoodOrderModal = (props) => {
         }`}
       >
         <div className="relative h-full w-full">
-          <div className="relative bg-white p-4 shadow">
+          <div className="fixed bottom-0 left-0 right-0 w-full bg-white p-4 shadow shadow-gray-600 md:mx-auto md:w-3/5">
             <div className="mb-4 flex justify-between">
               <div>สั่งอาหาร</div>
               <div>
@@ -93,7 +106,7 @@ const FoodOrderModal = (props) => {
             </div>
             <button
               className="w-full self-center rounded-[10px] bg-red-200 px-6 py-3 text-xl hover:bg-red-300"
-              onClick={() => updateCart(props.food, quantity)}
+              onClick={(e) => HandleSubmitOrder(e)}
             >
               สั่งอาหาร
             </button>
