@@ -15,7 +15,12 @@ const FoodMenuList = (props) => {
   //     setFoodMenu(response.data);
   //   });
   // }, []);
-  const { menu, category, setFood } = props;
+  const { menu, category, setFood, toggleOrderModal, isOrderModalOpen } = props;
+
+  const handleAddFoodClick = (food) => {
+    setFood(food);
+    toggleOrderModal(!isOrderModalOpen);
+  };
 
   return (
     <div className="mb-4 grid gap-4 md:grid-cols-2">
@@ -33,7 +38,7 @@ const FoodMenuList = (props) => {
               <div className="text-red-600">฿{food.price}</div>
             </div>
             <button
-              onClick={() => setFood(food)}
+              onClick={() => handleAddFoodClick(food)}
               className="self-center rounded-[10px] bg-red-200 px-6 py-3 hover:bg-red-300"
             >
               เพิ่ม

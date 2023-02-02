@@ -7,12 +7,24 @@ import FoodOrderModal from "../components/FoodOrderModal";
 export const Home = () => {
   const [cart, setCart] = useState([]);
   const [food, setFood] = useState({});
+  const [isOrderModalOpen, toggleOrderModal] = useState(false);
 
   return (
     <div className="px-4 pt-4 font-nstl text-sm">
       <Hero />
-      <FoodMenuGroup food={food} setFood={setFood} />
-      <FoodOrderModal food={food} cart={cart} setCart={setCart} />
+      <FoodMenuGroup
+        food={food}
+        setFood={setFood}
+        isOrderModalOpen={isOrderModalOpen}
+        toggleOrderModal={toggleOrderModal}
+      />
+      <FoodOrderModal
+        food={food}
+        cart={cart}
+        setCart={setCart}
+        isOrderModalOpen={isOrderModalOpen}
+        toggleOrderModal={toggleOrderModal}
+      />
     </div>
   );
 };
