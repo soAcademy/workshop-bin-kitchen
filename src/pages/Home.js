@@ -3,10 +3,35 @@ import axios from "axios";
 import FoodMenuList from "../components/FoodMenuList";
 import FoodMenuGroup from "../components/FoodMenuGroup";
 import CartPopup from "../components/CartPopup";
+
+// return new cart with conditions
+// new product push with 1 qty
+// existing will add 1
+const onUpdateCartItem = (product, quantity, cart, sign, newCart) => {
+  console.log("onUpdateCartItem", product, quantity, cart);
+  // check if product is exist in cart then increment it's quantity
+  const idx = cart.findIndex((r) => r.id === product.id);
+  // const newCart = [...cart, { ...product, quantity }];
+
+  if (idx === -1) {
+    newCart = [...cart, { ...product, quantity: 1 }];
+  } else {
+    newCart = [...cart];
+    newCart[idx].quantity += sign;
+  }
+  // const newCartQuantity = newCart.quantity += quantity; //spread operator - include all the added objects
+  return newCart;
+};
+// console.log("update", onUpdateCartItem);
+// console.log("cart", cart)
+// console.log("new cart", setCart)
+
 const Home = ({ info }) => {
   const [menus, setMenus] = useState();
   const [cart, setCart] = useState([]);
   const [toggleCartPopup, setToggleCartPopup] = useState(false);
+
+  console.log("cart", cart);
 
   useEffect(() => {
     axios({
@@ -31,24 +56,28 @@ const Home = ({ info }) => {
         className="mx-auto sm:w-[600px] sm:h-[300px] w-56 h-32 object-cover rounded-lg"
       ></img>
       <div>
-        {/* <FoodMenuList data={menus} setToggleCartPopup={setToggleCartPopup} /> */}
+        {/* <FoodMenuList data={menus} setToggleCartPopup={setToggleCartPopup} setCart={setCart} cart={cart} /> */}
         {/* passes the menus state data to it as the data prop. */}
       </div>
       <div>
         <FoodMenuGroup
           setToggleCartPopup={setToggleCartPopup}
+          onUpdateCartItem={onUpdateCartItem}
+          setCart={setCart}
+          cart={cart}
           foodMenus={menus} //passes the menus state data as the foodMenus prop, and a set of unique categories obtained from the menus data as the categories prop.
           categories={[...new Set(menus?.map((r) => r.category))]} //The set of categories is obtained using the map method and the Set object to get only unique values from the category property of each menus item.
         />
       </div>
       <div>
         {toggleCartPopup && (
-        <CartPopup
-          cart={cart}
-          setCart={setCart}
-          toggleCartPopup={toggleCartPopup}
-          setToggleCartPopup={setToggleCartPopup}
-        />
+          <CartPopup
+            cart={cart}
+            setCart={setCart}
+            toggleCartPopup={toggleCartPopup}
+            setToggleCartPopup={setToggleCartPopup}
+            onUpdateCartItem={onUpdateCartItem}
+          />
         )}
       </div>
     </div>
