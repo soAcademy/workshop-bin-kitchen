@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-const Order = () => {
-  const [counter, setCounter] = useState(14);
+const Order = (props) => {
+  const [counter, setCounter] = useState(1);
+ 
 
-  //const [cart, setCart] = useState([]) 
-   // [{ProductID:1, quantity:1, name:ผักคะน้า}]
+  //const [cart, setCart] = useState([])
+  // [{ProductID:1, quantity:1, name:ผักคะน้า}]
   // const [toggleCartPopup, toggleCartPopup] = useState() เพื่อเช็คว่าเปิด popup ว่าเปิดอยู่รึป่าว
 
   return (
-    <div className="flex flex-col gap-2 bg-white/40 inset-0 top-0 w-1/2">
+    <div className="fixed inset-x-0 bottom-0 flex flex-col gap-2 bg-white w-1/2 h-60 text-2xl text-black">
       <div className="flex justify-between">
         <p>Food order</p>
-        <p>X Close</p>
+        <span className="cursor-pointer" onClick={() => props.setTogglePopup(false)}>
+          X Close
+        </span>
       </div>
       <div className="flex justify-between">
         <p>Table No.</p>
@@ -22,7 +26,7 @@ const Order = () => {
       </div>
       <div className="flex justify-between">
         <div className="">
-          <p>ผักคะน้าเห็ดหอม</p>
+          <p>{props.foodName.name}</p>
         </div>
         <div className="flex text-black font-semibold">
           <div className="px-3 bg-red-200">
@@ -41,6 +45,7 @@ const Order = () => {
           </div>
         </div>
       </div>
+      <button className="uppercase text-center border-1 bg-slate-200 px-7 py-2 text-2xl text-red-600">Order</button>
     </div>
   );
 };

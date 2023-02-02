@@ -3,7 +3,9 @@ import image from "../assets/banner.jpg";
 // import FoodMenuList from "../components/FoodMenuList";
 import FoodMenuGroup from "../components/FoodGroup";
 import axios from "axios";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import Order from "../components/Order"
+
 
 const info = `ร้านอาหารครัวคุณกอปรุงด้วยใจ เหมือนทำให้คนในครอบครัวทาน
   เราเปิดให้บริการตั้งแต่ปีพ.ศ. 2535 กว่า 30 ปีที่เรานำเสนอความ
@@ -13,16 +15,57 @@ const info = `ร้านอาหารครัวคุณกอปรุง
 
 const Home = () => {
   const [foodMenus, setFoodMenus] = useState([]);
+  const [togglePopup, setTogglePopup] = useState(false);
+  const [cart, setCart] = useState([]);
+  const [foodName, setFoodName] = useState("");
+
+  const addItem = (menu) => {
+    const _cart = JSON.parse(localStorage.getItem("cart")) ?? [];
+    // console.log(menu);
+    setTogglePopup(true);
+    // console.log("Existing cart:",_cart)
+    // console.log("menu_id:",_cart.map((r) => r.menu_id))
+    const menuList = [...new Set(_cart.map((r) => r.menu_id))]
+    console.log("menuList",menuList)
+    const menuUnique = menuList.map((u) => {
+      return _cart.filter((d) => d.menu_id === u)
+    })
+    console.log("Menu Unique:",menuUnique)
+    const sumMenu = menuUnique.map((r) => r.reduce((acc,a) => {
+      acc.id = a.menu_id
+      acc.price += a.price;
+    acc.quantity += a.quantity;
+    console.log(a)
+    return acc;
+  },{id:0,price:0,quantity:0}))
+
+    console.log("sumMenu",sumMenu)
+
+    const newCart = [
+      ..._cart,
+      {
+        menu_id: menu.id,
+        price: menu.price,
+        quantity: 1,
+      }
+    ]
+    // console.log("newCart",newCart)
+    setFoodName(menu)
+    // console.log("Food Name",foodName)
+    localStorage.setItem("cart",JSON.stringify(newCart))
+  }
+  
 
   useEffect(() => {
     axios({
-      method: "get",
-      url: "https://api.allorigins.win/raw?url=https://pastebin.com/raw/x1EY0NL9",
+      method: "post",
+      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-menus",
     }).then((response) => {
       console.log("response", response);
       setFoodMenus(response.data);
     });
   }, []);
+
 
   return (
     <section className="w-full flex py-28 md:flex-row flex-col justify-center items-center">
@@ -48,7 +91,13 @@ const Home = () => {
             <FoodMenuGroup
               foodMenus={foodMenus}
               categories={[...new Set(foodMenus?.map((r) => r.category))]}
+              addItem={addItem}
+              // setCart={setCart}
+              
             />
+             {togglePopup && <Order setTogglePopup={setTogglePopup}
+             foodName={foodName}
+             />}
           </div>
         </div>
       </div>
