@@ -4,7 +4,7 @@ import FoodMenuGroup from "../components/FoodMenuGroupComponent";
 import ShopDetail from "../components/ShopDetailComponent";
 import PopupForm from "../components/PopupForm";
 
-export const Menu = () => {
+export const Statistic = () => {
   return (
     <div></div>
   );

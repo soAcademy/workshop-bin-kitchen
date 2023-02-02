@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { ImSpoonKnife } from "react-icons/im";
 import { BsList, BsX, BsCart2 } from "react-icons/bs";
-import NavBarListButton from "./NavBarListButtonComponent";
 
 const NavBar = (props) => {
   const Links = [
     { id: "L1", name: "Home", link: "/" },
-    { id: "L2", name: "Menu", link: "/menu" },
-    { id: "L3", name: "Order", link: "/order" },
+    { id: "L2", name: "Order", link: "/order" },
+    { id: "L3", name: "Statistic", link: "/menu" },
   ];
 
   const [toggle, setToggle] = useState(false);
@@ -57,9 +56,9 @@ const NavBar = (props) => {
                 </Link>
               </li>
             ))}
-            <NavBarListButton>
-              <p className="flex">Log in</p>
-            </NavBarListButton>
+            <button className="bg-yellow-600 text-white py-3 px-10 rounded-full md:ml-8 hover:bg-yellow-800 duration-500">
+              Log in
+            </button>
             {/* <NavBarListButton> Something </NavBarListButton> */}
           </ul>
         </div>
