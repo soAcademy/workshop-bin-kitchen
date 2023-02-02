@@ -5,15 +5,18 @@ const FoodMenuGroup = ({
   menus,
   categories,
   onBypassAddButtonClickedToMainPage,
+  setOpenPop,
 }) => {
   // console.log("menus",menus,"categories",categories);
+  console.log("setOpenPop : " , setOpenPop);
   return (
     <div>
       {categories?.map((category) => (
         <FoodMenuList
-          onBypassAddButtonClicked={(e) => {
-            console.log("menu group" + JSON.stringify(e));
-            onBypassAddButtonClickedToMainPage(e);
+          setOpenPop={setOpenPop}
+          onBypassAddButtonClicked={(menuObj) => {
+            console.log("menu group" + JSON.stringify(menuObj));
+            onBypassAddButtonClickedToMainPage(menuObj);
           }}
           menus={menus?.filter((menu) => menu.category === category)}
           category={category}
