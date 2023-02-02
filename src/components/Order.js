@@ -25,6 +25,7 @@ const Order = (props) => {
         <p>Order list</p>
       </div>
       <div className="flex justify-between">
+        {props.cart.map((r) =>r.name)} // doing continuous 
         <div className="">
           <p>{props.foodName.name}</p>
         </div>

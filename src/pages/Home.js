@@ -4,8 +4,7 @@ import image from "../assets/banner.jpg";
 import FoodMenuGroup from "../components/FoodGroup";
 import axios from "axios";
 // import { Link } from "react-router-dom";
-import Order from "../components/Order"
-
+import Order from "../components/Order";
 
 const info = `ร้านอาหารครัวคุณกอปรุงด้วยใจ เหมือนทำให้คนในครอบครัวทาน
   เราเปิดให้บริการตั้งแต่ปีพ.ศ. 2535 กว่า 30 ปีที่เรานำเสนอความ
@@ -18,28 +17,11 @@ const Home = () => {
   const [togglePopup, setTogglePopup] = useState(false);
   const [cart, setCart] = useState([]);
   const [foodName, setFoodName] = useState("");
+  const _cart = JSON.parse(localStorage.getItem("cart")) ?? [];
 
   const addItem = (menu) => {
-    const _cart = JSON.parse(localStorage.getItem("cart")) ?? [];
-    // console.log(menu);
     setTogglePopup(true);
-    // console.log("Existing cart:",_cart)
-    // console.log("menu_id:",_cart.map((r) => r.menu_id))
-    const menuList = [...new Set(_cart.map((r) => r.menu_id))]
-    console.log("menuList",menuList)
-    const menuUnique = menuList.map((u) => {
-      return _cart.filter((d) => d.menu_id === u)
-    })
-    console.log("Menu Unique:",menuUnique)
-    const sumMenu = menuUnique.map((r) => r.reduce((acc,a) => {
-      acc.id = a.menu_id
-      acc.price += a.price;
-    acc.quantity += a.quantity;
-    console.log(a)
-    return acc;
-  },{id:0,price:0,quantity:0}))
-
-    console.log("sumMenu",sumMenu)
+    setFoodName(menu);
 
     const newCart = [
       ..._cart,
@@ -47,14 +29,33 @@ const Home = () => {
         menu_id: menu.id,
         price: menu.price,
         quantity: 1,
-      }
-    ]
-    // console.log("newCart",newCart)
-    setFoodName(menu)
-    // console.log("Food Name",foodName)
-    localStorage.setItem("cart",JSON.stringify(newCart))
-  }
-  
+      },
+    ];
+    localStorage.setItem("cart", JSON.stringify(newCart));
+
+    const _aACart = JSON.parse(localStorage.getItem("cart")) ?? [];
+    const menuList = [...new Set(_aACart.map((r) => r.menu_id))];
+    console.log("menuList", menuList);
+    const menuUnique = menuList.map((u) => {
+      return _aACart.filter((d) => d.menu_id === u);
+    });
+
+    console.log("Menu Unique:", menuUnique);
+    const sumMenu = menuUnique.map((r) =>
+      r.reduce(
+        (acc, a) => {
+          acc.id = a.menu_id;
+          acc.price += a.price;
+          acc.quantity += a.quantity;
+          console.log("a:", a);
+          return acc;
+        },
+        { price: 0, quantity: 0 }
+      )
+    );
+    setCart(sumMenu);
+    console.log("sumMenu", sumMenu);
+  };
 
   useEffect(() => {
     axios({
@@ -65,7 +66,6 @@ const Home = () => {
       setFoodMenus(response.data);
     });
   }, []);
-
 
   return (
     <section className="w-full flex py-28 md:flex-row flex-col justify-center items-center">
@@ -93,11 +93,12 @@ const Home = () => {
               categories={[...new Set(foodMenus?.map((r) => r.category))]}
               addItem={addItem}
               // setCart={setCart}
-              
             />
-             {togglePopup && <Order setTogglePopup={setTogglePopup}
-             foodName={foodName}
-             />}
+            {togglePopup && (
+              <Order setTogglePopup={setTogglePopup} 
+              foodName={foodName}
+              cart={cart} />
+            )}
           </div>
         </div>
       </div>
