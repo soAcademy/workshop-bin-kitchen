@@ -3,7 +3,7 @@ module.exports = {
   theme: {
     extend: {},
     fontFamily: {
-      prompt: ["font-family: 'Prompt', sans-serif"],
+      prompt: ["Prompt"],
     },
   },
   plugins: [],
