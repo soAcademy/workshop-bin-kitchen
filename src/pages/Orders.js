@@ -1,8 +1,27 @@
 // import FoodMenuList from "../components/FoodMenuList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export const Orders = () => {
   const [tableId, setTableId] = useState(0);
+  const [ordersByTable, setOrdersByTable] = useState([]);
+
+  useEffect(() => {
+    axios({
+      method: "POST",
+      maxBodyLength: Infinity,
+      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders-by-table",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: { table_id: tableId },
+    })
+      .then((response) => {
+        console.log(response.data);
+        setOrdersByTable(response.data);
+      })
+      .catch((error) => console.log(error));
+  }, [tableId]);
 
   return (
     <div className="px-4 pt-4 font-nstl text-sm">
@@ -21,6 +40,7 @@ export const Orders = () => {
         ))}
       </ul>
       <div>Table ID: {tableId}</div>
+      <div>Number of Orders: {ordersByTable.length}</div>
     </div>
   );
 };
