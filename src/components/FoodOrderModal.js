@@ -2,22 +2,22 @@ import { useState } from "react";
 import axios from "axios";
 
 const FoodOrderModal = (props) => {
-  const [quantity, setQuantity] = useState(1);
+  // const [quantity, setQuantity] = useState(1);
   const [tableId, setTableId] = useState(1);
 
-  const handleDecreaseQuantity = (e) => {
-    e.preventDefault();
+  // const handleDecreaseQuantity = (e) => {
+  //   e.preventDefault();
 
-    quantity > 1 && setQuantity(quantity - 1);
-    // updateCart(props.cartItems, props.food, quantity);
-  };
+  //   quantity > 1 && setQuantity(quantity - 1);
+  //   // updateCart(props.cartItems, props.food, quantity);
+  // };
 
-  const handleIncreaseQuantity = (e) => {
-    e.preventDefault();
+  // const handleIncreaseQuantity = (e) => {
+  //   e.preventDefault();
 
-    setQuantity(quantity + 1);
-    // updateCart(props.cartItems, props.food, quantity);
-  };
+  //   setQuantity(quantity + 1);
+  //   // updateCart(props.cartItems, props.food, quantity);
+  // };
 
   const handleSubmitOrder = (e) => {
     e.preventDefault();
@@ -25,12 +25,14 @@ const FoodOrderModal = (props) => {
     // updateCart(props.cartItems, props.food, quantity);
     const submittedCart = {
       table_id: tableId,
-      items: props.cartItems.map((item) => ({
-        menu_id: item.menu_id,
-        price: item.price,
-        quantity: item.quantity,
-        total_price: item.total_price,
-      })),
+      items: props.cartItems
+        .filter((item) => item.quantity > 0)
+        .map((item) => ({
+          menu_id: item.menu_id,
+          price: item.price,
+          quantity: item.quantity,
+          total_price: item.total_price,
+        })),
     };
 
     console.log(submittedCart);
@@ -100,7 +102,12 @@ const FoodOrderModal = (props) => {
                   </label>
                   <button
                     className="h-8 w-8 bg-red-200 hover:bg-red-300"
-                    onClick={(e) => handleDecreaseQuantity(e)}
+                    onClick={() => {
+                      item.id = item.menu_id;
+
+                      item.quantity > 0 &&
+                        props.updateCartItems(props.cartItems, item, -1);
+                    }}
                   >
                     -
                   </button>
@@ -114,7 +121,11 @@ const FoodOrderModal = (props) => {
                   />
                   <button
                     className="h-8 w-8 bg-red-200 hover:bg-red-300"
-                    onClick={(e) => handleIncreaseQuantity(e)}
+                    onClick={() => {
+                      item.id = item.menu_id;
+
+                      props.updateCartItems(props.cartItems, item, 1);
+                    }}
                   >
                     +
                   </button>
