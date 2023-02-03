@@ -1,11 +1,4 @@
-// import foodMenu from "../data/food-menu.json";
-
-// import { useState, useEffect } from "react";
-// import axios from "axios";
-
 const FoodMenuList = (props) => {
-  // const [foodMenu, setFoodMenu] = useState([]);
-
   const {
     menu,
     category,
@@ -15,14 +8,6 @@ const FoodMenuList = (props) => {
     cartItems,
     updateCartItems,
   } = props;
-
-  // const handleAddFoodClick = (e) => {
-  //   e.preventDefault();
-
-  //   setFood(food);
-  //   updateCartItems(cartItems, food, 1);
-  //   toggleOrderModal(!isOrderModalOpen);
-  // };
 
   return (
     <div className="mb-4 grid gap-4 md:grid-cols-2">
@@ -49,12 +34,10 @@ const FoodMenuList = (props) => {
             >
               เพิ่ม
             </button>
-            {/* <div>{food.description}</div> */}
           </div>
         ))}
     </div>
   );
-  // <div className="grid gap-4 md:grid-cols-2"></div>
 };
 
 export default FoodMenuList;

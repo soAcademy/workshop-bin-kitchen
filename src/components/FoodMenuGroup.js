@@ -4,7 +4,6 @@ import FoodMenuList from "./FoodMenuList";
 
 const FoodMenuGroup = (props) => {
   const [foodMenu, setFoodMenu] = useState([]);
-  // const { food, setFood } = props;
 
   useEffect(() => {
     axios({
@@ -12,15 +11,13 @@ const FoodMenuGroup = (props) => {
       // url: "https://api.allorigins.win/raw?url=https://pastebin.com/raw/x1EY0NL9",
       method: "POST",
       url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-menus",
-    }).then((response) => {
-      // console.log(response.data);
-      setFoodMenu(response.data);
-    });
+    })
+      .then((response) => {
+        // console.log(response.data);
+        setFoodMenu(response.data);
+      })
+      .catch((error) => console.log(error));
   }, []);
-
-  // const categoryList = [...new Set(foodMenu.category)];
-
-  // console.log(categoryList);
 
   return [...new Set(foodMenu.map((food) => food.category))].map(
     (category, idx) => (

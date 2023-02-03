@@ -45,11 +45,13 @@ const FoodOrderModal = (props) => {
         "Content-Type": "application/json",
       },
       data: submittedCart,
-    }).then((response) => {
-      // console.log(response.data);
-      props.toggleOrderModal(!props.isOrderModalOpen);
-      props.setCartItems([]);
-    });
+    })
+      .then((response) => {
+        // console.log(response.data);
+        props.toggleOrderModal(!props.isOrderModalOpen);
+        props.setCartItems([]);
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
