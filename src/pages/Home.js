@@ -146,6 +146,7 @@ export const Home = () => {
           handlePlusQuantity={handlePlusQuantity}
           handleMinusQuantity={handleMinusQuantity}
           handleCloseFoodOrder={handleFoodOrderOff}
+          setTableId={setTableId}
         />
       )}
       {FoodOrderOn && <Overlay handleClick={handleFoodOrderOff} />}

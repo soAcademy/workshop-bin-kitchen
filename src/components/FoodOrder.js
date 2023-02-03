@@ -41,7 +41,7 @@ const FoodOrder = (props) => {
               value={tableId}
               onChange={(e) => handleSetTableId(e.target.value)}
               type="number"
-              placeholder="0"
+              placeholder={tableId}
               className="bg-pink-100 text-pink-500 border border-gray-400 rounded-[5px] w-[45px] pl-[10px] md:text-3xl md:px-3 lg:w-[80px]"
             />
           </div>
