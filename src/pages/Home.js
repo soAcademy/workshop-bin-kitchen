@@ -5,7 +5,7 @@ import Hero from "../components/Hero";
 import FoodOrderModal from "../components/FoodOrderModal";
 
 export const Home = () => {
-  const [cart, setCart] = useState({});
+  const [cartItems, setCartItems] = useState([]);
   const [food, setFood] = useState({});
   const [isOrderModalOpen, toggleOrderModal] = useState(false);
 
@@ -20,8 +20,8 @@ export const Home = () => {
       />
       <FoodOrderModal
         food={food}
-        cart={cart}
-        setCart={setCart}
+        cartItems={cartItems}
+        setCartItems={setCartItems}
         isOrderModalOpen={isOrderModalOpen}
         toggleOrderModal={toggleOrderModal}
       />
