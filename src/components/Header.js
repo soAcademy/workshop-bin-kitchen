@@ -3,13 +3,14 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import logo from "../assets/logo.png";
 import logo2 from "../assets/logo2.png";
 import menu from "../assets/menu.png";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [sticky, setSticky] = useState(false);
   const [open, setOpen] = useState(false);
   const menuLinks = [
     { name: "FOOD MENU", link: "#foodMenu", image: <img src={menu} alt="menu"/>},
-    { name: "ORDER LIST", link: "#orderList" },
+    { name: "ORDER LIST", link: "/Table" },
     { name: "HISTORY", link: "#history" },
   ];
   useEffect(() => {
@@ -46,7 +47,7 @@ const Header = () => {
           <ul className="flex gap-5 text-4xl">
             {menuLinks?.map((menu, i) => (
               <li key={i} className="px-16 hover:text-red-600">
-                <a href={menu?.link}>{menu?.name}</a>
+                <Link to={menu?.link}> {menu.name}</Link>
               </li>
             ))}
           </ul>
@@ -73,7 +74,7 @@ const Header = () => {
                 key={i}
                 className="px-6 hover:text-red-900"
               >
-                <a href={menu?.link}>{menu?.name}</a>
+                <Link to={menu?.link}> {menu.name}</Link>
               </li>
             ))}
           </ul>
