@@ -70,6 +70,8 @@ const OrderPopUp = ({
             <input
               id="tableNo"
               type="number"
+              min={0}
+              max={15}
               required
               placeholder="No."
               className="w-14 rounded-lg text-center border-[1px] border-gray-400 focus:border"
