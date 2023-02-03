@@ -1,11 +1,44 @@
 import { BiListUl } from "react-icons/fa";
-import FoodMenuListComponent from "../Conponents/FoodMenuList";
-import Navbar from "../Conponents/Nav";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import FoodMenuGroup from "../Conponents/FoodMenuGroup";
+import FoodMenuGroup from "../Components/FoodMenuGroup";
+import FoodMenuList from "../Components/FoodMenuList";
+import { CartPopup } from "../Components/CartPopup";
+
+// const sum = (a,b) => {
+//   return a + b
+// }
+
+// sum(b=5,a=10)
+// // 15
 
 export const Home = () => {
+  const [toggleCartPopup, setToggleCartPopup] = useState(false);
+  const [cart, setCart] = useState([]);
+  // มันเป็น syntax ของมัน ที่จะต้องมีสองค่าคืออันแรกคือ state กับที่เอาไว้ set state
+
+  const updateCart = ({ sign, cart, id, name, price }) => {
+    if (cart.some((item) => item.id === id)) {
+      return cart.reduce((arr, c) => {
+        arr.push(
+          c.id === id
+            ? {
+                id,
+                quantity: sign + c.quantity,
+                name,
+                price,
+                totalPrice: (sign + c.quantity) * price,
+                Paid: (sign + c.quantity) * price * id,
+              }
+            : c
+        );
+        return arr;
+      }, []);
+    }
+    return [...cart, { id, quantity: 1, name, price, totalPrice: price }];
+  };
+
+
   const info = {
     header: "ครัวคุณบอน",
     title: "ครัวคุณบอน",
@@ -14,23 +47,21 @@ export const Home = () => {
   };
 
   const [menus, setMenus] = useState();
+
   useEffect(() => {
     axios({
-      method: "get",
-      url: "https://api.allorigins.win/raw?url=https://pastebin.com/raw/x1EY0NL9",
+      method: "post",
+      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-menus",
     }).then((res) => {
       setMenus(res.data);
     });
   }, []);
+
+
   return (
     <div>
-      <Navbar />
-      <div className="mt-20 text-3xl text-Gray font-bold uppercase text-center">
-        {" "}
-        {info.title}{" "}
-      </div>
+      <div className="mt-20 text-3xl text-Gray font-bold uppercase text-center">{" "}{info.title}{" "}</div>
       <div className="p-4 text-gray"> {info.description}</div>
-
       <div className="p-2">
         <div className="flex flex-col md:flex-row">
           <img
@@ -42,14 +73,38 @@ export const Home = () => {
       </div>
 
       <div className="mt-4 text-gray">
-        <FoodMenuGroup 
-          props={menus} 
-          categories={[...new Set(menus?.map((r)=> r.category))]}/>
-        <FoodMenuListComponent menus={menus} />
-        {/* {mockdata.map((menu) => (
-          <div>{menu.name, }</div>
-        ))} */}
+        <FoodMenuGroup
+          categories={[...new Set(menus?.map((r) => r.category))]}
+          menus={menus}
+          cart={cart}
+          setCart={setCart}
+          updateCart={updateCart}
+          setToggleCartPopup={setToggleCartPopup}
+          
+        />
       </div>
+      {toggleCartPopup && (
+        <CartPopup
+          cart={cart}
+          setCart={setCart}
+          updateCart={updateCart}
+          toggleCartPopup={toggleCartPopup}
+          setToggleCartPopup={setToggleCartPopup}
+        />
+      )}
     </div>
   );
 };
+
+// How to import/export
+
+// export default Home;
+
+// import A from './A';
+// export default A
+
+// import { A } from './A';
+// export const A
+// export {
+//   A,
+// }
