@@ -3,6 +3,9 @@ import { datakitchenboeing } from "../datakitchen";
 
 const FoodOrder = (props) => {
   const {
+    tableId,
+    handleSetTableId,
+    handleCreateOrder,
     orders,
     handleCloseFoodOrder,
     handleMinusQuantity,
@@ -35,6 +38,8 @@ const FoodOrder = (props) => {
           </div>
           <div>
             <input
+              value={tableId}
+              onChange={(e) => handleSetTableId(e.target.value)}
               type="number"
               placeholder="0"
               className="bg-pink-100 text-pink-500 border border-gray-400 rounded-[5px] w-[45px] pl-[10px] md:text-3xl md:px-3 lg:w-[80px]"
@@ -75,7 +80,10 @@ const FoodOrder = (props) => {
         ))}
 
         <div className="mt-24 flex justify-center ">
-          <button className="bg-pink-400 text-white px-6 w-[90%] py-2 rounded-[10px] text-xl md:w-[100%] md:text-3xl md:py-4">
+          <button
+            onClick={handleCreateOrder}
+            className="bg-pink-400 text-white px-6 w-[90%] py-2 rounded-[10px] text-xl md:w-[100%] md:text-3xl md:py-4"
+          >
             สั่งอาหาร
           </button>
         </div>

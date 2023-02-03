@@ -12,13 +12,14 @@ export const Home = () => {
   const [FoodOrderOn, setFoodOrderOn] = useState(false);
   const [orders, setOrders] = useState([]);
   const [onSubmitMenu, setOnSubmitMenu] = useState();
-  const [tableId, setTableId] = useState();
+  const [tableId, setTableId] = useState(null);
   // setState คือการลบค่าเดิม และแทนที่ค่าใหม่ เมื่อมีการเรียกใช้งาน setState()
-
+  console.log("order", orders);
   useEffect(() => {
     axios({
-      method: "get",
-      url: "https://api.allorigins.win/raw?url=https://pastebin.com/raw/x1EY0NL9",
+      method: "post",
+      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-menus",
+      // url: "https://api.allorigins.win/raw?url=https://pastebin.com/raw/x1EY0NL9",
     })
       .then((response) => {
         console.log(response.data);
@@ -26,28 +27,30 @@ export const Home = () => {
       })
       .catch((error) => console.log(error));
   }, []);
+  // render ครั้งแรกแล้วยิงมาโชว์ที่ browser เลย
 
-  useEffect(() => {
-    const data = {
-      table_id: tableId,
-      items: orders.map((order) => ({
-        menu_id: order.id,
-        price: order.price,
-        quantity: order.quantity,
-        total_price: order.price * order.quantity,
-      })),
-    };
-    axios({
-      method: "post",
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/create-order",
-      data: data,
-    })
-      .then((response) => {
-        console.log(response.data);
-        setOnSubmitMenu(response.data);
-      })
-      .catch((error) => console.log(error));
-  }, [onSubmitMenu]);
+  // useEffect(() => {
+  //   const data = {
+  //     table_id: tableId,
+  //     items: orders.map((order) => ({
+  //       menu_id: order.id,
+  //       price: order.price,
+  //       quantity: order.quantity,
+  //       total_price: order.price * order.quantity,
+  //     })),
+  //   };
+  //   axios({
+  //     method: "post",
+  //     url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/create-order",
+  //     data: data,
+  //   })
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       setOnSubmitMenu(response.data);
+  //     })
+  //     .catch((error) => console.log(error));
+  // }, [onSubmitMenu]);
+  // useEffect มีการ render ครั้งแรก แล้วมันจะยิงให้เรา
 
   const handleHamburgerToggle = () => {
     setIsHamburgerOn(!isHamburgerOn);
@@ -72,11 +75,6 @@ export const Home = () => {
   };
 
   const handlePlusQuantity = (id) => {
-    // setQuantity(quantity + 1);
-    // const founded = orders.find((order) => order.id === id);
-    // founded.amount += 1;
-    // const clearSelf = orders.filter((order) => order.id !== id);
-    // setOrders([founded, ...clearSelf]);
     const index = orders.findIndex((order) => order.id === id);
     const temp = [...orders];
     temp[index].amount += 1;
@@ -84,14 +82,6 @@ export const Home = () => {
     // ตำแหน่งของ index มันไม่ขยับ
   };
   const handleMinusQuantity = (id) => {
-    // if (quantity <= 0) {
-    //   setQuantity(0);
-    // } else {
-    //   setQuantity(quantity - 1);
-    // }
-    // if(quantity!==0) setQuantity(quantity - 1);
-    // if (quantity) setQuantity(quantity - 1);
-    //it's about truthy falsy
     const index = orders.findIndex((order) => order.id === id);
     const temp = [...orders];
     temp[index].amount -= 1;
@@ -99,24 +89,59 @@ export const Home = () => {
       const clearSelf = temp.filter((item) => item.id !== id);
       // id ตัวท้ายมาจากการที่เรากดปุ่ม +,-
       // item.id ตัวที่เรากดเพิ่ม
-      // console.log("temp:", temp);
-      // console.log("clearself:", clearSelf);
+
       return setOrders(clearSelf);
-      // *reduce.
     }
     setOrders(temp);
   };
   const handleFoodOrderOff = () => {
     setFoodOrderOn(false);
   };
-  // console.log("order", orders);
-  // console.log("foodmenu", foodMenu);
+
+  const handleCreateOrder = () => {
+    const createOrderMenu = {
+      table_id: tableId,
+      items: orders.map((order) => ({
+        menu_id: order.id,
+        price: order.price,
+        quantity: order.amount,
+        total_price: order.amount * order.price,
+      })),
+    };
+    fireCreateOrder(createOrderMenu).then(() => {
+      handleFoodOrderOff();
+      clearState();
+    });
+
+    console.log("createOrderMenu", createOrderMenu);
+  };
+  const handleSetTableId = (idTable) => {
+    setTableId(Number(idTable));
+    console.log(idTable);
+  };
+  // ยิงส่งไป server
+  const fireCreateOrder = async (payload) => {
+    const result = await axios.post(
+      "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/create-order",
+      payload
+    );
+    return result; //return promise ออกมา
+  };
+
+  const clearState = () => {
+    setTableId(null);
+    setOrders([]);
+  };
+
   return (
     <>
       <Nav hamOn={handleHamburgerToggle} isHamburgerOn={isHamburgerOn} />
       {isHamburgerOn && <Overlay handleClick={handleHamburgerOff} />}
       {FoodOrderOn && (
         <FoodOrder
+          tableId={tableId}
+          handleSetTableId={handleSetTableId}
+          handleCreateOrder={handleCreateOrder}
           orders={orders}
           handlePlusQuantity={handlePlusQuantity}
           handleMinusQuantity={handleMinusQuantity}
