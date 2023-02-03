@@ -58,7 +58,7 @@ export const Orders = () => {
                 <ul className="mb-2">
                   {order.items.map((item, idx) => (
                     <li key={idx}>
-                      {item.name} * {item.quantity} ={" "}
+                      {item.name} @{item.price} * {item.quantity} ={" "}
                       {item.total_price.toLocaleString("TH")}
                     </li>
                   ))}

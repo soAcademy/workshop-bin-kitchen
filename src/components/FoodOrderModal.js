@@ -35,7 +35,7 @@ const FoodOrderModal = (props) => {
         })),
     };
 
-    console.log(submittedCart);
+    // console.log(submittedCart);
 
     axios({
       method: "post",
@@ -46,7 +46,7 @@ const FoodOrderModal = (props) => {
       },
       data: submittedCart,
     }).then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       props.toggleOrderModal(!props.isOrderModalOpen);
       props.setCartItems([]);
     });
