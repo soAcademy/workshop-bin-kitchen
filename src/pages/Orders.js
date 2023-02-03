@@ -17,7 +17,7 @@ export const Orders = () => {
       data: { table_id: tableId },
     })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setOrdersByTable(response.data);
       })
       .catch((error) => console.log(error));
@@ -39,26 +39,39 @@ export const Orders = () => {
           </li>
         ))}
       </ul>
-      <div>Table ID: {tableId}</div>
+      <div>
+        Table ID: {tableId}{" "}
+        {ordersByTable.length > 0 &&
+          `; Grand Total: ${ordersByTable
+            .reduce((acc, order) => acc + order.total_price, 0)
+            .toLocaleString("TH")}`}
+      </div>
       <div className="mb-6">Number of Orders: {ordersByTable.length}</div>
       <ul className="mb-6">
-        {ordersByTable.map((order) => (
-          <>
-            <li className="mb-4">
-              <div className="mb-2">
-                #{order.order_id}; Status: {order.status}
-              </div>
-              <ul className="mb-2">
-                {order.items.map((item) => (
-                  <li>
-                    {item.name} * {item.quantity} = {item.total_price}
-                  </li>
-                ))}
-              </ul>
-              <div className="mb-2">Order total: {order.total_price}</div>
-            </li>
-          </>
-        ))}
+        {ordersByTable.length > 0 ? (
+          ordersByTable.map((order, idx) => (
+            <>
+              <li key={idx} className="mb-4">
+                <div className="mb-2">
+                  #{order.order_id}; Status: {order.status}
+                </div>
+                <ul className="mb-2">
+                  {order.items.map((item, idx) => (
+                    <li key={idx}>
+                      {item.name} * {item.quantity} ={" "}
+                      {item.total_price.toLocaleString("TH")}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mb-2">
+                  Order total: {order.total_price.toLocaleString("TH")}
+                </div>
+              </li>
+            </>
+          ))
+        ) : (
+          <div>--- ไม่มีรายการสั่งอาหาร ---</div>
+        )}
       </ul>
     </div>
   );
