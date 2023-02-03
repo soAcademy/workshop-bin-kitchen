@@ -40,7 +40,26 @@ export const Orders = () => {
         ))}
       </ul>
       <div>Table ID: {tableId}</div>
-      <div>Number of Orders: {ordersByTable.length}</div>
+      <div className="mb-6">Number of Orders: {ordersByTable.length}</div>
+      <ul className="mb-6">
+        {ordersByTable.map((order) => (
+          <>
+            <li className="mb-4">
+              <div className="mb-2">
+                #{order.order_id}; Status: {order.status}
+              </div>
+              <ul className="mb-2">
+                {order.items.map((item) => (
+                  <li>
+                    {item.name} * {item.quantity} = {item.total_price}
+                  </li>
+                ))}
+              </ul>
+              <div className="mb-2">Order total: {order.total_price}</div>
+            </li>
+          </>
+        ))}
+      </ul>
     </div>
   );
 };
