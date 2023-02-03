@@ -6,39 +6,45 @@
 const FoodMenuList = (props) => {
   // const [foodMenu, setFoodMenu] = useState([]);
 
-  // useEffect(() => {
-  //   axios({
-  //     method: "GET",
-  //     url: "https://api.allorigins.win/raw?url=https://pastebin.com/raw/x1EY0NL9",
-  //   }).then((response) => {
-  //     // console.log(response.data);
-  //     setFoodMenu(response.data);
-  //   });
-  // }, []);
-  const { menu, category, setFood, toggleOrderModal, isOrderModalOpen } = props;
+  const {
+    menu,
+    category,
+    setFood,
+    toggleOrderModal,
+    isOrderModalOpen,
+    cartItems,
+    updateCartItems,
+  } = props;
 
-  const handleAddFoodClick = (food) => {
-    setFood(food);
-    toggleOrderModal(!isOrderModalOpen);
-  };
+  // const handleAddFoodClick = (e) => {
+  //   e.preventDefault();
+
+  //   setFood(food);
+  //   updateCartItems(cartItems, food, 1);
+  //   toggleOrderModal(!isOrderModalOpen);
+  // };
 
   return (
     <div className="mb-4 grid gap-4 md:grid-cols-2">
       {menu
-        .filter((food) => food.category === category)
-        .map((food) => (
-          <div key={food.id} className="flex gap-4">
+        .filter((menuItem) => menuItem.category === category)
+        .map((menuItem, idx) => (
+          <div key={idx} className="flex gap-4">
             <img
               className="h-[72px] w-[72px] rounded-[10px] object-cover"
-              src={food.image}
-              alt={food.name}
+              src={menuItem.image}
+              alt={menuItem.name}
             />
             <div className="flex flex-auto flex-col">
-              <div className="flex-auto">{food.name}</div>
-              <div className="text-red-600">฿{food.price}</div>
+              <div className="flex-auto">{menuItem.name}</div>
+              <div className="text-red-600">฿{menuItem.price}</div>
             </div>
             <button
-              onClick={() => handleAddFoodClick(food)}
+              onClick={() => {
+                setFood(menuItem);
+                updateCartItems(cartItems, menuItem, 1);
+                toggleOrderModal(!isOrderModalOpen);
+              }}
               className="self-center rounded-[10px] bg-red-200 px-6 py-3 hover:bg-red-300"
             >
               เพิ่ม

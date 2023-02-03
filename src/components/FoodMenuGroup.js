@@ -33,6 +33,8 @@ const FoodMenuGroup = (props) => {
           setFood={props.setFood}
           isOrderModalOpen={props.isOrderModalOpen}
           toggleOrderModal={props.toggleOrderModal}
+          cartItems={props.cartItems}
+          updateCartItems={props.updateCartItems}
         />
       </React.Fragment>
     )

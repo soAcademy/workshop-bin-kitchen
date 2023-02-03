@@ -9,119 +9,45 @@ const FoodOrderModal = (props) => {
     e.preventDefault();
 
     quantity > 1 && setQuantity(quantity - 1);
+    // updateCart(props.cartItems, props.food, quantity);
   };
 
   const handleIncreaseQuantity = (e) => {
     e.preventDefault();
 
     setQuantity(quantity + 1);
+    // updateCart(props.cartItems, props.food, quantity);
   };
 
   const handleSubmitOrder = (e) => {
     e.preventDefault();
 
-    updateCart(props.cartItems, props.food, quantity);
-  };
+    // updateCart(props.cartItems, props.food, quantity);
+    const submittedCart = {
+      table_id: tableId,
+      items: props.cartItems.map((item) => ({
+        menu_id: item.menu_id,
+        price: item.price,
+        quantity: item.quantity,
+        total_price: item.total_price,
+      })),
+    };
 
-  const updateCart = (cartItems, food, quantity) => {
-    if (cartItems.some((item) => item.menu_id === food.id)) {
-      props.setCartItems(
-        cartItems.reduce((acc, item) => {
-          if (item.menu_id === food.id) {
-            console.log("matched");
-            acc.push({
-              menu_id: food.id,
-              price: food.price,
-              quantity: item.quantity + Number(quantity),
-              total_price: item.total_price + food.price * Number(quantity),
-            });
-          } else {
-            acc.push(item);
-          }
-          return acc;
-        }, [])
-      );
-    } else {
-      props.setCartItems([
-        ...cartItems,
-        {
-          menu_id: food.id,
-          price: food.price,
-          quantity: Number(quantity),
-          total_price: food.price * quantity,
-        },
-      ]);
-    }
-    //   props.setCart({
-    //     table_id: Number(tableId),
-    //     items: [
-    //       {
-    //         menu_id: food.id,
-    //         price: food.price,
-    //         quantity: Number(quantity),
-    //         total_price: food.price * quantity,
-    //       },
-    //     ],
-    //   });
-    // } else {
-    //   const updatedItems = [...props.cart.items];
-    //   console.log(updatedItems);
+    console.log(submittedCart);
 
-    //   updatedItems.reduce((acc, item) => {
-    //     console.log(item.menu_id);
-    //     console.log(food.id);
-    //     if (item.menu_id === food.id) {
-    //       acc.push({
-    //         menu_id: food.id,
-    //         price: food.price,
-    //         quantity: item.quantity + Number(quantity),
-    //         total_price: item.price + food.price * quantity,
-    //       });
-    //       // item.quantity += Number(quantity);
-    //       // item.price += food.price * quantity;
-    //     } else {
-    //       // acc.push({
-    //       //   menu_id: food.id,
-    //       //   price: food.price,
-    //       //   quantity: Number(quantity),
-    //       //   total_price: food.price * quantity,
-    //       // });
-    //       acc.push(item);
-    //       console.log(acc);
-    //     }
-    //     return [...acc, item];
-    //   }, []);
-
-    //   console.log(updatedItems);
-
-    //   const updatedCart = {
-    //     table_id: Number(tableId),
-    //     // items: [
-    //     //   {
-    //     //     menu_id: food.id,
-    //     //     price: food.price,
-    //     //     quantity: Number(quantity),
-    //     //     total_price: food.price * quantity,
-    //     //   },
-    //     // ],
-    //     items: updatedItems,
-    //   };
-
-    //   props.setCart(updatedCart);
-    // }
-
-    // axios({
-    //   method: "post",
-    //   maxBodyLength: Infinity,
-    //   url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/create-order",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   data: updatedCart,
-    // }).then((response) => {
-    //   // console.log(response.data);
-    //   props.toggleOrderModal(!props.isOrderModalOpen);
-    // });
+    axios({
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/create-order",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: submittedCart,
+    }).then((response) => {
+      console.log(response.data);
+      props.toggleOrderModal(!props.isOrderModalOpen);
+      props.setCartItems([]);
+    });
   };
 
   return (
@@ -163,31 +89,38 @@ const FoodOrderModal = (props) => {
               />
             </div>
             <div className="mb-4">รายการ</div>
-            <div className="mb-20 flex items-center justify-between ">
-              <label htmlFor="quantity" className="grow">
-                {props.food.name}
-              </label>
-              <button
-                className="h-8 w-8 bg-red-200 hover:bg-red-300"
-                onClick={(e) => handleDecreaseQuantity(e)}
-              >
-                -
-              </button>
-              <input
-                type="number"
-                id="quantity"
-                name="quantity"
-                value={quantity}
-                className="mx-2.5 block w-14 border border-gray-400 p-1 text-right focus:border-blue-500 focus:ring-blue-500"
-                readOnly={true}
-              />
-              <button
-                className="h-8 w-8 bg-red-200 hover:bg-red-300"
-                onClick={(e) => handleIncreaseQuantity(e)}
-              >
-                +
-              </button>
-            </div>
+            <ul className="mb-20">
+              {props.cartItems.map((item, idx) => (
+                <li
+                  key={idx}
+                  className="mb-4 flex items-center justify-between"
+                >
+                  <label htmlFor="quantity" className="grow">
+                    ({item.menu_id}) {item.name}
+                  </label>
+                  <button
+                    className="h-8 w-8 bg-red-200 hover:bg-red-300"
+                    onClick={(e) => handleDecreaseQuantity(e)}
+                  >
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    id="quantity"
+                    name="quantity"
+                    value={item.quantity}
+                    className="mx-2.5 block w-14 border border-gray-400 p-1 text-right focus:border-blue-500 focus:ring-blue-500"
+                    readOnly={true}
+                  />
+                  <button
+                    className="h-8 w-8 bg-red-200 hover:bg-red-300"
+                    onClick={(e) => handleIncreaseQuantity(e)}
+                  >
+                    +
+                  </button>
+                </li>
+              ))}
+            </ul>
             <button
               className="w-full self-center rounded-[10px] bg-red-200 px-6 py-3 text-xl hover:bg-red-300"
               onClick={(e) => handleSubmitOrder(e)}
