@@ -1,21 +1,38 @@
+import axios from "axios";
+import {useState} from "react";
 const CartPopup = (props) => {
-  console.log("cartpopup",props);
-  const { cart, setCart, toggleCartPopup, setToggleCartPopup, onUpdateCartItem } = props;
+  console.log("cartpopup", props);
+  const {
+    cart,
+    setCart,
+    toggleCartPopup,
+    setToggleCartPopup,
+    onUpdateCartItem,
+  } = props;
+  const [tableId, setTableId] = useState(undefined);
+  const [receipt, setReceipt] = useState(undefined);
 
+  const submitOrder = () => {
+    const data = {
+      table_id: tableId,
+      items: cart.map((r) => ({
+        menu_id: r.id,
+        price: r.price,
+        quantity: r.quantity,
+        total_price: r.quantity*r.price,
+      })),
+    };
+    console.log(data);
 
-  // const onUpdateCartItem = (productId, quantity) => {
-  //   const newCart = [...cart]; //spread operator - include all the added objects
-  //   console.log("newcart", newCart);
-  //   const targetIndex = cart.findIndex((item) => item.productId === productId); //returns the index of the first element in an array that satisfies a provided testing function.
-  //   newCart[targetIndex].quantity += quantity;
+    axios({
+      method:"post",
+      url:"https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/create-order",
+      data:data,
+    }).then((response) => {
+      console.log("response" , response.data);
+    })
+  };
 
-  //   const newOrder = newCart.filter((item) => item.quantity > 0);
-  //   console.log("new order", newOrder);
-  //   setCart(newOrder);
-  // };
-  // console.log("update", onUpdateCartItem);
-  // console.log("cart", cart)
-  // console.log("new cart", setCart)
   return (
     <>
       <div className="flex">
@@ -41,6 +58,7 @@ const CartPopup = (props) => {
                 <div>
                   <input
                     type="number"
+                    onChange={(e) => setTableId(e.target.value)}
                     className="border-2 border-sky-500 w-12 h-8 mr-5 mb-4"
                   />
                 </div>
@@ -50,16 +68,14 @@ const CartPopup = (props) => {
                   <div className="flex">
                     <div className="text-neutral-50 flex-auto">
                       <div>{item.name}</div>
-
                       <div className="text-neutral-50">{item.price}</div>
                     </div>
 
                     <div>
-                      <button className="button bg-red-200 active:bg-red-400 px-2"
+                      <button
+                        className="button bg-red-200 active:bg-red-400 px-2"
                         onClick={() =>
-                          setCart(
-                            onUpdateCartItem(item, 1, cart, -1)
-                          )
+                          setCart(onUpdateCartItem(item, 1, cart, -1))
                         }
                       >
                         -
@@ -67,11 +83,10 @@ const CartPopup = (props) => {
                     </div>
                     <div className="text-neutral-50 px-2">{item.quantity}</div>
                     <div>
-                      <button className="button bg-red-200 active:bg-red-400 px-2"
+                      <button
+                        className="button bg-red-200 active:bg-red-400 px-2"
                         onClick={() =>
-                          setCart(
-                            onUpdateCartItem(item, 1, cart, 1)
-                          )
+                          setCart(onUpdateCartItem(item, 1, cart, 1))
                         }
                       >
                         +
@@ -81,7 +96,10 @@ const CartPopup = (props) => {
                 ))}
               </div>
               <div className="flex">
-                <button className="button bg-red-200 w-5/6 px-5 py-2 mx-auto mt-12 font-bold text-xl rounded-lg">
+                <button
+                  onClick={() => submitOrder()}
+                  className="button bg-red-200 w-5/6 px-5 py-2 mx-auto mt-12 font-bold text-xl rounded-lg"
+                >
                   Order
                 </button>
               </div>

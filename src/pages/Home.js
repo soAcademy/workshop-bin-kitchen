@@ -19,17 +19,27 @@ const onUpdateCartItem = (product, quantity, cart, sign, newCart) => {
     newCart = [...cart];
     newCart[idx].quantity += sign;
   }
+  // newCart[idx].filter((item) => item.quantity > 0);
   // const newCartQuantity = newCart.quantity += quantity; //spread operator - include all the added objects
-  return newCart;
+  return newCart.filter((item) => item.quantity > 0);
 };
 // console.log("update", onUpdateCartItem);
 // console.log("cart", cart)
 // console.log("new cart", setCart)
 
 const Home = ({ info }) => {
+  const getMenuUrl = process.env.REACT_APP_API_URL + "/get-menus";
   const [menus, setMenus] = useState();
   const [cart, setCart] = useState([]);
   const [toggleCartPopup, setToggleCartPopup] = useState(false);
+
+  useEffect(() => {
+    const fetch = async () => {
+      const result = await axios.post(getMenuUrl);
+      setMenus(result.data);
+    };
+    fetch();
+  }, []);
 
   console.log("cart", cart);
 
