@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import { datakitchenboeing } from "../datakitchen";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -8,10 +7,10 @@ const FoodOrder = () => {
   const [orders, setOrders] = useState([]);
   const [updateOrder, setUpdateOrder] = useState(false);
   const [allBillPrices, setAllBillPrices] = useState(0);
-  // console.log("table_id", tableId);
   const navigate = useNavigate();
   const tableList = [...Array(15).keys()];
 
+  // fire api to get status
   const updateOrderStatus = async (orderId) => {
     const statusUpdate = {
       order_id: orderId,
@@ -30,6 +29,7 @@ const FoodOrder = () => {
       itemUpdate
     );
   };
+  // fire api to get status end ####
 
   const checkBillsAll = () => {
     const sumPrices = orders.reduce((acc, r) => {
@@ -44,6 +44,7 @@ const FoodOrder = () => {
     setAllBillPrices(0);
   };
 
+  // fire api to get order จากแต่ละ table
   useEffect(() => {
     axios({
       method: "post",
@@ -60,6 +61,7 @@ const FoodOrder = () => {
         console.log("error:", error);
       });
   }, [tableId, updateOrder]);
+  // fire api to get order จากแต่ละ table end ####
 
   // fuction ที่พังได้ เราต้องเขียน  .catch เข้าไปด้วยเสมอ
   // เพื่อดัก error เวลาที่เราทำ production
@@ -108,7 +110,7 @@ const FoodOrder = () => {
       {orders.length === 0 && (
         <div className="my-9">
           <span className="text-xl text-gray-500 flex justify-center">
-            ---- ไม่มีออเดอร์สั่งอาหาร 🦀 ----
+            ---- ไม่มีออเดอร์สั่งอาหารขณะนี้ 🦀 ----
           </span>
         </div>
       )}
