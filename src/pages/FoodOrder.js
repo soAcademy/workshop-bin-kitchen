@@ -104,6 +104,14 @@ const FoodOrder = () => {
         </button>
       </div>
       {/* เช็คบิลรวม */}
+
+      {orders.length === 0 && (
+        <div className="my-9">
+          <span className="text-xl text-gray-500 flex justify-center">
+            ---- ไม่มีออเดอร์สั่งอาหาร 🦀 ----
+          </span>
+        </div>
+      )}
       {allBillPrices !== 0 && (
         <div className="mt-6 bg-orange-200 p-4 rounded-lg">
           <div className="text-lg">
