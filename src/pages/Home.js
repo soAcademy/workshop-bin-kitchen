@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import image from "../assets/banner.jpg";
-// import FoodMenuList from "../components/FoodMenuList";
 import FoodMenuGroup from "../components/FoodGroup";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import Order from "../components/Order";
 
 const info = `ร้านอาหารครัวคุณกอปรุงด้วยใจ เหมือนทำให้คนในครอบครัวทาน
@@ -18,10 +16,11 @@ const Home = () => {
   const [cart, setCart] = useState([]);
 
   const addItem = (menu) => {
+    console.log("menu:",menu)
     setTogglePopup(true);
     const checkMenu = cart.filter((r) => r.id === menu.id);
-    console.log("checkMenu", checkMenu);
-    let newMenu =[]
+    console.log("checkMenu:", checkMenu);
+    let newMenu = [];
     if (checkMenu.length > 0) {
       newMenu = cart.map((r) => {
         if (r.id === menu.id) {
@@ -31,10 +30,9 @@ const Home = () => {
         }
       });
     } else {
-     newMenu = 
-      [...cart, { ...menu, quantity: 1 }];
+      newMenu = [...cart, { ...menu, quantity: 1 }];
     }
-console.log("New Menu",newMenu);
+    console.log("New Menu", newMenu);
 
     // const newCart = [
     //   ...cart,
@@ -102,6 +100,8 @@ console.log("New Menu",newMenu);
       setCart(_cart);
     });
   }, []);
+  // console.log("foodMenus",foodMenus)
+  // console.log("cart",cart)
 
   return (
     <section className="w-full flex py-28 md:flex-row flex-col justify-center items-center">
@@ -128,8 +128,8 @@ console.log("New Menu",newMenu);
               foodMenus={foodMenus}
               categories={[...new Set(foodMenus?.map((r) => r.category))]}
               addItem={addItem}
-              // setCart={setCart}
             />
+
             {togglePopup && (
               <Order setTogglePopup={setTogglePopup} cart={cart} />
             )}

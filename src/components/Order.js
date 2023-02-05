@@ -9,8 +9,12 @@ const Order = (props) => {
   // [{ProductID:1, quantity:1, name:ผักคะน้า}]
   // const [toggleCartPopup, toggleCartPopup] = useState() เพื่อเช็คว่าเปิด popup ว่าเปิดอยู่รึป่าว
 
-  const addQuantity = () => {
+  const addQty = () => {
     
+  }
+
+  const deleteQty = () => {
+  
   }
 
 

@@ -1,6 +1,10 @@
 import FoodMenuList from "./FoodMenuList";
 
 const FoodMenuGroup = ({ foodMenus, categories, addItem }) => {
+  console.log("foodMenus",foodMenus)
+  console.log("categories",categories)
+  console.log("addItem",addItem)
+
   return (
     <div>
       {categories?.map((category) => (
@@ -15,4 +19,5 @@ const FoodMenuGroup = ({ foodMenus, categories, addItem }) => {
   );
 };
 
+// console.log("FoodMenuGroup:",FoodMenuGroup)
 export default FoodMenuGroup;

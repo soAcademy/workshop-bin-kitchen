@@ -1,15 +1,7 @@
 
 
 const FoodMenuList = (props) => {
-  // console.log("mockData", props);
-
-
-
-
-
-
-  
-
+  console.log("props:", props);
 
   return (
     <div>

@@ -20,6 +20,18 @@ export const Table = () => {
     });
   }, [tableId]);
 
+  const totalPrice = tableOrders
+    ?.filter((r) => r.status === "DONE")
+    // .map((p) => p.total_price)
+    .reduce(
+      (acc, t) => {
+        acc.total_price += t.total_price;
+        return acc;
+      },
+      { total_price: 0 }
+    );
+  console.log("totalPrice", totalPrice);
+
   // console.log("tableId:",tableOrders.map((r) => r.order_items))
   // const numberOfOrders = tableOrders.map((r) => r.order_items).map((item) => )
   // console.log("numberOfOrders",numberOfOrders);
@@ -41,9 +53,14 @@ export const Table = () => {
             </button>
           ))}
         </div>
-        โต๊ะที่เลือก: {tableId}
+        <div className="flex justify-between items-center">
+        <div className="">
+          โต๊ะที่ {tableId} ยอดรวม ฿{totalPrice.total_price}
+        </div>
+        <button className="border-2 border-white py-3 px-7 rounded-lg">Bill</button>
+        </div>
       </div>
-      <div className="bg-gray-500 h-full">
+      <div className="bg-white h-full">
         {tableOrders.map((r) => {
           return (
             <div className="text-4xl text-black">
@@ -53,10 +70,15 @@ export const Table = () => {
                 return (
                   <div className="flex justify-between">
                     <div>{item.name}</div>
-                    <div>{item.price} x {item.quantity}</div>
+                    <div>
+                      {item.price} x {item.quantity}
+                    </div>
                   </div>
                 );
               })}
+              <div className="flex justify-end">
+              <button className="bg-yellow-500 rounded-lg px-5 py-3">DONE</button>
+              </div>
             </div>
           );
         })}

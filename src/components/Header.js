@@ -9,7 +9,7 @@ const Header = () => {
   const [sticky, setSticky] = useState(false);
   const [open, setOpen] = useState(false);
   const menuLinks = [
-    { name: "FOOD MENU", link: "#foodMenu", image: <img src={menu} alt="menu"/>},
+    { name: "FOOD MENU", link: "/", image: <img src={menu} alt="menu"/>},
     { name: "ORDER LIST", link: "/Table" },
     { name: "HISTORY", link: "#history" },
   ];
