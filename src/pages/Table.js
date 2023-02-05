@@ -32,6 +32,20 @@ export const Table = () => {
     );
   console.log("totalPrice", totalPrice);
 
+  const doneOrder = (id) => {
+    const targetOrder = tableOrders.filter((r) => r.order_id === id);
+    console.log("targetOrder:", targetOrder);
+    // const updateOrder = [
+    //   ...tableOrders.filter((r) => r.order_id === targetOrder),
+    //   {
+    //     id,
+    //     status:"DONE",
+    //     // targetOrder.items.map        
+    //   },
+    // ];
+
+  }
+
   // console.log("tableId:",tableOrders.map((r) => r.order_items))
   // const numberOfOrders = tableOrders.map((r) => r.order_items).map((item) => )
   // console.log("numberOfOrders",numberOfOrders);
@@ -77,7 +91,7 @@ export const Table = () => {
                 );
               })}
               <div className="flex justify-end">
-              <button className="bg-yellow-500 rounded-lg px-5 py-3">DONE</button>
+              <button onClick={() => doneOrder(r.order_id)} className="bg-yellow-500 rounded-lg px-5 py-3">DONE</button>
               </div>
             </div>
           );
