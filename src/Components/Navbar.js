@@ -16,12 +16,12 @@ const Navbar = () => {
   });
 
   return (
-    <div className="modalNav fixed top-0 left-0 w-full font-prompt">
+    <div className="modalNav sticky top-0 w-full font-prompt">
       <div className="w-full flex justify-between items-center fixed top-0 bg-white z-30 shadow p-4">
-        <div className="flex items-center gap-4">
+        <Link to="/" className="flex items-center gap-4">
           <img src="./images/chef-hat.png" alt="chef-hat" />
           <p className="text-lg">ครัวคุณบิน by MK</p>
-        </div>
+        </Link>
         <button
           type="button"
           onClick={() => setHamShow(true)}
@@ -41,10 +41,10 @@ const Navbar = () => {
           <Link to="/" className="flex items-center">
             <p className="">เมนูอาหาร</p>
           </Link>
-          <Link to="/" className="flex items-center">
+          <Link to="/Orders" className="flex items-center">
             <p className="">รายการสั่งอาหาร</p>
           </Link>
-          <Link to="/" className="flex items-center">
+          <Link to="/Static" className="flex items-center">
             <p className="">สถิติ</p>
           </Link>
         </div>
@@ -63,8 +63,9 @@ const Navbar = () => {
             <ul className="mt-4">
               <li>
                 <Link
+                  onClick={() => setHamShow(false)}
                   to="/"
-                  className="flex items-center hover:bg-gray-100 rounded-full p-4"
+                  className="flex items-center hover:bg-red-100 rounded-full p-4"
                 >
                   <BiFoodMenu className="w-6" />
                   <p className="pl-3">เมนูอาหาร</p>
@@ -72,8 +73,9 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  to="/"
-                  className="flex items-center hover:bg-gray-100 rounded-full p-4"
+                  onClick={() => setHamShow(false)}
+                  to="/Orders"
+                  className="flex items-center hover:bg-red-100 rounded-full p-4"
                 >
                   <BsPencilSquare className="w-6" />
                   <p className="pl-3">รายการสั่งอาหาร</p>
@@ -81,8 +83,9 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  to="/"
-                  className="flex items-center hover:bg-gray-100 rounded-full p-4"
+                  onClick={() => setHamShow(false)}
+                  to="/Static"
+                  className="flex items-center hover:bg-red-100 rounded-full p-4"
                 >
                   <BsFileBarGraph className="w-6" />
                   <p className="pl-3">สถิติ</p>
@@ -94,7 +97,7 @@ const Navbar = () => {
               <button
                 type="button"
                 onClick={() => setHamShow(false)}
-                className="w-10 h-10 flex items-center hover:bg-gray-100 rounded-full p-2"
+                className="w-10 h-10 flex items-center hover:bg-red-100 rounded-full p-2"
               >
                 <FaTimes className="w-6" />
               </button>

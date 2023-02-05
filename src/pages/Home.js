@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import FoodMenusCategory from "../Components/FoodMenusCategory";
-// import foodMenus from "../assets/foodMenus";
 import axios from "axios";
 import PopupOrder from "../Components/PopupOrder";
+import LoadingPage from "../Components/LoadingPage";
 
 export const Home = () => {
   const [menuDatas, setMenuDatas] = useState([]);
   const [menuTypes, setMenuTypes] = useState([]);
   const [modalOrder, setModalOrder] = useState(false);
   const [orderListsState, setOrderListsState] = useState([]);
+  const [loadingPage, setLoadingPage] = useState(false);
 
   const shopData = {
     name: "ร้านอาหารครัวคุณบิน",
@@ -21,6 +22,7 @@ export const Home = () => {
   };
 
   useEffect(() => {
+    setLoadingPage(true);
     axios
       .post(
         // `https://api.allorigins.win/raw?url=https://pastebin.com/raw/x1EY0NL9`
@@ -30,7 +32,9 @@ export const Home = () => {
         // console.log(res.data);
         setMenuDatas(res.data);
         // console.log(menuData);
-      });
+        setLoadingPage(false);
+      })
+      .catch((error) => alert("Message: " + error.message));
   }, []);
 
   useEffect(() => {
@@ -40,35 +44,31 @@ export const Home = () => {
     // console.log(filterMenuType);
     setMenuTypes(filterMenuType);
     //   console.log(menuType);
+    const _orders = JSON.parse(localStorage.getItem("orders")) ?? [];
+    setOrderListsState(_orders);
   }, [menuDatas]);
+
+  //////////////////////////////////////////////////////////////////////////////////
+  const upOrderStUpdLocal = (orders) => {
+    setOrderListsState(orders);
+    localStorage.setItem("orders", JSON.stringify(orders));
+  };
 
   //////////////////////////////////////////////////////////////////////////////////
   const addBtnFunc = (menuData) => {
     // console.log(menuData);
+    const duplicateItem =
+      orderListsState.filter((order) => order.id === menuData.id).length > 0;
 
-    const _orders = JSON.parse(localStorage.getItem("orders")) ?? [];
-    const ckeckDupli = _orders.filter(
-      (order) => order.id === menuData.id
-    ).length;
-    // console.log(ckeckDupli);
+    const reAlign = duplicateItem
+      ? orderListsState.map((order) => {
+          return order.id === menuData.id
+            ? { ...order, quantity: order.quantity + 1 }
+            : order;
+        })
+      : [...orderListsState, { ...menuData, quantity: 1 }];
 
-    let reOrders = [];
-    if (ckeckDupli > 0) {
-      reOrders = _orders.map((order) => {
-        if (order.id === menuData.id) {
-          return { ...order, quantity: order.quantity + 1 };
-        } else {
-          return order;
-        }
-      });
-      // console.log(reOrders);
-    } else {
-      reOrders = [..._orders, { ...menuData, quantity: 1 }];
-      // console.log(reOrders);
-    }
-
-    localStorage.setItem("orders", JSON.stringify(reOrders));
-    setOrderListsState(reOrders);
+    upOrderStUpdLocal(reAlign);
     setModalOrder(true);
   };
 
@@ -76,24 +76,21 @@ export const Home = () => {
     <div className="font-prompt">
       <div className="pt-20 pb-4 px-4">
         <div className="md:flex justify-center mb-10">
-          <div className="md:flex flex-row-reverse gap-x-4 md:w-2/3">
-            <div className="md:w-1/2 md:flex items-center">
-              <div className="md:flex flex-col gap-y-8">
-                <div className="shopName mb-4">
-                  <h1 className="text-3xl text-center">{shopData.name}</h1>
-                </div>
-                <div className="shopDetail mb-4">
-                  <p className="text-sm">{shopData.detail}</p>
-                </div>
-              </div>
+          <div className="w-full md:w-2/3 lg:w-1/2">
+            <div className="shopName mb-4">
+              <h1 className="text-3xl text-center">{shopData.name}</h1>
             </div>
-
-            <div className="shopImage md:w-1/2">
-              <img
-                className="w-full rounded-lg"
-                src={shopData.imgUrl}
-                alt="banner"
-              />
+            <div className="md:flex flex-row-reverse gap-x-8">
+              <div className="shopDetail md:w-1/2 lg:w-2/5 mb-4 md:mb-0">
+                <p className="text-sm">{shopData.detail}</p>
+              </div>
+              <div className="shopImage md:w-1/2">
+                <img
+                  className="w-full rounded-lg"
+                  src={shopData.imgUrl}
+                  alt="banner"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -118,8 +115,11 @@ export const Home = () => {
           setModalOrder={setModalOrder}
           orderListsState={orderListsState}
           setOrderListsState={setOrderListsState}
+          upOrderStUpdLocal={upOrderStUpdLocal}
         />
       )}
+
+      {loadingPage && <LoadingPage />}
     </div>
   );
 };

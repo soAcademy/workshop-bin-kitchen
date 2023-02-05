@@ -4,9 +4,9 @@ const FoodMenusList = ({ menuData, addBtnFunc }) => {
   return (
     <div className="menuCard flex gap-x-4 rounded-lg hover:bg-gray-100 p-2">
       <div className="w-5/6 flex gap-x-4">
-        <div className="menuImage w-2/6 flex items-center aspect-[4/3]">
+        <div className="menuImage w-2/6 flex items-center ">
           <img
-            className="w-full max-h-20 object-cover h-full rounded-lg"
+            className="w-full aspect-[4/3] object-cover rounded-lg"
             src={menuData.image}
             alt=""
           />
@@ -17,7 +17,7 @@ const FoodMenusList = ({ menuData, addBtnFunc }) => {
           </div>
           <div className="menuPrice h-1/2 flex items-end">
             <div>
-              <p className="text-red-400">฿{menuData.price}</p>
+              <p className="text-red-400">฿{menuData.price.toLocaleString()}</p>
             </div>
           </div>
         </div>
