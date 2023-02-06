@@ -31,6 +31,14 @@ const Hamburger = () => {
             สถิติ
           </button>
         </div>
+        <div className="text-lg md:text-3xl">
+          <button
+            onClick={() => navigate("/quiz")}
+            className="hover:text-rose-500 hover:underline"
+          >
+            คำถามที่พบบ่อย
+          </button>
+        </div>
       </div>
     </>
   );

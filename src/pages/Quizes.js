@@ -1,27 +1,9 @@
-import pickitchen from "./assets/thaifood.jpeg";
-import hamburgericon from "./assets/menu_ham.png";
-import mealicon from "./assets/rabbit_icon.png";
-import closeicon from "./assets/closeicon.png";
-import like from "./assets/egg.png";
-import order from "./assets/order.png";
-import binbin from "./assets/binbin.png";
+import React, { useState } from "react";
+import { datakitchenboeing } from "../datakitchen";
+import Nav from "../components/Nav";
 
-export const datakitchenboeing = {
-  datadescription: `ร้านอาหารครัวกาตุ่ยปรุงด้วยใจ เหมือนทำให้คนในครอบครัวทาน
-  เราเปิดให้บริการตั้งแต่ 1000 ปีมาแล้วที่เรานำเสนอความ
-  อร่อยแบบไทยแท้ เราคัดสรรวัตถุดิบชั้นดี ปลอดภัย ออร์แกนิค จาก
-  เกษตรกรกระต่ายชาวไร่ในพื้นที่วันเดอแลนด์ ปรุงด้วยสูตรลับต้นตำรับแรงงานกระต่ายที่สืบทอด
-  กันมารุ่นสู่รุ่น จัดแต่งมาบนจาน พร้อมเสิร์ฟความอร่อยให้กับคุณ`,
-  url: pickitchen,
-  name: "ครัวกาตุ่ย",
-  nav_icon: hamburgericon,
-  nav_icon2: mealicon,
-  close_icon: closeicon,
-  like_icon: like,
-  order_icon: order,
-  bin_icon: binbin,
-  table: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-  quizes: [
+const Quizes = () => {
+  const quizs = [
     {
       question: "ซุปอะไรมีสารอาหารมากที่สุด",
       answers: ["ซุปไก่สกัด", "ซุปหางวัว", "ซุปเปอร์มาเก็ต", "ซุปหูฉลาม"],
@@ -57,5 +39,40 @@ export const datakitchenboeing = {
       answers: ["เกาะสีชัง", "เกาะกลางถนน", "เกาะช้าง", "เกาะเกร็ด"],
       answer: 1,
     },
-  ],
+  ];
+
+  const [toggleQuizs, setToggleQuizs] = useState(
+    [...Array(quizs.length)].map(() => false)
+  );
+  // // เก็บค่าแบบ multiple
+
+  const updateFagToggle = (idx) => {
+    const newToggleQuizs = [...toggleQuizs];
+    newToggleQuizs[idx] = !toggleQuizs[idx];
+
+    setToggleQuizs(newToggleQuizs);
+  };
+
+  return (
+    <>
+      <Nav />
+      {quizs?.map((quiz, idx) => (
+        <div
+          key={idx}
+          onClick={() => updateFagToggle(idx)}
+          className="py3 cursor-pointer flex flex-col "
+        >
+          <div className="bg-rose-400 px-7 py-3 text-white">
+            {idx + 1}. {quiz.question} ?
+          </div>
+          {/* toggle คำตอบ */}
+          {toggleQuizs[idx] && (
+            <div className="bg-red-200  px-7 py-4">{quiz.answers}</div>
+          )}
+        </div>
+      ))}
+    </>
+  );
 };
+
+export default Quizes;

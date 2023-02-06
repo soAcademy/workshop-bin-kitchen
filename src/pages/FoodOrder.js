@@ -141,12 +141,19 @@ const FoodOrder = () => {
           </button> */}
 
           <div className="flex items-center gap-2 justify-between">
-            <p>โต๊ะ {tableId} </p>
+            <p className="bg-rose-400 p-2 text-white rounded-md mb-2">
+              โต๊ะ {tableId}{" "}
+            </p>
           </div>
           <div>
             <div>
               <p>หมายเลขคำสั่งซื้อ {order.order_id}</p>
-              <p>สถานะ: {order.status}</p>
+              <p>
+                สถานะ:{" "}
+                <span className="font-semibold text-orange-500">
+                  {order.status}
+                </span>{" "}
+              </p>
             </div>
             {/* add .map() here */}
             {order?.items?.map((item, idx) => {
