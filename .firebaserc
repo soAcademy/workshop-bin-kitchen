@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "sprint-poom"
+  },
+  "targets": {
+    "sprint-poom": {
+      "hosting": {
+        "sprint-poom-kitchen": [
+          "sprint-poom-kitchen"
+        ]
+      }
+    }
+  }
+}
