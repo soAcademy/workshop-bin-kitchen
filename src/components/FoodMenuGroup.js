@@ -1,17 +1,31 @@
-import TestMenusList from "./FoodMenusList";
+import FoodMenusList from "./FoodMenusList";
 
-const FoodMenuGroup = (props) => {
+const FoodMenuGroup = ({
+  menus,
+  category,
+  setToggleCart,
+  cart,
+  setCart,
+  uniqCart,
+}) => {
   // console.log(props.category);
   // console.log(props.foodMenus);
-  const test = props.foodMenus.filter((r) => r.category === props.category);
+  // const test = props.menus.filter((r) => r.category === props.category);
   // console.log(test);
   return (
-    <>
-      <p className="mb-3.5">เมนู{props.category}</p>
-      {test.map((r, idx) => (
-        <TestMenusList key={idx} data={r} />
-      ))}
-    </>
+    <div className="">
+      <p className="mb-3.5 text-lg font-normal">เมนู{category}</p>
+      <FoodMenusList
+        setToggleCart={setToggleCart}
+        cart={cart}
+        // setCart={props.setCart}
+        uniqCart={uniqCart}
+        menus={menus.filter((r) => r.category === category)}
+      />
+      {/* {test.map((data, idx) => (
+        <FoodMenusList key={idx} data={data} setToggleCart={props.setToggleCart} cart={props.cart} setCart={props.setCart} />
+      ))} */}
+    </div>
   );
 };
 
