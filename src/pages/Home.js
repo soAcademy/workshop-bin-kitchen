@@ -64,6 +64,30 @@ const Home = () => {
     // );
     setCart(newMenu);
   };
+
+  const addQty = (id) => {
+    const updateCart = cart.map((r) => {
+      if (r.id === id) {
+        return { ...r, quantity: r.quantity + 1 };
+      } else {
+        return r;
+      }
+    })
+    setCart(updateCart)
+  }
+
+  const reduceQty = (id) => {
+    const updateCart = cart.map((r) => {
+      if (r.id === id) {
+        return { ...r, quantity: r.quantity - 1 };
+      } else {
+        return r;
+      }
+    })
+    const checkZeroQty = updateCart.filter((check) => check.quantity !== 0);
+    setCart(checkZeroQty)
+  }
+
   // console.log("Cart:",cart)
 
   // const _aACart = JSON.parse(localStorage.getItem("cart")) ?? [];
@@ -101,7 +125,7 @@ const Home = () => {
     });
   }, []);
   // console.log("foodMenus",foodMenus)
-  // console.log("cart",cart)
+  console.log("cart",cart)
 
   return (
     <section className="w-full flex py-28 md:flex-row flex-col justify-center items-center">
@@ -131,7 +155,7 @@ const Home = () => {
             />
 
             {togglePopup && (
-              <Order setTogglePopup={setTogglePopup} cart={cart} />
+              <Order setTogglePopup={setTogglePopup} cart={cart} addQty={addQty} reduceQty={reduceQty}/>
             )}
           </div>
         </div>

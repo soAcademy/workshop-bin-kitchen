@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Table } from "./pages/Table";
+import Faq from "./pages/Faq";
 // import FlexGrid from "./FlexGrid"
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/Table" element={<Table />} />
+            <Route exact path="/Faq" element={<Faq />} />
           </Routes>
           {/* <Order /> */}
         </div>

@@ -12,6 +12,7 @@ const Header = () => {
     { name: "FOOD MENU", link: "/", image: <img src={menu} alt="menu"/>},
     { name: "ORDER LIST", link: "/Table" },
     { name: "HISTORY", link: "#history" },
+    { name: "FAQ", link:"/Faq"},
   ];
   useEffect(() => {
     window.addEventListener("scroll", () => {
