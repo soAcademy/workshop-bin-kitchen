@@ -22,6 +22,7 @@ export const Faqs = () => {
 
   return (
     <div className="px-4 pt-4 font-nstl text-sm">
+      <h1 className="mb-4 font-prompt text-4xl font-bold">คำถามที่พบบ่อย</h1>
       <ul className="mb-4">
         {faqs.map((faq, idx) => (
           <li key={idx} className="mb-4">
