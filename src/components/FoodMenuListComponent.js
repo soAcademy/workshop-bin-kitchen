@@ -6,6 +6,8 @@ const FoodMenuList = ({
   category,
   onBypassAddButtonClicked,
   setOpenPop,
+  orders,
+  setOrders,
 }) => {
   return (
     <>
@@ -15,6 +17,8 @@ const FoodMenuList = ({
         <div className="md:grid grid-flow-row grid-cols-3 gap-4 xl:grid-cols-4 xl:gab-2">
           {menus?.map((menu) => (
             <FoodMenuItem
+            orders={orders}
+              setOrders={setOrders}
               setOpenPop={setOpenPop}
               onAddButtonClicked={(menuObj) => {
                 console.log("menu list" + JSON.stringify(menuObj));

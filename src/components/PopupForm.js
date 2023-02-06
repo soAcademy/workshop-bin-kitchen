@@ -1,32 +1,55 @@
 import React from "react";
-import { BsX, BsCart2 } from "react-icons/bs";
+import { BsX } from "react-icons/bs";
+import axios from "axios";
 
 const PopupForm = ({
-  onCloseButtonClicked,
-  onBypassAddButtonClickedToApps,
   orders,
   setOrders,
   setOpenPop,
 }) => {
-  // onBypassAddButtonClickedToApps();
-  // onCloseButtonClicked();
+
   console.log("popuporder", orders);
 
-  const [count, setCount] = React.useState(0);
+  const [tableId, setTableId] = React.useState(0);
 
-  const submitData = (e) => {
-    e.preventDefault(); // ใช้เพื่อป้องกันการ refresh หน้า ตอนกด submit
-    debugger;
-    const data = {
-      table: e.target["table"].value,
-      amount: e.target["amount"].value,
+  const updateCart = (menuId, amount) => {
+    console.log("menuId : " + menuId);
+    const index = orders.findIndex((order) => order.id === menuId);
+    const newOrders = [...orders];
+    newOrders[index].quantity += amount;
+    console.log("orders pop : ", newOrders);
+    setOrders(newOrders);
+  };
+
+  const submitOrder = () => {
+    console.log("tableId : ", tableId);
+    console.log("submitOrder : ", orders);
+
+    const orderData = {
+      table_id: Number(tableId),
+      items: orders.map((order) => ({
+        menu_id: order.id,
+        price: order.price,
+        quantity: order.quantity,
+        total_price: order.price * order.quantity,
+      })),
     };
-    console.log(data);
+    console.log("orderData : ", orderData);
+    axios({
+      method: "post",
+      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/create-order",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: orderData,
+    }).then((response) => {
+      console.log("Res.Data pop : ", response.data);
+    });
   };
 
   return (
     <>
-    {/* modal here */}
+      {/* modal here */}
       <div className="shadow-md w-full z-[50] fixed top-0 left-0">
         <div className="fixed inset-x-0 top-15  h-full bg-black bg-opacity-30 backdrop-blur-md flex justify-center items-center">
           <div className=""></div>
@@ -43,32 +66,21 @@ const PopupForm = ({
             <BsX />
           </button>
         </div>
-        <form className="p-4" onSubmit={(e) => submitData(e)}>
+        <div className="p-4">
           <div className="flex justify-between align-center h-[50px]">
             <div className="flex w-1/3 items-center align-center">
               หมายเลขโต๊ะ
             </div>
 
             <div className="flex bg-white w-1/3 h-[40px] items-center my-auto rounded-xl">
-              <div
-                onClick={() => setCount(count - 1)}
-                className="w-1/3 text-center text-md"
-              >
-                -
-              </div>
               <input
                 id="table"
-                value={count}
                 type="number"
-                className="w-1/3 text-center text-md"
+                placeholder="0"
+                className="mx-5 w-full text-center text-md"
+                onChange={(e) => setTableId(e.target.value)}
                 required
-              ></input>
-              <div
-                onClick={() => setCount(count + 1)}
-                className="w-1/3 text-center text-md"
-              >
-                +
-              </div>
+              />
             </div>
           </div>
 
@@ -81,25 +93,21 @@ const PopupForm = ({
                     {order.name}
                   </div>
                   <div className="flex bg-white w-1/3 h-[40px] items-center my-auto rounded-xl">
-                    <div
-                      onClick={() => setCount(count - 1)}
+                    <button
+                      onClick={() => updateCart(order.id, -1)}
                       className="w-1/3 text-center text-md"
                     >
                       -
-                    </div>
-                    <input
-                      id="amount"
-                      value={count}
-                      type="number"
-                      className="w-1/3 text-center text-md"
-                      required
-                    ></input>
-                    <div
-                      onClick={() => setCount(count + 1)}
+                    </button>
+                    <span className="w-1/3 text-center text-md">
+                      {order.quantity}
+                    </span>
+                    <button
+                      onClick={() => updateCart(order.id, 1)}
                       className="w-1/3 text-center text-md"
                     >
                       +
-                    </div>
+                    </button>
                   </div>
                 </div>
               </>
@@ -110,11 +118,12 @@ const PopupForm = ({
             <button
               className="w-full bg-yellow-600  text-white p-4 rounded-xl hover:bg-yellow-700"
               type="submit"
+              onClick={submitOrder}
             >
               Submit
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </>
   );

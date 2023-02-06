@@ -1,9 +1,17 @@
 import React from "react";
 
-const FoodMenuItem = ({ menu, setOpenPop }) => {
-  console.log("setOpenPop : " , setOpenPop);
+const FoodMenuItem = ({ menu, setOpenPop, orders, setOrders }) => {
+  console.log("setOpenPop : ", setOpenPop);
+
+  const updateCart = (foodOrder) => {
+    console.log("foodOrder : ", foodOrder);
+    console.log(" menu item orders : ", orders);
+    //todo: check existing order
+    return [...orders, { ...foodOrder, quantity: 1 }];
+  };
+
   return (
-    <div className="flex p-3 bg-gray-200 mt-3 rounded-lg md:grid grid-cols-1 ">
+    <div className="flex p-3  mt-3 rounded-lg md:grid grid-cols-1 ">
       {/* START IMAGE */}
       <div className="w-1/3 md:w-full">
         <img
@@ -34,8 +42,11 @@ const FoodMenuItem = ({ menu, setOpenPop }) => {
       >
         <div className="flex justify-center md:mt-3">
           <button
-            onClick={() => setOpenPop(true)}
-            className="md:w-full bg-yellow-600  text-white p-4 md:p-3 rounded-xl hover:bg-yellow-700"
+            onClick={() => {
+              setOpenPop(true);
+              setOrders(updateCart(menu));
+            }}
+            className="md:w-full bg-yellow-600  text-white p-4  rounded-xl "
           >
             ADD
           </button>

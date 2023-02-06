@@ -4,10 +4,11 @@ import { Home } from "./pages/Home";
 import { Order } from "./pages/Order";
 import { Statistic } from "./pages/Statistic";
 import NavBar from "./components/NavBarComponent";
+import QandA from "./pages/QandA";
+
 
 const App = () => {
-  const [orders, setOrders] = React.useState([]);
-  console.log("order  = ", orders);
+
   return (
     <>
       <BrowserRouter>
@@ -18,9 +19,9 @@ const App = () => {
             <Route exact path="/" element={<Home />} />
             <Route exact path="/statistic" element={<Statistic />} />
             <Route exact path="/order" element={<Order />} />
+            <Route exact path="/qanda" element={<QandA />} />
           </Routes>
 
-          {/* <button onClick={() => setOpenPop(true)}>open</button> */}
         </div>
       </BrowserRouter>
     </>

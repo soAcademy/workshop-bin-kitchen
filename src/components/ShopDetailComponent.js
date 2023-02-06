@@ -12,7 +12,7 @@ const ShopDetail = (props) => {
             <div className="pt-3 text-md md:text-lg lg:text-xl xl:text-2xl">
               <p>{props.homeContent.shopDescription}</p>
             </div>
-          </div>
+          </div> 
           {/* SEND NAME AND DESCRIPTION */}
   
           {/* START IMAGE */}
@@ -31,3 +31,4 @@ const ShopDetail = (props) => {
 }
 
 export default ShopDetail
+
