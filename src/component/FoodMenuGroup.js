@@ -1,13 +1,19 @@
 import FoodList from "../component/FoodList";
-const FoodMenuGroup = (props,className) => {
+const FoodMenuGroup = (props) => {
   console.log("FoodMenu props", props);
-  return props.categories?.map((r) => {
+  const {menu,setCart,addCart,categories} = props;
+  return categories?.map((r) => {
     return (
-      <FoodList
-      foodListData={props.foodAllData.filter((s) => s.category === r)}
-      category3={r}
+      <FoodList 
+      menuGroup={menu.filter((s) => s.category === r)}
+      categories={r}  
+      setCart={setCart}
+      addCart={addCart}
+    
+
       />
     );
   });
+  
 };
 export default FoodMenuGroup;
