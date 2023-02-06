@@ -25,7 +25,7 @@ const Faqs = () => {
             {
               <div
                 className={`bg-gray-200 duration-500 overflow-hidden z-10 transition-all 
-            ${isToggle[idx] ? "max-h-max p-2" : "max-h-0 p-0"}`}
+            ${isToggle[idx] ? "max-h-max p-2" : "max-h-0 p-0 px-2"}`}
               >
                 Answer : {e.answer}
               </div>
