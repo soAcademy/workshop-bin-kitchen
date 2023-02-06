@@ -6,8 +6,8 @@ export const Nav = () => {
   const [toggle, setToggle] = useState(false);
 
   return (
-    <div className="shadow-lg w-full h-16 fixed top-0 left-0">
-      <div className="md:flex justify-between bg-white py-4 px-7">
+    <div className="shadow-lg w-full h-16 fixed top-0 left-0 z-50">
+      <div className="md:flex justify-between bg-white py-5 px-7">
         <button
           onClick={() => setToggle(!toggle)}
           className="text-3xl absolute cursor-pointer md:hidden"
@@ -20,7 +20,7 @@ export const Nav = () => {
           </Link>
         </div>
         <ul
-          className={`md:flex md:items-center md:justify-end md:pb-0 pb-12 absolute md:static bg-white md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-300 ease-in ${
+          className={`md:flex md:items-center md:justify-end md:pb-0 pb-12 absolute md:static bg-white z-0 left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-300 ease-in ${
             toggle ? "top-15 " : "top-[-490px]"
           }`}
         >
