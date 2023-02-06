@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import ReactECharts from "echarts-for-react";
 import axios from "axios";
-import LoadingPages from "../Components/LoadingPage";
+import { UserContext } from "../App";
 
 const Static = () => {
-  const [statDatas, setStatDatas] = useState([]);
-  const [loadingPage, setLoadingPage] = useState(false);
+  const [barDatas, setBarDatas] = useState([]);
+  const [pieDatas, setPieDatas] = useState([]);
+  const [tbPieDatas, setTbPieDatas] = useState([]);
+  const { setLoadingPage } = useContext(UserContext);
 
   useEffect(() => {
     setLoadingPage(true);
@@ -19,18 +21,46 @@ const Static = () => {
     axios(config)
       .then(function (response) {
         // console.log(response.data);
-        const statOrder = [...new Set(response.data.map((data) => data.items))]
+        const barOrder = [...new Set(response.data.map((data) => data.items))]
           .flat()
           .reduce((acc, item) => {
-            const indexId = acc.findIndex((order) => order.id === item.id);
-            indexId > -1
-              ? (acc[indexId].quantity = acc[indexId].quantity + item.quantity)
-              : (acc = [...acc, item]);
+            const indexId = acc.findIndex(
+              (order) => order.menu_id === item.menu_id
+            );
+            if (indexId > -1) {
+              acc[indexId].quantity = acc[indexId].quantity + item.quantity;
+              acc[indexId].total_price =
+                acc[indexId].total_price + item.total_price;
+            } else {
+              acc = [...acc, item];
+            }
             return acc;
           }, [])
-          .sort((a, b) => a.id - b.id);
-        // console.log(statOrder);
-        setStatDatas(statOrder);
+          .sort((a, b) => b.quantity - a.quantity);
+        // console.log(barOrder);
+        setBarDatas(barOrder);
+
+        const valueOrder = barOrder.map((r) => ({
+          name: r.name,
+          value: r.total_price,
+        }));
+        // console.log(valueOrder);
+        setPieDatas(valueOrder);
+
+        const tbPieChart = [...new Set(response.data.map((r) => r.table_id))]
+          .sort((a, b) => a - b)
+          .map((tbNo) => {
+            // console.log(tbNo);
+            const cntFilTb = response.data.filter(
+              (r) => r.table_id === tbNo
+            ).length;
+            // console.log(cntFilTb);
+            return { name: "โต๊ะ " + tbNo, value: cntFilTb };
+          });
+
+        // console.log(tbPieChart);
+        setTbPieDatas(tbPieChart);
+
         setLoadingPage(false);
       })
       .catch(function (error) {
@@ -38,17 +68,17 @@ const Static = () => {
       });
   }, []);
 
-  const options = {
+  const barChart = {
     xAxis: {
       type: "value",
     },
     yAxis: {
       type: "category",
-      data: statDatas.map((r) => r.name),
+      data: barDatas.map((r) => r.name),
     },
     series: [
       {
-        data: statDatas.map((r) => r.quantity),
+        data: barDatas.map((r) => r.quantity),
         type: "bar",
       },
     ],
@@ -70,22 +100,107 @@ const Static = () => {
       fontSize: "8",
     },
     title: {
-      text: "จำนวนเมนูที่ขายได้",
+      text: "จำนวนเมนูที่สั่ง",
     },
   };
 
+  const pieChart = {
+    title: {
+      text: "ยอดขายรายเมนู",
+      left: "center",
+    },
+    tooltip: {
+      trigger: "item",
+    },
+    legend: {
+      orient: "vertical",
+      left: "left",
+      top: "10%",
+      itemGap: 5,
+      itemWidth: 20,
+      itemHeight: 8,
+    },
+    series: [
+      {
+        name: "เมนู",
+        type: "pie",
+        radius: "50%",
+        data: pieDatas,
+        left: "30%",
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: "rgba(0, 0, 0, 0.5)",
+          },
+        },
+        label: {
+          show: false,
+        },
+      },
+    ],
+  };
+
+  const tbPieChart = {
+    title: {
+      text: "โต๊ะที่สั่งมากสุด",
+      left: "center",
+    },
+    tooltip: {
+      trigger: "item",
+    },
+    legend: {
+      orient: "vertical",
+      left: "left",
+      top: "10%",
+      itemGap: 5,
+      itemWidth: 20,
+      itemHeight: 8,
+    },
+    series: [
+      {
+        name: "โต๊ะ",
+        type: "pie",
+        radius: "50%",
+        data: tbPieDatas,
+        left: "30%",
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: "rgba(0, 0, 0, 0.5)",
+          },
+        },
+        label: {
+          show: false,
+        },
+      },
+    ],
+  };
+
   return (
-    <div className="w-full md:flex justify-center font-prompt pt-20 p-4">
-      <div className="w-full md:w-1/2 bg-gray-100 p-2">
+    <div className="w-full font-prompt pt-20 p-4">
+      <div className="w-full mb-2 p-2">
         <ReactECharts
           style={{
             height: "400px",
           }}
-          option={options}
+          option={barChart}
         />
       </div>
-
-      {loadingPage && <LoadingPages />}
+      <div className="md:flex justify-between">
+        <div className="md:w-full mb-2 p-2">
+          <ReactECharts
+            style={{
+              height: "300px",
+            }}
+            option={pieChart}
+          />
+        </div>
+        <div className="md:w-full mb-2 p-2">
+          <ReactECharts option={tbPieChart} />
+        </div>
+      </div>
     </div>
   );
 };

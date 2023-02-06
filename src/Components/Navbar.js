@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaTimes } from "react-icons/fa";
+import { FaTimes, FaRegQuestionCircle } from "react-icons/fa";
 import { BiFoodMenu } from "react-icons/bi";
 import { BsPencilSquare, BsFileBarGraph } from "react-icons/bs";
 
@@ -16,7 +16,7 @@ const Navbar = () => {
   });
 
   return (
-    <div className="modalNav sticky top-0 w-full font-prompt">
+    <div className="modalNav sticky top-0 w-full font-prompt z-[100]">
       <div className="w-full flex justify-between items-center fixed top-0 bg-white z-30 shadow p-4">
         <Link to="/" className="flex items-center gap-4">
           <img src="./images/chef-hat.png" alt="chef-hat" />
@@ -46,6 +46,9 @@ const Navbar = () => {
           </Link>
           <Link to="/Static" className="flex items-center">
             <p className="">สถิติ</p>
+          </Link>
+          <Link to="/Faq" className="flex items-center">
+            <p className="">คำถามที่พบบ่อย</p>
           </Link>
         </div>
       </div>
@@ -89,6 +92,16 @@ const Navbar = () => {
                 >
                   <BsFileBarGraph className="w-6" />
                   <p className="pl-3">สถิติ</p>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  onClick={() => setHamShow(false)}
+                  to="/Faq"
+                  className="flex items-center hover:bg-red-100 rounded-full p-4"
+                >
+                  <FaRegQuestionCircle className="w-6" />
+                  <p className="pl-3">คำถามที่พบบ่อย</p>
                 </Link>
               </li>
             </ul>

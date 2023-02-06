@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import LoadingPage from "../Components/LoadingPage";
+import { UserContext } from "../App";
 
 const Orders = () => {
   const [tableNumber, setTableNumber] = useState(0);
   const [orders, setOrders] = useState([]);
   const [totalCheck, setTotalCheck] = useState("...");
-  const [loadingPage, setLoadingPage] = useState(false);
+  const { setLoadingPage } = useContext(UserContext);
 
   const tableNo = [...Array(15).keys()];
 
@@ -184,8 +184,6 @@ const Orders = () => {
           )}
         </div>
       </div>
-
-      {loadingPage && <LoadingPage />}
     </div>
   );
 };

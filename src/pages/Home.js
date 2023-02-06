@@ -1,15 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import FoodMenusCategory from "../Components/FoodMenusCategory";
 import axios from "axios";
 import PopupOrder from "../Components/PopupOrder";
-import LoadingPage from "../Components/LoadingPage";
+import { UserContext } from "../App";
 
 export const Home = () => {
   const [menuDatas, setMenuDatas] = useState([]);
   const [menuTypes, setMenuTypes] = useState([]);
   const [modalOrder, setModalOrder] = useState(false);
   const [orderListsState, setOrderListsState] = useState([]);
-  const [loadingPage, setLoadingPage] = useState(false);
+  // const [loadingPage, setLoadingPage] = useState(false);
+  const { setLoadingPage } = useContext(UserContext);
 
   const shopData = {
     name: "ร้านอาหารครัวคุณบิน",
@@ -118,8 +119,6 @@ export const Home = () => {
           upOrderStUpdLocal={upOrderStUpdLocal}
         />
       )}
-
-      {loadingPage && <LoadingPage />}
     </div>
   );
 };
