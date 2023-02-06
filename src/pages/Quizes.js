@@ -64,6 +64,12 @@ const Quizes = () => {
         >
           <div className="bg-rose-400 px-7 py-3 text-white">
             {idx + 1}. {quiz.question} ?
+            <button
+              onClick={() => updateFagToggle(idx)}
+              className="bg-white text-rose-600 p-1 ml-4 rounded-[10px] hover:bg-rose-600 hover:text-white "
+            >
+              click
+            </button>
           </div>
           {/* toggle คำตอบ */}
           {toggleQuizs[idx] && (
