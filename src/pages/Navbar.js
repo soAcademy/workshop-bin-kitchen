@@ -55,6 +55,13 @@ const Navbar = () => {
               สถิติ
             </span>
           </Link>
+          <Link to="/faq">
+            <span className={`"decoration-transparent hover:underline hover:decoration-black duration-500 rounded" ${
+                      location.pathname === "/faq" ? "underline" : ""
+                    }`}>
+              FAQ
+            </span>
+          </Link>
         </div>
       </div>
       {/* HAMBURGER MENU */}
