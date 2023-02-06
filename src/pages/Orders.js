@@ -6,6 +6,7 @@ export const Orders = () => {
   const [tableId, setTableId] = useState(0);
   const [ordersByTable, setOrdersByTable] = useState([]);
   const [orderStatusFlag, toggleOrderStatusFlag] = useState(false);
+  const [grandTotal, setGrandTotal] = useState(0);
 
   const statusTH = {
     DONE: "ทำเสร็จแล้ว",
@@ -28,6 +29,14 @@ export const Orders = () => {
       })
       .catch((error) => console.log(error));
   }, [tableId, orderStatusFlag]);
+
+  const handleCalculateGrandTotal = (ordersByTable) => {
+    const grandTotal = ordersByTable
+      .reduce((acc, order) => acc + order.total_price, 0)
+      .toLocaleString("TH");
+
+    setGrandTotal(grandTotal);
+  };
 
   const handleMarkStatus = (order_id, status) => {
     const data = {
@@ -73,6 +82,13 @@ export const Orders = () => {
           ` ยอดรวม ฿${ordersByTable
             .reduce((acc, order) => acc + order.total_price, 0)
             .toLocaleString("TH")}`}
+        <button
+          onClick={() => handleCalculateGrandTotal(ordersByTable)}
+          className="self-center rounded-[10px] bg-red-400 px-6 py-3 hover:bg-red-500"
+        >
+          เช็กบิล
+        </button>
+        {grandTotal}
       </div>
       {/* <div className="mb-6">Number of Orders: {ordersByTable.length}</div> */}
       <ul className="mb-6">
