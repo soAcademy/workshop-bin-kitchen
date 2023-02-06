@@ -4,17 +4,24 @@ import axios from "axios";
 const Order = () => {
   const [orders, setOrders] = useState([]);
   const [tableId, setTableId] = useState(0);
+  const order = JSON.parse(localStorage.getItem("orders")) ?? [];
+  const [totalPrice, setTotalPrice] = useState(undefined);
 
   useEffect(() => {
     axios({
       method: "post",
       url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders-by-table",
-      data: { table_id: tableId },
+      data: {table_id: tableId },
     }).then((response) => {
       console.log("orderByTableID:", response.data);
       setOrders(response.data);
     });
   }, [tableId]);
+
+  const calculateTotalPrice = () => {
+    // orders.reduce((r))
+    setTotalPrice();
+  };
 
   const tableList = [...Array(15).keys()];
   return (
@@ -33,6 +40,13 @@ const Order = () => {
         ))}
         <div className="h-full w-screen center py-5 px-8 text-sm border border-green-800">
           จำนวนคำสั่งซื้อ: {orders?.length}
+          <div>มูลค่าคำสั่งซื้อรวม {totalPrice} </div>
+          <button
+            className="bg-green-800 text-white px-4 py-2 rounded-lg mt-2"
+            onClick={() => calculateTotalPrice()}
+          >
+            คิดเงิน
+          </button>
           {orders?.map((order) => (
             <div className="py-2 text-sm">
               <div>หมายเลขคำสั่งซื้อ #{order.order_id}</div>
@@ -46,6 +60,7 @@ const Order = () => {
                   </div>
                 </div>
               ))}
+              {/* <button onClick ={() => updateOrderStatus}></button> */}
               <div className="text-right my-2">
                 รวม ฿{order.total_price.toLocaleString()}
               </div>

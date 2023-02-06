@@ -2,7 +2,6 @@ import { BiListUl } from "react-icons/fa";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import FoodMenuGroup from "../Components/FoodMenuGroup";
-import FoodMenuList from "../Components/FoodMenuList";
 import { CartPopup } from "../Components/CartPopup";
 
 // const sum = (a,b) => {
