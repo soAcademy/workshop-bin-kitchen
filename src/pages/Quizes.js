@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { datakitchenboeing } from "../datakitchen";
 import Nav from "../components/Nav";
+import Hamburger from "../components/Hamburger";
+import Overlay from "../components/Overlay";
 
 const Quizes = () => {
   const quizs = [
@@ -45,6 +47,7 @@ const Quizes = () => {
     [...Array(quizs.length)].map(() => false)
   );
   // // เก็บค่าแบบ multiple
+  const [isHamburgerOn, setIsHamburgerOn] = useState(false);
 
   const updateFagToggle = (idx) => {
     const newToggleQuizs = [...toggleQuizs];
@@ -53,9 +56,19 @@ const Quizes = () => {
     setToggleQuizs(newToggleQuizs);
   };
 
+  const handleHamburgerToggle = () => {
+    setIsHamburgerOn(!isHamburgerOn);
+    // ทำให้ setIsHamburger เป็น toggle
+  };
+
+  const handleHamburgerOff = () => {
+    setIsHamburgerOn(false);
+  };
+
   return (
     <>
-      <Nav />
+      <Nav hamOn={handleHamburgerToggle} isHamburgerOn={isHamburgerOn} />
+
       {quizs?.map((quiz, idx) => (
         <div
           key={idx}
