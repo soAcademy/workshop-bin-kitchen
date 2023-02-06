@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Table } from "./pages/Table";
 import Faq from "./pages/Faq";
+import Static from "./pages/Static"
 // import FlexGrid from "./FlexGrid"
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
             <Route exact path="/" element={<Home />} />
             <Route exact path="/Table" element={<Table />} />
             <Route exact path="/Faq" element={<Faq />} />
+            <Route exact path="/Static" element={<Static />} />
           </Routes>
           {/* <Order /> */}
         </div>

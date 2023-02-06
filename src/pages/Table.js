@@ -33,18 +33,18 @@ export const Table = () => {
   console.log("totalPrice", totalPrice);
 
   const doneOrder = (id) => {
-    const targetOrder = tableOrders.filter((r) => r.order_id === id)[0];
+    const targetOrder = tableOrders.filter((r) => r.order_id === id);
     console.log("targetOrder:", targetOrder);
-    // console.log("t:",targetOrder.map((t) => {return (t)}))
-    const updateOrder = [
-      ...tableOrders.filter((r) => r.order_id !== id),
-      {
-        ...targetOrder, status:"DONE"
-      },
-    ];
-    console.log("updateOrder:", updateOrder);
-    setTableOrders(updateOrder.sort((a,b) => b.order_id - a.order_id));
-  };
+    // const updateOrder = [
+    //   ...tableOrders.filter((r) => r.order_id === targetOrder),
+    //   {
+    //     id,
+    //     status:"DONE",
+    //     // targetOrder.items.map        
+    //   },
+    // ];
+
+  }
 
   // console.log("tableId:",tableOrders.map((r) => r.order_items))
   // const numberOfOrders = tableOrders.map((r) => r.order_items).map((item) => )
@@ -68,12 +68,10 @@ export const Table = () => {
           ))}
         </div>
         <div className="flex justify-between items-center">
-          <div className="">
-            โต๊ะที่ {tableId} ยอดรวม ฿{totalPrice.total_price}
-          </div>
-          <button className="border-2 border-white py-3 px-7 rounded-lg bg-yellow-500 text-black text-3xl font-semibold">
-            BILL
-          </button>
+        <div className="">
+          โต๊ะที่ {tableId} ยอดรวม ฿{totalPrice.total_price}
+        </div>
+        <button className="border-2 border-white py-3 px-7 rounded-lg">Bill</button>
         </div>
       </div>
       <div className="bg-white h-full">
@@ -93,14 +91,7 @@ export const Table = () => {
                 );
               })}
               <div className="flex justify-end">
-                {r.status === "WAITING" && (
-                <button
-                  onClick={() => doneOrder(r.order_id)}
-                  className="bg-yellow-500 rounded-lg px-5 py-3"
-                >
-                  DONE
-                </button>
-                )}
+              <button onClick={() => doneOrder(r.order_id)} className="bg-yellow-500 rounded-lg px-5 py-3">DONE</button>
               </div>
             </div>
           );

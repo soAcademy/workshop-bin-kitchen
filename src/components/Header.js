@@ -11,7 +11,7 @@ const Header = () => {
   const menuLinks = [
     { name: "FOOD MENU", link: "/", image: <img src={menu} alt="menu"/>},
     { name: "ORDER LIST", link: "/Table" },
-    { name: "HISTORY", link: "#history" },
+    { name: "STATIC", link: "/Static" },
     { name: "FAQ", link:"/Faq"},
   ];
   useEffect(() => {
