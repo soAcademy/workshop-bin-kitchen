@@ -108,7 +108,7 @@ export const Home = () => {
         total_price: order.amount * order.price,
       })),
     };
-    fireCreateOrder(createOrderMenu).then(() => {
+    fireCreateOrder(createOrderMenu).then((res) => {
       handleFoodOrderOff();
       clearState();
     });
