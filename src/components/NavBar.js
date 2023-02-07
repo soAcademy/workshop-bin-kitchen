@@ -10,7 +10,7 @@ const NavBar = () => {
     { name: "รายการสั่งอาหาร", url: "kitchen/order" },
     { name: "สถิติ", url: "kitchen/stat" },
     { name: "TBC", url: "*" },
-    { name: "TBC", url: "*" },
+    { name: "FAQs", url: "kitchen/faqs" },
   ];
   return (
     <>

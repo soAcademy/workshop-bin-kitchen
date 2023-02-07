@@ -4,6 +4,7 @@ import Stat from "./pages/Stat";
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
+import Faqs from "./pages/Faqs";
 
 const info = {
   title: "ร้านอาหารครัวคุณบิน",
@@ -22,8 +23,8 @@ const App = () => {
             <Route exact path="main" element={<Home info={info} />} />
             <Route exact path="order" element={<OrderList />} />
             <Route exact path="stat" element={<Stat />} />
-            {/* <Route exact path="hobbies" element={<Hobbies />} />
-          <Route exact path="contact" element={<Contact />} /> */}
+            {/* <Route exact path="hobbies" element={<Hobbies />} /> */}
+            <Route exact path="faqs" element={<Faqs />} />
           </Route>
           <Route
             className="bg-red-200 rounded-lg m-2 mt-12 p-2 w-[100px] font-bold"
