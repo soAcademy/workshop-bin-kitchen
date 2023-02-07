@@ -7,7 +7,7 @@ const NavBar = () => {
   const Links = [
     { id: "L1", name: "Home", link: "/" },
     { id: "L2", name: "Order", link: "/order" },
-    { id: "L3", name: "Statistic", link: "/menu" },
+    { id: "L3", name: "Statistic", link: "/statistic" },
     { id: "L4", name: "Q&A", link: "/qanda" },
   ];
 

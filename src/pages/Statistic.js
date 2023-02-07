@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import FoodMenuGroup from "../components/FoodMenuGroupComponent";
-import ShopDetail from "../components/ShopDetailComponent";
-import PopupForm from "../components/PopupForm";
+import { ChartCountByName } from "../components/ChartCountByName";
+import { ChartTotalPriceByName } from "../components/ChartTotalPriceByName";
 
 export const Statistic = () => {
   return (
-    <div></div>
+    <>
+      <div className="mt-24">
+        <ChartCountByName></ChartCountByName>
+        <ChartTotalPriceByName></ChartTotalPriceByName>
+      </div>
+    </>
   );
 };
