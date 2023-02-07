@@ -48,6 +48,9 @@ export const Stat = () => {
     title: {
       text: "Most Popular Menu",
     },
+    grid: {
+      containLabel: false,
+    },
     xAxis: {
       type: "value",
       name: "Quantity",
@@ -64,7 +67,7 @@ export const Stat = () => {
       },
       axisLabel: {
         interval: 0,
-        height: 20,
+        // height: 20,
       },
     },
     series: [
@@ -72,6 +75,8 @@ export const Stat = () => {
         data: ordersByMenuItem(orders).map((menuItem) => menuItem.quantity),
         type: "bar",
         color: "#2563eb",
+        // barWidth: 10,
+        // barCategoryGap: 10,
       },
     ],
     tooltip: {
@@ -80,12 +85,47 @@ export const Stat = () => {
   };
   // console.log(ordersByMenuItem(orders));
 
+  const optionForBestSellingMenu = {
+    title: {
+      text: "Best Selling Menu",
+    },
+    tooltip: {
+      trigger: "item",
+    },
+    legend: {
+      orient: "vertical",
+      left: "left",
+      top: "bottom",
+    },
+    series: [
+      {
+        name: "Menu item",
+        type: "pie",
+        radius: "50%",
+        data: ordersByMenuItem(orders)
+          .map((menuItem) => ({
+            value: menuItem.price * menuItem.quantity,
+            name: menuItem.name,
+          }))
+          .sort((a, b) => b.value - a.value),
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: "rgba(0, 0, 0, 0.5)",
+          },
+        },
+      },
+    ],
+  };
+
   return (
     <div className="px-4 pt-4 font-nstl text-sm">
       <h1 className="mb-4 font-prompt text-4xl font-bold">สถิติ</h1>
       {/* <p className="mb-4">สถิติ</p> */}
+      <ReactECharts option={optionForMostPopularMenu} style={{ height: 400 }} />
+      <ReactECharts option={optionForBestSellingMenu} style={{ height: 400 }} />
       {/* <p>{JSON.stringify(ordersByMenuItem(orders))}</p> */}
-      <ReactECharts option={optionForMostPopularMenu} />
     </div>
   );
 };
