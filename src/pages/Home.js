@@ -77,12 +77,12 @@ export const Home = () => {
     <div className="font-prompt">
       <div className="pt-20 pb-4 px-4">
         <div className="md:flex justify-center mb-10">
-          <div className="w-full md:w-2/3 lg:w-1/2">
-            <div className="shopName mb-4">
+          <div className="w-full md:w-2/3">
+            <div className="shopName mb-8">
               <h1 className="text-3xl text-center">{shopData.name}</h1>
             </div>
             <div className="md:flex flex-row-reverse gap-x-8">
-              <div className="shopDetail md:w-1/2 lg:w-2/5 mb-4 md:mb-0">
+              <div className="shopDetail md:w-1/2 mb-4 md:mb-0">
                 <p className="text-sm">{shopData.detail}</p>
               </div>
               <div className="shopImage md:w-1/2">

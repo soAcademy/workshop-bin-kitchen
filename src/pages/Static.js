@@ -70,11 +70,16 @@ const Static = () => {
 
   const barChart = {
     xAxis: {
-      type: "value",
-    },
-    yAxis: {
       type: "category",
       data: barDatas.map((r) => r.name),
+      axisLabel: {
+        rotate: 80,
+        margin: 2,
+      },
+    },
+    yAxis: {
+      type: "value",
+      max: Math.max(...barDatas.map((r) => r.quantity)) + 10,
     },
     series: [
       {
