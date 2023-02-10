@@ -41,11 +41,11 @@ const Menu = () => {
   const uniqueCategory = [...new Set(category)];
 
   return (
-    <div className="flex flex-col justify-center items-center md:grid md:grid-cols-2 gap-4 xl:grid-cols-3 md:items-start">
+    <div className="flex flex-col items-center justify-center gap-4 md:grid md:grid-cols-2 md:items-start xl:grid-cols-3">
       {uniqueCategory.map((category, idx) => {
         return (
-          <div key={idx} className="relative space-y-4 py-4 z-10 w-full">
-            <div className="text-2xl md:text-2xl lg:text-3xl font-semibold">
+          <div key={idx} className="relative z-10 w-full space-y-4 py-4">
+            <div className="text-2xl font-semibold md:text-2xl lg:text-3xl">
               เมนู{category}
             </div>
             {foodMenus
@@ -53,18 +53,18 @@ const Menu = () => {
               .map((menu, jdx) => {
                 return (
                   <div key={jdx} className="w-full ">
-                    <div className="flex flex-row h-20 sm:h-32 py-2 overflow-hidden my-2 items-center">
-                      <div className="max-[300px]:w-24 w-[90px] sm:w-32 h-full">
+                    <div className="my-2 flex h-20 flex-row items-center overflow-hidden py-2 sm:h-32">
+                      <div className="max-[300px]:w-24 h-full w-[90px] sm:w-32">
                         <img
                           src={menu.image}
-                          className="rounded-lg object-cover h-full w-full"
+                          className="h-full w-full rounded-lg object-cover"
                         />
                       </div>
-                      <div className="w-8/12 ml-10 max-[300px]:ml-6 flex flex-col justify-evenly h-full">
+                      <div className="max-[300px]:ml-6 ml-10 flex h-full w-8/12 flex-col justify-evenly">
                         <div className="max-[300px]:text-xs sm:text-lg md:text-xl">
                           {menu.name}
                         </div>
-                        <div className="max-[300px]:text-xs text-red-500 font-semibold sm:text-lg md:text-xl">
+                        <div className="max-[300px]:text-xs font-semibold text-red-500 sm:text-lg md:text-xl">
                           ฿{menu.price}
                         </div>
                       </div>
@@ -72,7 +72,7 @@ const Menu = () => {
                         className={`${menu.amount > 1 ? "flex" : "hidden"}`}
                       >
                         <button
-                          className={`w-10 h-8 bg-red-400 rounded-md md:w-10 md:h-6 hover:bg-red-500 active:bg-red-300 shadow-md hover:shadow-lg duration-150`}
+                          className={`h-8 w-10 rounded-md bg-red-400 shadow-md duration-150 hover:bg-red-500 hover:shadow-lg active:bg-red-300 md:h-6 md:w-10`}
                           onClick={() => {
                             if (menu.amount > 1) {
                               updateMenuAmount(menu.name, menu.amount - 1); // UPDATE MENU AMOUNT
@@ -85,11 +85,11 @@ const Menu = () => {
                         >
                           -
                         </button>
-                        <span className="w-6 mx-2 text-center my-auto">
+                        <span className="mx-2 my-auto w-6 text-center">
                           {menu.amount}
                         </span>
                         <button
-                          className="w-10 h-8 bg-red-400 rounded-md md:w-10 md:h-6 hover:bg-red-500 active:bg-red-300 shadow-md hover:shadow-lg duration-150"
+                          className="h-8 w-10 rounded-md bg-red-400 shadow-md duration-150 hover:bg-red-500 hover:shadow-lg active:bg-red-300 md:h-6 md:w-10"
                           onClick={() => {
                             updateMenuAmount(menu.name, menu.amount + 1); // UPDATE MENU AMOUNT
                             setButtonClicked(!buttonClicked); // WHEN THE BUTTON IS CLICKED
@@ -101,7 +101,7 @@ const Menu = () => {
                       <button
                         className={`${
                           menu.amount > 1 ? "hidden" : "flex"
-                        } rounded-lg px-4 py-2 w-2/12 h-1/2 bg-red-400 items-center justify-center md:h-[40px] hover:bg-red-500 active:bg-red-300 shadow-md hover:shadow-lg duration-150`}
+                        } h-1/2 w-2/12 items-center justify-center rounded-lg bg-red-400 px-4 py-2 shadow-md duration-150 hover:bg-red-500 hover:shadow-lg active:bg-red-300 md:h-[40px]`}
                         onClick={() => {
                           setIsOrderOpen(true); // OPEN ORDER POPUP
                           menuSelected[menu.name] = {
@@ -114,7 +114,7 @@ const Menu = () => {
                         }}
                       >
                         <p className="hidden sm:block">เพิ่ม</p>
-                        <p className="sm:hidden text-xl mb-1">+</p>
+                        <p className="mb-1 text-xl sm:hidden">+</p>
                       </button>
                     </div>
                   </div>
@@ -123,19 +123,19 @@ const Menu = () => {
           </div>
         );
       })}
-        <button
-        onClick={()=>setIsOrderOpen(!isOrderOpen)}
-          className="text-3xl w-14 h-14 p-2
-          rounded-full bg-white hover:bg-gray-100 fixed bottom-4 right-4 z-50 flex justify-center
-          items-center shadow-lg border-2"
-          >
-          <div className="relative right-[2px] ">
-            <AiOutlineShoppingCart />
-          </div>
+      <button
+        onClick={() => setIsOrderOpen(!isOrderOpen)}
+        className="fixed bottom-4 right-4 z-50
+          flex h-14 w-14 items-center justify-center rounded-full border-2 bg-white p-2
+          text-3xl shadow-lg hover:bg-gray-100"
+      >
+        <div className="relative right-[2px] ">
+          <AiOutlineShoppingCart />
+        </div>
       </button>
       <div
-        className={`flex fixed w-full bottom-0 left-0 justify-center md:bottom-4 z-30 duration-500 ${
-          isOrderOpen ? "" : "translate-y-full opacity-0 z-0"
+        className={`fixed bottom-0 left-0 z-30 flex w-full justify-center duration-500 md:bottom-4 ${
+          isOrderOpen ? "" : "z-0 translate-y-full opacity-0"
         }`}
       >
         <OrderPopUp
@@ -152,8 +152,8 @@ const Menu = () => {
       </div>
       {/* DISPLAY SHADER WHEN ORDER POPPED-UP */}
       <div
-        className={`BLACK-SHADER bg-black fixed top-0 left-0 h-screen w-screen  duration-500 ${
-          isOrderOpen ? "z-20 opacity-[0.15]" : "opacity-0 z-0"
+        className={`BLACK-SHADER fixed top-0 left-0 h-screen w-screen bg-black  duration-500 ${
+          isOrderOpen ? "z-20 opacity-[0.15]" : "z-0 opacity-0"
         }`}
         onClick={() => setIsOrderOpen(false)}
       ></div>

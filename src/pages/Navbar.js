@@ -17,48 +17,56 @@ const Navbar = () => {
   }, [isNavOpen]);
   return (
     <div className={"flex flex-col font-kanit"}>
-      <div className="fixed top-0 h-14 md:h-20 shadow-md shadow-gray-300 w-screen flex items-center bg-white z-40">
+      <div className="fixed top-0 z-40 flex h-14 w-screen items-center bg-white shadow-md shadow-gray-300 md:h-20">
         {/* MOBILE MENU */}
-        <div className="MOBILE-MENU flex space-x-2 ml-4 md:hidden">
+        <div className="MOBILE-MENU ml-4 flex space-x-2 md:hidden">
           <span
-            className="space-y-2 flex flex-col justify-center cursor-pointer"
+            className="flex cursor-pointer flex-col justify-center space-y-2"
             onClick={() => setIsNavOpen(!isNavOpen)}
           >
             <div className="h-0.5 w-8 bg-gray-500"></div>
             <div className="h-0.5 w-8 bg-gray-500"></div>
             <div className="h-0.5 w-8 bg-gray-500"></div>
           </span>
-          <span className="max-[300px]:text-lg text-2xl pl-3 ">ครัวคุณบิน</span>
+          <span className="max-[300px]:text-lg pl-3 text-2xl ">ครัวคุณบิน</span>
         </div>
         {/* DESKTOP MENU */}
-        <div className="DESKTOP-MENU hidden md:block flex mx-auto space-x-8">
+        <div className="DESKTOP-MENU mx-auto flex hidden space-x-8 md:block">
           <Link to="/menu">
             <span
-              className={`"decoration-transparent hover:underline hover:decoration-black duration-500 rounded" ${
-                      location.pathname === "/menu" || location.pathname === "/" ? "underline" : ""
-                    }`}
+              className={`"decoration-transparent rounded" duration-500 hover:underline hover:decoration-black ${
+                location.pathname === "/menu" || location.pathname === "/"
+                  ? "underline"
+                  : ""
+              }`}
             >
               เมนูอาหาร
             </span>
           </Link>
           <Link to="/order">
-            <span className={`"decoration-transparent hover:underline hover:decoration-black duration-500 rounded" ${
-                      location.pathname === "/order" ? "underline" : ""
-                    }`}>
+            <span
+              className={`"decoration-transparent rounded" duration-500 hover:underline hover:decoration-black ${
+                location.pathname === "/order" ? "underline" : ""
+              }`}
+            >
               รายการสั่งอาหาร
             </span>
           </Link>
           <Link to="/stat">
-            <span className={`"decoration-transparent hover:underline hover:decoration-black duration-500 rounded" ${
-                      location.pathname === "/stat" ? "underline" : ""
-                    }`}>
+            <span
+              className={`"decoration-transparent rounded" duration-500 hover:underline hover:decoration-black ${
+                location.pathname === "/stat" ? "underline" : ""
+              }`}
+            >
               สถิติ
             </span>
           </Link>
           <Link to="/faq">
-            <span className={`"decoration-transparent hover:underline hover:decoration-black duration-500 rounded" ${
-                      location.pathname === "/faq" ? "underline" : ""
-                    }`}>
+            <span
+              className={`"decoration-transparent rounded" duration-500 hover:underline hover:decoration-black ${
+                location.pathname === "/faq" ? "underline" : ""
+              }`}
+            >
               FAQ
             </span>
           </Link>
@@ -68,25 +76,29 @@ const Navbar = () => {
       <div className={className}>
         <Link to="/menu">
           <div
-            className={`hover:bg-gray-100 duration-500 rounded ${
-                      location.pathname === "/menu" || location.pathname === "/" ? "underline" : ""
-                    }`}
+            className={`rounded duration-500 hover:bg-gray-100 ${
+              location.pathname === "/menu" || location.pathname === "/"
+                ? "underline"
+                : ""
+            }`}
           >
             เมนูอาหาร
           </div>
         </Link>
         <Link to="/order">
-          <div className="hover:bg-gray-100 duration-500 rounded">
+          <div className="rounded duration-500 hover:bg-gray-100">
             รายการสั่งอาหาร
           </div>
         </Link>
         <Link to="/stat">
-          <div className="hover:bg-gray-100 duration-500 rounded">สถิติ</div>
+          <div className="rounded duration-500 hover:bg-gray-100">สถิติ</div>
         </Link>
       </div>
       <div // DISPLAY SHADER WHEN HAMBURGER MENU IS OPENED
-        className={`BLACK-SHADER bg-black fixed h-screen w-screen md:hidden duration-500 ${
-          isNavOpen ? "z-20 opacity-[0.15]" : "opacity-0 z-10 pointer-events-none"
+        className={`BLACK-SHADER fixed h-screen w-screen bg-black duration-500 md:hidden ${
+          isNavOpen
+            ? "z-20 opacity-[0.15]"
+            : "pointer-events-none z-10 opacity-0"
         }`}
         onClick={() => setIsNavOpen(false)}
       ></div>

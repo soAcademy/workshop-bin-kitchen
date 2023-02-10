@@ -1,17 +1,16 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from "react";
 import ReactECharts from "echarts-for-react";
 
-
-const OrderMenuBar = ({menuQuantity}) => {
+const OrderMenuBar = ({ menuQuantity }) => {
   const [options, setOptions] = useState({});
 
   useEffect(() => {
     const _options = {
       textStyle: {
-        fontFamily: 'Kanit'
-    },
+        fontFamily: "Kanit",
+      },
       title: {
-        text: "จำนวนการสั่งอาหารแต่ละเมนู"
+        text: "จำนวนการสั่งอาหารแต่ละเมนู",
       },
       xAxis: {
         data: menuQuantity.map((e) => e.name),
@@ -57,7 +56,7 @@ const OrderMenuBar = ({menuQuantity}) => {
     setOptions(_options);
   }, [menuQuantity]);
 
-  return <ReactECharts option={options} />
-}
+  return <ReactECharts option={options} />;
+};
 
-export default OrderMenuBar
+export default OrderMenuBar;

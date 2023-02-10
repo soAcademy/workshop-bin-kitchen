@@ -37,19 +37,19 @@ const Order = () => {
     setTotalValue(_totalValue);
   }, [orders]);
   return (
-    <div className="mt-20 md:m-20 md:mt-32 font-kanit">
-      <p className="text-4xl text-center">รายการสั่งอาหาร</p>
+    <div className="mt-20 font-kanit md:m-20 md:mt-32">
+      <p className="text-center text-4xl">รายการสั่งอาหาร</p>
       <div className="mt-5">
-        <p className="md:text-2xl ml-6 mb-2">กดเลือกโต๊ะ</p>
-        <div className="grid grid-cols-5 gap-y-2 md:grid-cols-5 md:gap-y-5 justify-items-center">
+        <p className="ml-6 mb-2 md:text-2xl">กดเลือกโต๊ะ</p>
+        <div className="grid grid-cols-5 justify-items-center gap-y-2 md:grid-cols-5 md:gap-y-5">
           {arrTables.map((e, idx) => {
             return (
               <div
                 key={idx}
-                className="w-12 h-12 md:w-16 md:h-16 m-2 lg:w-20 lg:h-20 lg:mt-10"
+                className="m-2 h-12 w-12 md:h-16 md:w-16 lg:mt-10 lg:h-20 lg:w-20"
               >
                 <button
-                  className="w-full h-full bg-red-100 rounded-lg shadow-md hover:bg-red-200 active:bg-red-300 hover:shadow-lg"
+                  className="h-full w-full rounded-lg bg-red-100 shadow-md hover:bg-red-200 hover:shadow-lg active:bg-red-300"
                   onClick={() => {
                     setTableId(e + 1);
                   }}
@@ -60,21 +60,21 @@ const Order = () => {
             );
           })}
         </div>
-        <div className="mt-8 text-md">
-          <div className="flex justify-between items-center px-5 md:w-1/2 md:mx-auto">
+        <div className="text-md mt-8">
+          <div className="flex items-center justify-between px-5 md:mx-auto md:w-1/2">
             <p>
               โต๊ะ {orders[0]?.table_id ?? ""} ยอดรวม ฿{totalValue ?? 0}{" "}
             </p>
             <button
               onClick={() => setIsCheckOut(true)}
-              className="bg-red-100 hover:bg-red-200 shadow-md rounded-lg w-24 px-2 h-10"
+              className="h-10 w-24 rounded-lg bg-red-100 px-2 shadow-md hover:bg-red-200"
             >
               เช็คบิล
             </button>
           </div>
           {orders.map((order, idx) => {
             return (
-              <div key={idx} className="px-5 py-2 md:w-1/2 mx-auto">
+              <div key={idx} className="mx-auto px-5 py-2 md:w-1/2">
                 <p>หมายเลขคำสั่งซื้อ # {order.order_id}</p>
                 <p>
                   สถานะ:{" "}
@@ -90,8 +90,8 @@ const Order = () => {
                     </div>
                   );
                 })}
-                <div className="self-end text-end">รวม {order.total_price}</div>
-                <div className="flex justify-end mt-4">
+                <div className="text-end self-end">รวม {order.total_price}</div>
+                <div className="mt-4 flex justify-end">
                   {order.status === "WAITING" && (
                     <button
                       onClick={() => {
@@ -115,7 +115,7 @@ const Order = () => {
                             console.log(error);
                           });
                       }}
-                      className="bg-red-100 hover:bg-red-200 shadow-md rounded-lg w-24 px-2 h-10 self-center"
+                      className="h-10 w-24 self-center rounded-lg bg-red-100 px-2 shadow-md hover:bg-red-200"
                     >
                       ทำเสร็จแล้ว
                     </button>
@@ -126,17 +126,19 @@ const Order = () => {
           })}
         </div>
       </div>
-      <div className={`bg-black w-screen h-screen fixed top-14 left-0 duration-500
-      ${isCheckOut ? 'opacity-[0.15]' : 'opacity-0 pointer-events-none'}`}></div>
       <div
-        className={`flex flex-col fixed bottom-0 px-20 md:px-48 p-5 h-[250px] w-full
-        bg-white shadow-lg border-2 justify-between duration-500 z-10
-        md:w-1/2 md:left-1/4 md:bottom-1/4 md:rounded-xl md:h-[300px]
-        ${isCheckOut ? "" : "translate-y-full md:scale-0 md:translate-y-0"}`}
+        className={`fixed top-14 left-0 h-screen w-screen bg-black duration-500
+      ${isCheckOut ? "opacity-[0.15]" : "pointer-events-none opacity-0"}`}
+      ></div>
+      <div
+        className={`fixed bottom-0 z-10 flex h-[250px] w-full flex-col justify-between border-2
+        bg-white p-5 px-20 shadow-lg duration-500 md:left-1/4
+        md:bottom-1/4 md:h-[300px] md:w-1/2 md:rounded-xl md:px-48
+        ${isCheckOut ? "" : "translate-y-full md:translate-y-0 md:scale-0"}`}
       >
-        <div className="w-full flex flex-col">
+        <div className="flex w-full flex-col">
           <p className="mx-auto text-2xl">เช็คบิล</p>
-          <div className="flex justify-between mt-5 md:justify-evenly">
+          <div className="mt-5 flex justify-between md:justify-evenly">
             <p className="flex flex-col items-center">
               <p>โต๊ะ</p> <p>{tableId}</p>
             </p>
@@ -148,14 +150,14 @@ const Order = () => {
         <div className="flex justify-between md:justify-center md:space-x-10">
           <button
             type="button"
-            className="bg-blue-100 shadow-md hover:bg-blue-200 p-4 px-10 rounded-lg"
+            className="rounded-lg bg-blue-100 p-4 px-10 shadow-md hover:bg-blue-200"
           >
             ยืนยัน
           </button>
           <button
             onClick={() => setIsCheckOut(false)}
             type="button"
-            className="bg-white-100 shadow-md hover:bg-gray-100 p-4 px-10 rounded-lg"
+            className="bg-white-100 rounded-lg p-4 px-10 shadow-md hover:bg-gray-100"
           >
             ยกเลิก
           </button>

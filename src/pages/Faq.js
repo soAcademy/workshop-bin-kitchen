@@ -11,9 +11,9 @@ const Faqs = () => {
     <div className="mt-24">
       {faqs.map((e, idx) => {
         return (
-          <div className="m-2 z-20 rounded-md overflow-hidden" key={idx}>
+          <div className="z-20 m-2 overflow-hidden rounded-md" key={idx}>
             <div
-              className="bg-gray-300 z-20 p-2"
+              className="z-20 bg-gray-300 p-2"
               onClick={() => {
                 isToggle[idx] = !isToggle[idx];
                 const _newToggle = [...isToggle];
@@ -24,7 +24,7 @@ const Faqs = () => {
             </div>
             {
               <div
-                className={`bg-gray-200 duration-500 overflow-hidden z-10 transition-all 
+                className={`z-10 overflow-hidden bg-gray-200 transition-all duration-500 
             ${isToggle[idx] ? "max-h-max p-2" : "max-h-0 p-0 px-2"}`}
               >
                 Answer : {e.answer}

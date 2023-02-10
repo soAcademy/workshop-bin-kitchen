@@ -8,7 +8,7 @@ import P404 from "./pages/P404";
 import Faqs from "./pages/Faq";
 
 const App = () => (
-  <div className="h-screen w-full flex flex-col no-scrollbar">
+  <div className="no-scrollbar flex h-screen w-full flex-col">
     <BrowserRouter>
       <Navbar />
       <div>

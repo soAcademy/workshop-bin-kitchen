@@ -1,7 +1,6 @@
 import Menu from "./Menu";
 
 export const Home = () => {
-
   const Title = () => <h1>ร้านอาหารครัวคุณบิน</h1>;
   const Intro = () => (
     <p>
@@ -15,17 +14,19 @@ export const Home = () => {
   // console.log(menu);
   return (
     <div className="font-kanit">
-      <div className="relative top-16 md:top-20 flex flex-col justify-center items-center py-4 w-11/12 mx-auto ">
-        <div className="p-1 max-[300px]:text-xl text-3xl sm:text-5xl md:text-5xl">
+      <div className="relative top-16 mx-auto flex w-11/12 flex-col items-center justify-center py-4 md:top-20 ">
+        <div className="max-[300px]:text-xl p-1 text-3xl sm:text-5xl md:text-5xl">
           <Title />
         </div>
-        <div className="max-[300px]:text-xs text-[13px] px-2 py-2 sm:text-lg md:text-xl lg:text-2xl xl:text-3xl sm:py-3 md:py-6 lg:py-10 sm:w-10/12 md:w-9/12 lg:w-8/12 xl:w-7/12 2xl:w-6/12 sm:p-3 md:p-6 lg:p-10 xl:p-16">
+        <div className="max-[300px]:text-xs px-2 py-2 text-[13px] sm:w-10/12 sm:p-3 sm:py-3 sm:text-lg md:w-9/12 md:p-6 md:py-6 md:text-xl lg:w-8/12 lg:p-10 lg:py-10 lg:text-2xl xl:w-7/12 xl:p-16 xl:text-3xl 2xl:w-6/12">
           <Intro />
         </div>
-        <div className="rounded-xl my-4 overflow-hidden sm:w-10/12 md:w-9/12 lg:w-8/12 xl:w-7/12 2xl:w-6/12">
+        <div className="my-4 overflow-hidden rounded-xl sm:w-10/12 md:w-9/12 lg:w-8/12 xl:w-7/12 2xl:w-6/12">
           <img src="./banner.jpg" className="cover" />
         </div>
-        <div className="w-full sm:w-11/12 md:w-11/12 sm:p-3 md:p-6 lg:p-10 xl:p-16"><Menu /></div>
+        <div className="w-full sm:w-11/12 sm:p-3 md:w-11/12 md:p-6 lg:p-10 xl:p-16">
+          <Menu />
+        </div>
       </div>
     </div>
   );

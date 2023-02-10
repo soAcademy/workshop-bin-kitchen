@@ -11,8 +11,7 @@ const Stat = () => {
   const [numDone, setNumDone] = useState(0);
   const [numOrders, setNumOrders] = useState(0);
   const [menuQuantity, setMenuQuantity] = useState([]);
-  const [tableQuantity, setTableQuantity] = useState([])
-
+  const [tableQuantity, setTableQuantity] = useState([]);
 
   useEffect(() => {
     const _config = {
@@ -77,29 +76,29 @@ const Stat = () => {
       })
       .sort((a, b) => a.total_value - b.total_value);
     console.log("tableQuantity :>> ", _tableQuantity);
-    
+
     setTotalSale(_totalSale);
     setNumWaiting(orders.filter((e) => e.status === "WAITING").length);
     setNumDone(orders.filter((e) => e.status === "DONE").length);
     setNumOrders(orders.length);
     setMenuQuantity(_menuQuantity);
-    setTableQuantity(_tableQuantity)
+    setTableQuantity(_tableQuantity);
   }, [orders]);
 
   return (
-    <div className="pt-4 font-kanit w-full bg-gray-300 h-full">
-      <div className="bg-gray-400 text-4xl rounded-lg p-4 w-2/3 text-center mx-auto mt-20">
+    <div className="h-full w-full bg-gray-300 pt-4 font-kanit">
+      <div className="mx-auto mt-20 w-2/3 rounded-lg bg-gray-400 p-4 text-center text-4xl">
         <p>ยอดขาย : {totalSale.toLocaleString()} บาท</p>
       </div>
-      <div className="flex flex-col my-5 rounded-lg p-4 px-20">
+      <div className="my-5 flex flex-col rounded-lg p-4 px-20">
         <p className="mx-auto rounded-lg text-xl">สถานะ Orders</p>
-        <div className="flex justify-between w-full">
+        <div className="flex w-full justify-between">
           <p>จำนวนรายการสั่งอาหาร</p> <p>{numOrders}</p>
         </div>
-        <div className="flex justify-between w-full">
+        <div className="flex w-full justify-between">
           <p>จำนวนรายการที่ทำเสร็จแล้ว</p> <p>{numDone}</p>
         </div>
-        <div className="flex justify-between w-full">
+        <div className="flex w-full justify-between">
           <p>จำนวนรายการที่กำลังทำ</p> <p>{numWaiting}</p>
         </div>
       </div>
