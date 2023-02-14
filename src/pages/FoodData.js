@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const FoodData = () => {
+export const FoodData = () => {
   const [foodMenu, setFoodMenu] = useState();
   useEffect(() => {
     axios({
@@ -13,5 +13,3 @@ const FoodData = () => {
   }, []);
   return foodMenu;
 };
-
-export default FoodData;

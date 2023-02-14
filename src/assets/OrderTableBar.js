@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactECharts from "echarts-for-react";
 
-const OrderTableBar = ({ tableQuantity }) => {
+export const OrderTableBar = ({ tableQuantity }) => {
   const [options, setOptions] = useState({});
 
   useEffect(() => {
@@ -13,26 +13,26 @@ const OrderTableBar = ({ tableQuantity }) => {
         text: "ยอดขายรวมแต่ละโต๊ะ",
       },
       yAxis: {
-        data: tableQuantity.map((e) => 'โต๊ะ '+e.table_id),
+        data: tableQuantity.map((e) => "โต๊ะ " + e.table_id),
         type: "category",
         name: "โต๊ะ",
         axisLabel: {
           show: true,
-          interval:0,
+          interval: 0,
           rotate: 20,
           // formatter: 'โต๊ะ {a}'
         },
       },
       xAxis: {
-        type: 'value',
+        type: "value",
         name: "ยอดขาย",
-        min:'dataMin',
-        max: 22000
+        min: "dataMin",
+        max: 22000,
       },
       series: [
         {
           type: "bar",
-          name: 'ยอดขาย',
+          name: "ยอดขาย",
           data: tableQuantity.map((e) => e.total_value),
           emphasis: {
             itemStyle: {
@@ -43,9 +43,9 @@ const OrderTableBar = ({ tableQuantity }) => {
           },
           label: {
             show: true,
-            position: 'right',
+            position: "right",
             textStyle: {
-              color: "blue"
+              color: "blue",
             },
           },
         },
@@ -54,7 +54,7 @@ const OrderTableBar = ({ tableQuantity }) => {
         trigger: "item",
       },
       grid: [
-        { 
+        {
           // containLabel: true,
           left: "15%",
           right: "15%",
@@ -67,5 +67,3 @@ const OrderTableBar = ({ tableQuantity }) => {
 
   return <ReactECharts option={options} />;
 };
-
-export default OrderTableBar;

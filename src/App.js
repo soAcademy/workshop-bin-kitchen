@@ -1,11 +1,5 @@
-import { Home } from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import Navbar from "./pages/Navbar";
-import Order from "./pages/Order";
-import Stat from "./pages/Stat";
-import P404 from "./pages/P404";
-import Faqs from "./pages/Faq";
+import { Navbar, Faqs, Home, P404, Order, Stat } from "./pages";
 
 const App = () => (
   <div className="no-scrollbar flex h-screen w-full flex-col">

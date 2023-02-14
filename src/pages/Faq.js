@@ -1,7 +1,7 @@
-import faqs from "../assets/faqs";
+import { faqs } from "../assets/faqs";
 import { useState } from "react";
 
-const Faqs = () => {
+export const Faqs = () => {
   const [isToggle, setIsToggle] = useState(
     faqs.map(() => {
       return false;
@@ -36,5 +36,3 @@ const Faqs = () => {
     </div>
   );
 };
-
-export default Faqs;

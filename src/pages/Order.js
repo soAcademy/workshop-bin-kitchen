@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const Order = () => {
+export const Order = () => {
   const [fetchState, setFetchState] = useState(true);
   const [tableId, setTableId] = useState();
   const [orders, setOrders] = useState([]);
@@ -167,5 +167,3 @@ const Order = () => {
     </div>
   );
 };
-
-export default Order;

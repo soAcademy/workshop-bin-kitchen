@@ -1,4 +1,4 @@
-const RemoveOrderPopUp = ({
+export const RemoveOrderPopUp = ({
   removeOrderPopup,
   setRemoveOrderPopup,
   menuSelected,
@@ -42,4 +42,3 @@ const RemoveOrderPopUp = ({
     </div>
   );
 };
-export default RemoveOrderPopUp;

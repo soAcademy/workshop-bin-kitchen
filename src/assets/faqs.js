@@ -1,4 +1,4 @@
-const faqs = [
+export const faqs = [
   {
     question: <>ร้านอาหารเปิดกี่โมง</>,
     answer: <>ร้านเราเปิด 12:00 - 20:00 น.</>,
@@ -12,5 +12,3 @@ const faqs = [
     answer: <>เรามีบริการส่งผ่าน Line Man, Shopee Food และ Grab</>,
   },
 ];
-
-export default faqs;

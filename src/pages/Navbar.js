@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const Navbar = () => {
+export const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState();
   const [className, setClassName] = useState();
   const location = useLocation();
@@ -105,5 +105,3 @@ const Navbar = () => {
     </div>
   );
 };
-
-export default Navbar;

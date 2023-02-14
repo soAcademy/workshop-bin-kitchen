@@ -1,10 +1,10 @@
-import Menu from "./Menu";
+import { Menu } from "./Menu";
 
 export const Home = () => {
-  const Title = () => <h1>ร้านอาหารครัวคุณบิน</h1>;
+  const Title = () => <h1>ร้านอาหารครัวคุณด๋อย</h1>;
   const Intro = () => (
     <p>
-      ร้านอาหารครัวคุณบินปรุงด้วยใจ เหมือนทำให้คนในครอบครัวทาน
+      ร้านอาหารครัวคุณด๋อยปรุงด้วยใจ เหมือนทำให้คนในครอบครัวทาน
       เราเปิดให้บริการตั้งแต่ปีพ.ศ. 2535 กว่า 30 ปีที่เรานำเสนอความ
       อร่อยแบบไทยแท้ เราคัดสรรวัตถุดิบชั้นดี ปลอดภัย ออร์แกนิค จาก
       เกษตรกรในพื้นที่สุโขทัย ปรุงด้วยสูตรลับต้นตำรับชาววังที่สืบทอด
@@ -24,7 +24,7 @@ export const Home = () => {
         <div className="my-4 overflow-hidden rounded-xl sm:w-10/12 md:w-9/12 lg:w-8/12 xl:w-7/12 2xl:w-6/12">
           <img src="./banner.jpg" className="cover" />
         </div>
-        <div className="w-full sm:w-11/12 sm:p-3 md:w-11/12 md:p-6 lg:p-10 xl:p-16">
+        <div className="w-full relative flex justify-center">
           <Menu />
         </div>
       </div>

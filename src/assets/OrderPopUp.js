@@ -1,5 +1,5 @@
 import axios from "axios";
-const OrderPopUp = ({
+export const OrderPopUp = ({
   isOrderOpen,
   setIsOrderOpen,
   menuNameArray,
@@ -48,7 +48,7 @@ const OrderPopUp = ({
   };
   return (
     <div
-      className={`z-30 flex min-h-[500px] w-full items-center justify-center duration-500
+      className={` pointer-events-auto z-30 flex min-h-[500px] w-full items-center justify-center duration-500
         md:w-10/12 lg:w-9/12 xl:w-8/12 2xl:w-7/12
         ${isOrderOpen ? "" : "z-0 translate-y-full opacity-0"}`}
     >
@@ -141,5 +141,3 @@ const OrderPopUp = ({
     </div>
   );
 };
-
-export default OrderPopUp;

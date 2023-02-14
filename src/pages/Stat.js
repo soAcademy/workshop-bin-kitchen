@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ReactECharts from "echarts-for-react";
-import OrderMenuBar from "../assets/OrderMenuBar";
-import OrderTableBar from "../assets/OrderTableBar";
+import { OrderMenuBar, OrderTableBar } from "../assets";
 
-const Stat = () => {
+export const Stat = () => {
   const [orders, setOrders] = useState([]);
   const [totalSale, setTotalSale] = useState(0);
   const [numWaiting, setNumWaiting] = useState(0);
@@ -109,5 +107,3 @@ const Stat = () => {
     </div>
   );
 };
-
-export default Stat;

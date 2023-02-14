@@ -144,4 +144,3 @@ const category = foodMenus.reduce((acc, e) => {
 }, []);
 export const uniqueCategory = [...new Set(category)];
 
-// export default foodMenus;

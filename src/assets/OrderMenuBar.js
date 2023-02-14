@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactECharts from "echarts-for-react";
 
-const OrderMenuBar = ({ menuQuantity }) => {
+export const OrderMenuBar = ({ menuQuantity }) => {
   const [options, setOptions] = useState({});
 
   useEffect(() => {
@@ -58,5 +58,3 @@ const OrderMenuBar = ({ menuQuantity }) => {
 
   return <ReactECharts option={options} />;
 };
-
-export default OrderMenuBar;

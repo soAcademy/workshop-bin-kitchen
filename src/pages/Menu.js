@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import OrderPopUp from "../assets/OrderPopUp";
-import RemoveOrderPopUp from "../assets/RemoveOrderPopUp";
+import { OrderPopUp, RemoveOrderPopUp } from "../assets";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
-const Menu = () => {
+export const Menu = () => {
   const [foodMenus, setFoodMenus] = useState();
   const [isOrderOpen, setIsOrderOpen] = useState();
   const [removeOrderPopup, setRemoveOrderPopup] = useState();
@@ -134,7 +133,7 @@ const Menu = () => {
         </div>
       </button>
       <div
-        className={`fixed bottom-0 left-0 z-30 flex w-full justify-center duration-500 md:bottom-4 ${
+        className={`pointer-events-none fixed bottom-0 left-0 z-30 flex w-full justify-center duration-500 md:bottom-4 ${
           isOrderOpen ? "" : "z-0 translate-y-full opacity-0"
         }`}
       >
@@ -170,4 +169,3 @@ const Menu = () => {
     </div>
   );
 };
-export default Menu;
