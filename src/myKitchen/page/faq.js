@@ -28,7 +28,7 @@ const FAQ = () => {
         <>
           <div  className="cursor-pointer"
                 onClick={() => openAnswer(index)}>
-            <div className="bg-blue-500 p-2 ">Question :{r.question}</div>
+            <div className="bg-blue-500 p-2 ">Question{index+1} : {r.question}</div>
             {toggles[index] && (
               <div className="bg-slate-200">Answer :{r.answer}</div>
             )}
