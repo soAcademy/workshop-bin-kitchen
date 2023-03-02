@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+// import { number } from "echarts";
 
 const FoodOrderModal = (props) => {
   // const [quantity, setQuantity] = useState(1);
@@ -23,25 +24,41 @@ const FoodOrderModal = (props) => {
     e.preventDefault();
 
     // updateCart(props.cartItems, props.food, quantity);
+    // const submittedCart = {
+    //   table_id: tableId,
+    //   items: props.cartItems
+    //     .filter((item) => item.quantity > 0)
+    //     .map((item) => ({
+    //       menu_id: item.menu_id,
+    //       price: item.price,
+    //       quantity: item.quantity,
+    //       total_price: item.total_price,
+    //     })),
+    // };
+
     const submittedCart = {
-      table_id: tableId,
+      tableId: Number(tableId),
       items: props.cartItems
         .filter((item) => item.quantity > 0)
         .map((item) => ({
-          menu_id: item.menu_id,
-          price: item.price,
+          menu: {
+            connect: {
+              id: item.menu_id,
+            },
+          }, // price: item.price,
           quantity: item.quantity,
-          total_price: item.total_price,
+          totalPrice: item.total_price,
         })),
     };
 
-    // console.log(submittedCart);
+    // console.log(JSON.stringify(submittedCart));
 
     axios({
       method: "post",
       maxBodyLength: Infinity,
       // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/create-order",
-      url: `${process.env.REACT_APP_BASE_API_URL}/create-order`,
+      // url: `${process.env.REACT_APP_BASE_API_URL}/create-order`,
+      url: "http://localhost:8000/binKitchen/create-order",
       headers: {
         "Content-Type": "application/json",
       },
