@@ -10,7 +10,7 @@ export const Orders = () => {
 
   const statusTH = {
     DONE: "ทำเสร็จแล้ว",
-    WAITING: "กำลังทำ",
+    PENDING: "กำลังทำ",
   };
 
   useEffect(() => {
@@ -18,11 +18,12 @@ export const Orders = () => {
       method: "POST",
       maxBodyLength: Infinity,
       // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders-by-table",
-      url: `${process.env.REACT_APP_BASE_API_URL}/get-orders-by-table`,
+      // url: `${process.env.REACT_APP_BASE_API_URL}/get-orders-by-table`,
+      url: "http://localhost:8000/binKitchen/get-orders-by-table",
       headers: {
         "Content-Type": "application/json",
       },
-      data: { table_id: tableId },
+      data: { tableId: tableId },
     })
       .then((response) => {
         // console.log(response.data);
@@ -80,7 +81,7 @@ export const Orders = () => {
       </ul>
       <div className="mb-4">
         โต๊ะ {tableId}
-        {ordersByTable.length > 0 &&
+        {/* {ordersByTable.length > 0 &&
           ` ยอดรวม ฿${ordersByTable
             .reduce((acc, order) => acc + order.total_price, 0)
             .toLocaleString("TH")}`}
@@ -90,7 +91,7 @@ export const Orders = () => {
         >
           เช็กบิล
         </button>
-        {grandTotal}
+        {grandTotal} */}
       </div>
       {/* <div className="mb-6">Number of Orders: {ordersByTable.length}</div> */}
       <ul className="mb-6">
@@ -98,22 +99,22 @@ export const Orders = () => {
           ordersByTable.map((order) => (
             <>
               <li key={order.order_id} className="mb-4">
-                <div className="mb-2">หมายเลขคำสั่งซื้อ #{order.order_id}</div>
+                <div className="mb-2">หมายเลขคำสั่งซื้อ #{order.id}</div>
                 <div className="mb-2">สถานะ: {statusTH[order.status]}</div>
                 <ul className="mb-2">
                   {order.items.map((item) => (
                     <li key={item.id}>
-                      {item.name} @{item.price} &times; {item.quantity} = ฿
-                      {item.total_price.toLocaleString("TH")}
+                      {item.menu.name} @{item.menu.price} &times;{" "}
+                      {item.quantity} = ฿{item.totalPrice.toLocaleString("TH")}
                     </li>
                   ))}
                 </ul>
                 <div className="mb-2">
-                  รวม ฿{order.total_price.toLocaleString("TH")}
+                  {/* รวม ฿{order.total_price.toLocaleString("TH")} */}
                 </div>
-                {order.status === "WAITING" && (
+                {order.status === "PENDING" && (
                   <button
-                    onClick={() => handleMarkStatus(order.order_id, "DONE")}
+                    onClick={() => handleMarkStatus(order.id, "DONE")}
                     className="self-center rounded-[10px] bg-red-200 px-6 py-3 hover:bg-red-300"
                   >
                     ทำเสร็จแล้ว
@@ -121,7 +122,7 @@ export const Orders = () => {
                 )}
                 {order.status === "DONE" && (
                   <button
-                    onClick={() => handleMarkStatus(order.order_id, "WAITING")}
+                    onClick={() => handleMarkStatus(order.id, "PENDING")}
                     className="self-center rounded-[10px] bg-red-400 px-6 py-3 hover:bg-red-500"
                   >
                     กำลังทำ
