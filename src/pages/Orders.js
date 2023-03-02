@@ -42,7 +42,7 @@ export const Orders = () => {
 
   const handleMarkStatus = (order_id, status) => {
     const data = {
-      order_id: order_id,
+      orderId: order_id,
       status: status,
     };
 
@@ -50,14 +50,15 @@ export const Orders = () => {
       method: "POST",
       maxBodyLength: Infinity,
       // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/update-order-status",
-      url: `${process.env.REACT_APP_BASE_API_URL}/update-order-status`,
+      // url: `${process.env.REACT_APP_BASE_API_URL}/update-order-status`,
+      url: "http://localhost:8000/binKitchen/update-order-status",
       headers: {
         "Content-Type": "application/json",
       },
       data: data,
     })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         toggleOrderStatusFlag(!orderStatusFlag);
       })
       .catch((error) => console.log(error));
