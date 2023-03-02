@@ -16,13 +16,13 @@ const Order = () => {
   // console.log(selectTable);
   useEffect(() => {
     const data = JSON.stringify({
-      table_id: tableId,
+      tableId: Number(tableId),
     });
 
     const config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders-by-table",
+      url: "http://localhost:3100/getOrder",
       headers: {
         "Content-Type": "application/json",
       },
@@ -66,7 +66,7 @@ const Order = () => {
   // };
 
   const waitingStatus = () => {
-    return getOrdersTableId?.filter((r) => r.status === "WAITING");
+    return getOrdersTableId?.filter((r) => r.status === "PENDING");
   };
   const doneStatus = () => {
     return getOrdersTableId?.filter((r) => r.status === "DONE");
@@ -74,16 +74,16 @@ const Order = () => {
   // console.log("Filter status", waitingStatus());
   // console.log("Filter status2", doneStatus());
 
-  const updatedOrderStatus = (order_id) => {
-    const data = JSON.stringify({
-      order_id: order_id,
-      status: "DONE",
-    });
+  const updatedOrderStatus = (id) => {
+    const data = {
+      id: id,
+      updateStatus: "DONE",
+    };
 
     const config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/update-order-status",
+      url: "http://localhost:3100/updateOrder",
       headers: {
         "Content-Type": "application/json",
       },
@@ -92,7 +92,7 @@ const Order = () => {
     // setLoading(true);
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
+        console.log("update order", response.data);
         setUpdateOrderStatus(response.data);
         // setLoading(false);
       })
@@ -110,13 +110,14 @@ const Order = () => {
         <p className="mt-3.5 md:ml-32">โต๊ะที่เลือก: {tableId}</p>
         <div className="mt-5 md:flex justify-center">
           <div className="grid gap-4 grid-cols-5">
-            {selectTable.map((r) => {
+            {selectTable.map((r, idx) => {
               return (
                 <button
                   onClick={() => {
                     // getTableId(r);
                     setTableId(r);
                   }}
+                  key={idx}
                   className="w-[60px] h-[60px] bg-red-100 rounded-lg border-2 hover:border-red-500"
                 >
                   {r}
@@ -134,28 +135,28 @@ const Order = () => {
           <p>จำนวนการสั่งซื้อ {getOrdersTableId.length}</p>
         </div>
         <div className="border-2">
-          {waitingStatus().map((r) => {
+          {waitingStatus().map((r, idx) => {
             return (
-              <div className="border-2 mt-2">
-                <p>หมายเลขคำสั่งซื้อ #{r.order_id}</p>
-                <p>โต๊ะ: {r.table_id}</p>
+              <div className="border-2 mt-2" key={idx}>
+                <p>หมายเลขคำสั่งซื้อ #{r.id}</p>
+                <p>โต๊ะ: {r.tableId}</p>
                 <p>สถานะ: {r.status}</p>
                 {r.items.map((i) => {
                   return (
                     <div className="border-2 flex justify-between ml-2 mt-1">
-                      <p>{i.name}</p>
+                      <p>{i.menu.name}</p>
                       <p>
-                        ฿{i.price} x {i.quantity}
+                        ฿{i.menu.price} x {i.quantity}
                       </p>
                     </div>
                   );
                 })}
                 <div className="flex justify-end mr-4 mt-1">
-                  <p className="">รวม ฿ {r.total_price}</p>
+                  <p className="">รวม ฿ {r.totalPrice}</p>
                 </div>
                 <div className="border-2 flex justify-end mt-5">
                   <button
-                    onClick={() => updatedOrderStatus(r.order_id)}
+                    onClick={() => updatedOrderStatus(r.id)}
                     className="bg-red-100 text-center rounded w-[110px] h-[45px]"
                   >
                     ทำเสร็จแล้ว
@@ -171,24 +172,24 @@ const Order = () => {
         <p>ออเดอร์ที่สำเร็จแล้ว</p>
       </div>
       <div className="border-2 mt-5">
-        {doneStatus().map((r) => {
+        {doneStatus().map((r, idx) => {
           return (
-            <div className="border-2 mt-2">
-              <p>หมายเลขคำสั่งซื้อ #{r.order_id}</p>
-              <p>โต๊ะ: {r.table_id}</p>
+            <div className="border-2 mt-2" key={idx}>
+              <p>หมายเลขคำสั่งซื้อ #{r.id}</p>
+              <p>โต๊ะ: {r.tableId}</p>
               <p>สถานะ: {r.status}</p>
               {r.items.map((i) => {
                 return (
                   <div className="border-2 flex justify-between ml-2 mt-1">
-                    <p>{i.name}</p>
+                    <p>{i.menu.name}</p>
                     <p>
-                      ฿{i.price} x {i.quantity}
+                      ฿{i.menu.price} x {i.quantity}
                     </p>
                   </div>
                 );
               })}
               <div className="flex justify-end mr-4 mt-1">
-                <p className="">รวม ฿ {r.total_price}</p>
+                <p className="">รวม ฿ {r.totalPrice}</p>
               </div>
             </div>
           );

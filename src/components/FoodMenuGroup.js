@@ -2,7 +2,7 @@ import FoodMenusList from "./FoodMenusList";
 
 const FoodMenuGroup = ({
   menus,
-  category,
+  categoryName,
   setToggleCart,
   cart,
   setCart,
@@ -14,13 +14,13 @@ const FoodMenuGroup = ({
   // console.log(test);
   return (
     <div className="">
-      <p className="mb-3.5 text-lg font-normal">เมนู{category}</p>
+      <p className="mb-3.5 text-lg font-normal">เมนู{categoryName}</p>
       <FoodMenusList
         setToggleCart={setToggleCart}
         cart={cart}
         // setCart={props.setCart}
         uniqCart={uniqCart}
-        menus={menus.filter((r) => r.category === category)}
+        menus={menus.filter((r) => r.categoryName === categoryName)}
       />
       {/* {test.map((data, idx) => (
         <FoodMenusList key={idx} data={data} setToggleCart={props.setToggleCart} cart={props.cart} setCart={props.setCart} />

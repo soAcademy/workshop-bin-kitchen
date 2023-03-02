@@ -19,11 +19,10 @@ export const Home = () => {
   const [cart, setCart] = useState([]);
   const [toggleCart, setToggleCart] = useState(false);
 
-
   useEffect(() => {
     axios({
       method: "post",
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-menus",
+      url: "http://localhost:3100/getMenu",
     }).then((response) => {
       // console.log(response.data);
       setMenus(response.data);
@@ -32,11 +31,11 @@ export const Home = () => {
 
   useEffect(() => {
     // console.log(menus);
-    const cat = menus?.map((r) => r.category);
-    const uniqCat = [...new Set(cat)];
-    // console.log(cat);
-    // console.log(uniqCat);
-    setType(uniqCat);
+    const cart = menus?.map((r) => r.categoryName);
+    const uniqCart = [...new Set(cart)];
+    // console.log(cart);
+    // console.log(uniqCart);
+    setType(uniqCart);
   }, [menus]);
 
   const uniqCart = (data) => {
@@ -60,8 +59,6 @@ export const Home = () => {
     }
     // console.log("test2", cart);
   };
-
-  
 
   return (
     <div>
@@ -90,7 +87,7 @@ export const Home = () => {
                 <FoodMenuGroup
                   key={idx}
                   menus={menus}
-                  category={item}
+                  categoryName={item}
                   setToggleCart={setToggleCart}
                   cart={cart}
                   setCart={setCart}

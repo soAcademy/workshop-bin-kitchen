@@ -27,25 +27,25 @@ const CartPop = ({ cart, setCart, setToggleCart }) => {
   // const limitTable = () => (tableId <= 15 ? tableId : "15");
 
   const addOrder = () => {
-    const orderMapData = cart.map((order) => {
+    const orderItem = cart.map((order) => {
       return {
-        menu_id: order.id,
+        menuId: order.id,
         price: order.price,
         quantity: order.qty,
-        total_price: order.qty * order.price,
+        totalPrice: order.qty * order.price,
       };
     });
     // ทำแบบฟรอมข้อมูลให้ตรงกับ api ต้องการ
-    // console.log("mapData", orderMapData);
-    const dataOutputApi = JSON.stringify({
-      table_id: tableId,
-      items: orderMapData,
-    });
+    console.log("mapData", orderItem);
+    const dataOutputApi = {
+      tableId: Number(tableId),
+      orderItem: orderItem,
+    };
     // รวมไอดีโต๊ะ + ข้อมูลที่ปรับแล้ว เพื่อส่งไปยัง api
     console.log("data", dataOutputApi);
     const config = {
       method: "post",
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/create-order",
+      url: "http://localhost:3100/createOrder",
       headers: {
         "Content-Type": "application/json",
       },
@@ -54,7 +54,8 @@ const CartPop = ({ cart, setCart, setToggleCart }) => {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
+        setCart([]);
+        console.log("api create order", response.data);
       })
       .catch(function (error) {
         console.log(error);

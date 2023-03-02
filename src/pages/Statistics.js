@@ -8,7 +8,7 @@ const Stats = () => {
   const [chart2, setChart2] = useState([]);
   const [chart3, setChart3] = useState([]);
   // console.log("Chart1: ", chart1);
-  // console.log("Chart2: ", chart2);
+  console.log("Chart2: ", chart2);
   console.log("Chart3: ", chart3);
 
   // useEffect(() => {
@@ -59,18 +59,17 @@ const Stats = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post(
-          "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders"
-        );
+        const response = await axios.post("http://localhost:3100/getOrders");
         const getOrderedItems = response.data
           .reduce((acc, r) => {
+            console.log("acc", acc);
             r.items.forEach((r) => {
               const filterId = acc.findIndex(
-                (order) => order.menu_id === r.menu_id
+                (order) => order.menuId === r.menuId
               );
               if (filterId >= 0) {
                 acc[filterId].quantity += r.quantity;
-                acc[filterId].total_price += r.total_price;
+                acc[filterId].totalPrice += r.totalPrice;
               } else {
                 acc.push(r);
               }
@@ -81,19 +80,22 @@ const Stats = () => {
         setChart1(getOrderedItems);
         console.log("getOrderedItems: ", getOrderedItems);
         setChart2(
-          getOrderedItems.map((r) => ({ name: r.name, value: r.total_price }))
+          getOrderedItems.map((r) => ({
+            name: r.menu.name,
+            value: r.totalPrice,
+          }))
         );
 
-        const tableId = [...new Set(response.data.map((r) => r.table_id))]
+        const table_Id = [...new Set(response.data.map((r) => r.tableId))]
           .sort((a, b) => a - b)
           .map((i) => {
             const filterValueTable = response.data.filter(
-              (r) => r.table_id === i
+              (r) => r.tableId === i
             ).length;
             return { name: i, value: filterValueTable };
           });
 
-        setChart3(tableId);
+        setChart3(table_Id);
       } catch (error) {
         console.error(error);
       }
@@ -102,20 +104,39 @@ const Stats = () => {
   }, []);
 
   const option1 = {
+    grid: { containLabel: true },
     xAxis: {
       type: "category",
       name: "menus",
       axisLabel: { interval: 0, rotate: 30 },
-      data: chart1.map((r) => r.name),
+      data: chart1.map((r) => r.menu.name),
     },
     yAxis: {
       type: "value",
       name: "totalOrder",
     },
+    // visualMap: {
+    //   orient: "horizontal",
+    //   left: "center",
+    //   min: 10,
+    //   max: 100,
+    //   text: ["High Score", "Low Score"],
+    //   // Map the score column to color
+    //   dimension: 0,
+    //   inRange: {
+    //     color: ["#65B581", "#FFCE34", "#FD665F"],
+    //   },
+    // },
     series: [
       {
         type: "bar",
         data: chart1.map((r) => r.quantity),
+        encode: {
+          // Map the "amount" column to X axis.
+          x: chart1.map((r) => r.name),
+          // Map the "product" column to Y axis
+          y: chart1.map((r) => r.quantity),
+        },
       },
     ],
     tooltip: {
