@@ -21,23 +21,23 @@ const PopupOrder = ({
   const pushOrder = (datasFrState) => {
     const ordesrMap = datasFrState.map((orderList) => {
       return {
-        menu_id: orderList.id,
-        price: orderList.price,
+        menuId: orderList.id,
         quantity: orderList.quantity,
-        total_price: orderList.quantity * orderList.price,
+        totalPrice: orderList.quantity * orderList.price,
       };
     });
     // console.log(ordesrMap);
 
     const datas = JSON.stringify({
-      table_id: tableNo,
-      items: ordesrMap,
+      tableId: tableNo,
+      status: "PENDING",
+      orderItems: ordesrMap,
     });
-    // console.log(datas);
+    console.log(datas);
 
     const config = {
       method: "post",
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/create-order",
+      url: "http://localhost:3000/binKitchen/createOrder",
       headers: {
         "Content-Type": "application/json",
       },
@@ -64,7 +64,7 @@ const PopupOrder = ({
           : order;
       })
       .filter((x) => x.quantity > 0);
-
+    console.log(reOrders);
     upOrderStUpdLocal(reOrders);
     reOrders.length < 0 ?? setModalOrder(false);
   };

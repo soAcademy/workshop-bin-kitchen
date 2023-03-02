@@ -27,10 +27,10 @@ export const Home = () => {
     axios
       .post(
         // `https://api.allorigins.win/raw?url=https://pastebin.com/raw/x1EY0NL9`
-        `https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-menus`
+        `http://localhost:3000/binKitchen/getMenus`
       )
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         setMenuDatas(res.data);
         // console.log(menuData);
         setLoadingPage(false);
@@ -40,7 +40,7 @@ export const Home = () => {
 
   useEffect(() => {
     // console.log(menuData);
-    const menuAllTypes = menuDatas?.map((r) => r.category);
+    const menuAllTypes = menuDatas?.map((r) => r.category.name);
     const filterMenuType = [...new Set(menuAllTypes)];
     // console.log(filterMenuType);
     setMenuTypes(filterMenuType);

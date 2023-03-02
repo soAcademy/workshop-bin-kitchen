@@ -14,7 +14,8 @@ const Static = () => {
     const config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders",
+      // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders",
+      url: "http://localhost:3000/binKitchen/getOrders",
       headers: {},
     };
 
@@ -25,12 +26,12 @@ const Static = () => {
           .flat()
           .reduce((acc, item) => {
             const indexId = acc.findIndex(
-              (order) => order.menu_id === item.menu_id
-            );
+              (order) => order.menuId === item.menuId
+            ); 
             if (indexId > -1) {
               acc[indexId].quantity = acc[indexId].quantity + item.quantity;
-              acc[indexId].total_price =
-                acc[indexId].total_price + item.total_price;
+              acc[indexId].totalPrice =
+                acc[indexId].totalPrice + item.totalPrice;
             } else {
               acc = [...acc, item];
             }
@@ -41,18 +42,18 @@ const Static = () => {
         setBarDatas(barOrder);
 
         const valueOrder = barOrder.map((r) => ({
-          name: r.name,
-          value: r.total_price,
+          name: r.menu.name,
+          value: r.totalPrice,
         }));
         // console.log(valueOrder);
         setPieDatas(valueOrder);
 
-        const tbPieChart = [...new Set(response.data.map((r) => r.table_id))]
+        const tbPieChart = [...new Set(response.data.map((r) => r.tableId))]
           .sort((a, b) => a - b)
           .map((tbNo) => {
             // console.log(tbNo);
             const cntFilTb = response.data.filter(
-              (r) => r.table_id === tbNo
+              (r) => r.tableId === tbNo
             ).length;
             // console.log(cntFilTb);
             return { name: "โต๊ะ " + tbNo, value: cntFilTb };
@@ -71,7 +72,7 @@ const Static = () => {
   const barChart = {
     xAxis: {
       type: "category",
-      data: barDatas.map((r) => r.name),
+      data: barDatas.map((r) => r.menu.name),
       axisLabel: {
         rotate: 80,
         margin: 2,

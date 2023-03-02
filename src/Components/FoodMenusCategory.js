@@ -10,7 +10,7 @@ const FoodMenusCategory = ({ menuType, menuDatas, addBtnFunc }) => {
       </div>
       <div className="flex flex-col gap-2">
         {menuDatas
-          .filter((menu) => menu.category === menuType)
+          .filter((menu) => menu.category.name === menuType)
           .map((menuData, idx) => (
             <FoodMenusList key={idx} menuData={menuData} addBtnFunc={addBtnFunc} />
           ))}

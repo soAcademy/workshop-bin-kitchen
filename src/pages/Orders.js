@@ -17,13 +17,14 @@ const Orders = () => {
 
   const loadDetailOrders = (tbNo) => {
     const data = JSON.stringify({
-      table_id: tbNo,
+      tableId: tbNo,
     });
 
     const config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders-by-table",
+      // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders-by-table",
+      url: "http://localhost:3000/binKitchen/getOrder",
       headers: {
         "Content-Type": "application/json",
       },
@@ -35,7 +36,7 @@ const Orders = () => {
         .then(function (response) {
           // console.log(response.data);
           setOrders(response.data);
-          // console.log(response.data);
+          console.log(response.data);
           // console.log([
           //   ...new Set(response.data?.map((order) => order.status)),
           // ]);
@@ -52,14 +53,15 @@ const Orders = () => {
     // console.log(id);
     setLoadingPage(true);
     const data = JSON.stringify({
-      order_id: id,
+      id: id,
       status: "DONE",
     });
 
     const config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/update-order-status",
+      // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/update-order-status",
+      url: "http://localhost:3000/binKitchen/updateOrder",
       headers: {
         "Content-Type": "application/json",
       },
@@ -103,17 +105,25 @@ const Orders = () => {
             </div>
           </div>
 
-          {tableNumber !== 0 ? (
+          {orders.length > 0 ? (
             <div className="fetchOrders md:w-1/2 flex flex-col text-sm gap-y-6">
               <div className="flex justify-between">
                 <p className="flex items-center">
                   โต๊ะ {tableNumber} ยอดรวม ฿{totalCheck.toLocaleString()}
                 </p>
-                {orders.filter((r) => r.status === "WAITING").length === 0 && (
+                {orders.filter((r) => r.status === "PENDING").length === 0 && (
                   <button
                     onClick={() =>
                       setTotalCheck(
-                        orders?.reduce((acc, r) => acc + r.total_price, 0)
+                        orders?.reduce(
+                          (acc, r) =>
+                            acc +
+                            r.items.reduce(
+                              (acc2, r2) => acc2 + r2.totalPrice,
+                              0
+                            ),
+                          0
+                        )
                       )
                     }
                     className="h-14 bg-red-100 rounded-lg px-4"
@@ -125,55 +135,65 @@ const Orders = () => {
               <div className="flex flex-col gap-y-8 overflow-y-auto">
                 {[...new Set(orders?.map((orders) => orders.status))]
                   .sort((a, b) => (a > b ? -1 : b > a ? 1 : 0))
-                  .map((state) => {
-                    return orders
-                      .filter((order) => order.status === state)
-                      .sort((a, b) => a.order_id - b.order_id)
-                      .map((allItems) => (
-                        <div
-                          key={`order_id-${allItems.order_id}`}
-                          className="flex flex-col gap-y-2 rounded-lg"
-                        >
-                          <p>หมายเลขคำสั่งซื้อ #{allItems.order_id}</p>
-                          <p>
-                            สถานะ:{" "}
-                            {allItems.status === "WAITING" ? (
-                              <span>กำลังทำ</span>
-                            ) : (
-                              <span className="font-bold">ทำเสร็จแล้ว</span>
-                            )}
-                          </p>
-                          <div className="orderName w-full flex flex-col gap-y-2">
-                            {allItems.items.map((item) => (
-                              <div
-                                key={crypto.randomUUID()}
-                                className="menu w-full flex flex-between"
-                              >
-                                <p className="w-4/6">{item.name}</p>
-                                <p className="w-2/6 text-end">
-                                  ฿{item.price.toLocaleString()} x{" "}
-                                  {item.quantity}
+                  .map((state, ind) => {
+                    return (
+                      <div key={`${state}_${ind}`}>
+                        {orders
+                          .filter((order) => order.status === state)
+                          .sort((a, b) => a.id - b.id)
+                          .map((allItems) => (
+                            <div
+                              key={`order_id-${allItems.id}`}
+                              className="flex flex-col gap-y-2 rounded-lg"
+                            >
+                              <p>หมายเลขคำสั่งซื้อ #{allItems.id}</p>
+                              <p>
+                                สถานะ:{" "}
+                                {allItems.status === "PENDING" ? (
+                                  <span>กำลังทำ</span>
+                                ) : (
+                                  <span className="font-bold">ทำเสร็จแล้ว</span>
+                                )}
+                              </p>
+                              <div className="orderName w-full flex flex-col gap-y-2">
+                                {allItems.items.map((item) => (
+                                  <div
+                                    key={crypto.randomUUID()}
+                                    className="menu w-full flex flex-between"
+                                  >
+                                    <p className="w-4/6">{item.menu.name}</p>
+                                    <p className="w-2/6 text-end">
+                                      ฿{item.menu.price.toLocaleString()} x{" "}
+                                      {item.quantity}
+                                    </p>
+                                  </div>
+                                ))}
+                              </div>
+                              <div className="sumEachOrder">
+                                <p className="w-full text-end">
+                                  รวม ฿
+                                  {allItems.items
+                                    .reduce(
+                                      (acc, item) => acc + item.totalPrice,
+                                      0
+                                    )
+                                    .toLocaleString()}
                                 </p>
                               </div>
-                            ))}
-                          </div>
-                          <div className="sumEachOrder">
-                            <p className="w-full text-end">
-                              รวม ฿{allItems.total_price.toLocaleString()}
-                            </p>
-                          </div>
-                          <div className="statusBtn w-full flex justify-end">
-                            {state === "WAITING" && (
-                              <button
-                                onClick={() => updateStatus(allItems.order_id)}
-                                className="h-14 bg-red-100 rounded-lg px-4"
-                              >
-                                ปรุงเสร็จ
-                              </button>
-                            )}
-                          </div>
-                        </div>
-                      ));
+                              <div className="statusBtn w-full flex justify-end">
+                                {state === "PENDING" && (
+                                  <button
+                                    onClick={() => updateStatus(allItems.id)}
+                                    className="h-14 bg-red-100 rounded-lg px-4"
+                                  >
+                                    ปรุงเสร็จ
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+                          ))}
+                      </div>
+                    );
                   })}
               </div>
             </div>
