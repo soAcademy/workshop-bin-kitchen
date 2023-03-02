@@ -8,7 +8,8 @@ export const Stat = () => {
   useEffect(() => {
     axios({
       method: "POST",
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders",
+      // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders",
+      url: `${process.env.REACT_APP_BASE_API_URL}/get-orders`,
     })
       .then((response) => {
         // console.log(response.data);

@@ -17,7 +17,8 @@ export const Orders = () => {
     axios({
       method: "POST",
       maxBodyLength: Infinity,
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders-by-table",
+      // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders-by-table",
+      url: `${process.env.REACT_APP_BASE_API_URL}/get-orders-by-table`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -47,7 +48,8 @@ export const Orders = () => {
     axios({
       method: "POST",
       maxBodyLength: Infinity,
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/update-order-status",
+      // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/update-order-status",
+      url: `${process.env.REACT_APP_BASE_API_URL}/update-order-status`,
       headers: {
         "Content-Type": "application/json",
       },

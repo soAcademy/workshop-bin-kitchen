@@ -10,7 +10,8 @@ const FoodMenuGroup = (props) => {
       // method: "GET",
       // url: "https://api.allorigins.win/raw?url=https://pastebin.com/raw/x1EY0NL9",
       method: "POST",
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-menus",
+      // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-menus",
+      url: `${process.env.REACT_APP_BASE_API_URL}/get-menus`,
     })
       .then((response) => {
         // console.log(response.data);

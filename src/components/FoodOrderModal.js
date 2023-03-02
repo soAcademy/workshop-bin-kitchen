@@ -40,7 +40,8 @@ const FoodOrderModal = (props) => {
     axios({
       method: "post",
       maxBodyLength: Infinity,
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/create-order",
+      // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/create-order",
+      url: `${process.env.REACT_APP_BASE_API_URL}/create-order`,
       headers: {
         "Content-Type": "application/json",
       },
