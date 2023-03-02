@@ -12,7 +12,7 @@ const FoodMenuList = (props) => {
   return (
     <div className="mb-4 grid gap-4 md:grid-cols-2">
       {menu
-        .filter((menuItem) => menuItem.category === category)
+        .filter((menuItem) => menuItem.category.name === category)
         .map((menuItem, idx) => (
           <div key={idx} className="flex gap-4">
             <img

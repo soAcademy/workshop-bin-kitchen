@@ -11,7 +11,8 @@ const FoodMenuGroup = (props) => {
       // url: "https://api.allorigins.win/raw?url=https://pastebin.com/raw/x1EY0NL9",
       method: "POST",
       // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-menus",
-      url: `${process.env.REACT_APP_BASE_API_URL}/get-menus`,
+      // url: `${process.env.REACT_APP_BASE_API_URL}/get-menus`,
+      url: "http://localhost:8000/binKitchen/get-menus",
     })
       .then((response) => {
         // console.log(response.data);
@@ -20,7 +21,7 @@ const FoodMenuGroup = (props) => {
       .catch((error) => console.log(error));
   }, []);
 
-  return [...new Set(foodMenu.map((food) => food.category))].map(
+  return [...new Set(foodMenu.map((food) => food.category.name))].map(
     (category, idx) => (
       <React.Fragment key={idx}>
         <h2 className="mb-4">เมนู{category}</h2>
