@@ -16,9 +16,9 @@ export const Menu = () => {
     localStorage.setItem("menuSelected", JSON.stringify(menuSelected));
   }, [JSON.stringify(menuSelected)]);
 
-  const updateMenuAmount = (menuName, amount) => {
+  const updateMenuQuantity = (menuName, quantity) => {
     setMenuSelected(JSON.parse(localStorage.getItem("menuSelected")));
-    menuSelected[menuName].amount = amount;
+    menuSelected[menuName].quantity = quantity;
     setMenuSelected(menuSelected);
   };
 
@@ -68,13 +68,13 @@ export const Menu = () => {
                         </div>
                       </div>
                       <span
-                        className={`${menu.amount > 1 ? "flex" : "hidden"}`}
+                        className={`${menu.quantity > 1 ? "flex" : "hidden"}`}
                       >
                         <button
                           className={`h-8 w-10 rounded-md bg-red-400 shadow-md duration-150 hover:bg-red-500 hover:shadow-lg active:bg-red-300 md:h-6 md:w-10`}
                           onClick={() => {
-                            if (menu.amount > 1) {
-                              updateMenuAmount(menu.name, menu.amount - 1); // UPDATE MENU AMOUNT
+                            if (menu.quantity > 1) {
+                              updateMenuQuantity(menu.name, menu.quantity - 1); // UPDATE MENU QUANTITY
                               setButtonClicked(!buttonClicked); // WHEN THE BUTTON IS CLICKED
                             } else {
                               setRemoveOrderPopup(true);
@@ -85,12 +85,12 @@ export const Menu = () => {
                           -
                         </button>
                         <span className="mx-2 my-auto w-6 text-center">
-                          {menu.amount}
+                          {menu.quantity}
                         </span>
                         <button
                           className="h-8 w-10 rounded-md bg-red-400 shadow-md duration-150 hover:bg-red-500 hover:shadow-lg active:bg-red-300 md:h-6 md:w-10"
                           onClick={() => {
-                            updateMenuAmount(menu.name, menu.amount + 1); // UPDATE MENU AMOUNT
+                            updateMenuQuantity(menu.name, menu.quantity + 1); // UPDATE MENU QUANTITY
                             setButtonClicked(!buttonClicked); // WHEN THE BUTTON IS CLICKED
                           }}
                         >
@@ -99,14 +99,14 @@ export const Menu = () => {
                       </span>
                       <button
                         className={`${
-                          menu.amount > 1 ? "hidden" : "flex"
+                          menu.quantity > 1 ? "hidden" : "flex"
                         } h-1/2 w-2/12 items-center justify-center rounded-lg bg-red-400 px-4 py-2 shadow-md duration-150 hover:bg-red-500 hover:shadow-lg active:bg-red-300 md:h-[40px]`}
                         onClick={() => {
                           setIsOrderOpen(true); // OPEN ORDER POPUP
                           menuSelected[menu.name] = {
                             id: menu.id,
                             name: menu.name,
-                            amount: (menuSelected[menu.name]?.amount ?? 0) + 1,
+                            quantity: (menuSelected[menu.name]?.quantity ?? 0) + 1,
                             price: menu.price,
                           };
                           setMenuSelected(menuSelected);
@@ -142,7 +142,7 @@ export const Menu = () => {
           setIsOrderOpen={setIsOrderOpen}
           menuSelected={menuSelected}
           setMenuSelected={setMenuSelected}
-          updateMenuAmount={updateMenuAmount}
+          updateMenuQuantity={updateMenuQuantity}
           buttonClicked={buttonClicked}
           setButtonClicked={setButtonClicked}
           setRemoveMenuName={setRemoveMenuName}

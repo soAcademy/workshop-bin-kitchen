@@ -1,51 +1,18 @@
 import axios from "axios";
+import { addOrder } from "../hooks";
 export const OrderPopUp = ({
   isOrderOpen,
   setIsOrderOpen,
-  menuNameArray,
-  menuAmountArray,
   menuSelected,
   setMenuSelected,
-  updateMenuAmount,
+  updateMenuQuantity,
   buttonClicked,
   setButtonClicked,
   setRemoveMenuName,
   setRemoveOrderPopup,
   orders,
 }) => {
-  const addOrder = () => {
-    const _tableId = document.querySelector("#tableNo").value;
-    const _menuSelected = Object.values(menuSelected).sort(
-      (a, b) => a.id - b.id
-    );
-    const _items = _menuSelected.map((item) => {
-      return {
-        menu_id: item.id,
-        price: item.price,
-        quantity: item.amount,
-        total_price: item.price * item.amount,
-      };
-    });
-    const _data = JSON.stringify({
-      table_id: _tableId,
-      items: _items,
-    });
-    const _config = {
-      method: "post",
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/create-order",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: _data,
-    };
-    axios(_config)
-      .then(function (response) {
-        console.log("response.data :>> ", response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+  
   return (
     <div
       className={` pointer-events-auto z-30 flex min-h-[500px] w-full items-center justify-center duration-500
@@ -59,7 +26,7 @@ export const OrderPopUp = ({
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            addOrder();
+            addOrder(menuSelected);
             document.querySelector("#tableNo").value = "";
             setIsOrderOpen(false);
             setMenuSelected({});
@@ -86,7 +53,7 @@ export const OrderPopUp = ({
           {/*List menu in the cart */}
           <div className="no-scrollbar h-[200px] space-y-1 overflow-y-auto">
             {Object.values(menuSelected)?.map((menu, idx) => {
-              // console.log('menuSelected :>> ', menuSelected);
+              console.log('menuSelected :>> ', menuSelected);
               return (
                 <div
                   key={idx}
@@ -98,8 +65,8 @@ export const OrderPopUp = ({
                       type="button"
                       className={`h-8 w-10 rounded-md bg-red-400 shadow-md duration-150 hover:bg-red-500 hover:shadow-lg active:bg-red-300 md:h-6 md:w-10`}
                       onClick={() => {
-                        if (menu.amount > 1) {
-                          updateMenuAmount(menu.name, menu.amount - 1); // UPDATE MENU AMOUNT
+                        if (menu.quantity > 1) {
+                          updateMenuQuantity(menu.name, menu.quantity - 1); // UPDATE MENU QUANTITY
                           setButtonClicked(!buttonClicked); // WHEN THE BUTTON IS CLICKED
                         } else {
                           setRemoveOrderPopup(true);
@@ -110,13 +77,13 @@ export const OrderPopUp = ({
                       -
                     </button>
                     <span className="mx-2 my-auto w-6 text-center">
-                      {menu.amount}
+                      {menu.quantity}
                     </span>
                     <button
                       type="button"
                       className="h-8 w-10 rounded-md bg-red-400 shadow-md duration-150 hover:bg-red-500 hover:shadow-lg active:bg-red-300 md:h-6 md:w-10"
                       onClick={() => {
-                        updateMenuAmount(menu.name, menu.amount + 1); // UPDATE MENU AMOUNT
+                        updateMenuQuantity(menu.name, menu.quantity + 1); // UPDATE MENU QUANTITY
                         setButtonClicked(!buttonClicked); // WHEN THE BUTTON IS CLICKED
                       }}
                     >

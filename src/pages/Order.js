@@ -9,13 +9,38 @@ export const Order = () => {
   const [isCheckOut, setIsCheckOut] = useState(false);
   let arrTables = [...Array(15).keys()];
 
+  const updateOrder = (order, status) => {
+    const _data = JSON.stringify({
+      order_id: order.id,
+      status: status,
+    });
+    console.log("_data", _data);
+    const _config = {
+      method: "post",
+      url: "http://localhost:5555/foodOrdering/updateOrder",
+      // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/update-order-status",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: _data,
+    };
+    axios(_config)
+      .then(function () {
+        setFetchState(!fetchState);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     const _data = JSON.stringify({
       table_id: tableId,
     });
     const _config = {
       method: "post",
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders-by-table",
+      url: "http://localhost:5555/foodOrdering/getOrders",
+      // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders-by-table",
       headers: {
         "Content-Type": "application/json",
       },
@@ -31,7 +56,7 @@ export const Order = () => {
   }, [tableId, fetchState]);
   useEffect(() => {
     const _totalValue = orders?.reduce((acc, e) => {
-      acc += e.total_price;
+      acc += e.status !== "CANCEL" ? e.total_price : 0;
       return acc;
     }, 0);
     setTotalValue(_totalValue);
@@ -72,55 +97,51 @@ export const Order = () => {
               เช็คบิล
             </button>
           </div>
+          <div className="mx-auto mt-4 w-2/3 border-b"></div>
           {orders.map((order, idx) => {
             return (
-              <div key={idx} className="mx-auto px-5 py-2 md:w-1/2">
-                <p>หมายเลขคำสั่งซื้อ # {order.order_id}</p>
-                <p>
-                  สถานะ:{" "}
-                  {order.status === "WAITING" ? "กำลังทำ" : "ทำเสร็จแล้ว"}
-                </p>
-                {order.items?.map((item, jdx) => {
-                  return (
-                    <div key={jdx} className="flex justify-between">
-                      <div>{item.name}</div>
-                      <div>
-                        ฿{item.price} x {item.quantity}
-                      </div>
-                    </div>
-                  );
-                })}
-                <div className="text-end self-end">รวม {order.total_price}</div>
-                <div className="mt-4 flex justify-end">
+              <div key={idx} className="mx-auto w-11/12 px-5 py-2 md:w-1/2">
+                <div className="flex w-full justify-between">
+                  <div className="">
+                    <p>หมายเลขคำสั่งซื้อ # {order.id}</p>
+                    <p>
+                      สถานะ:{" "}
+                      {order.status === "WAITING"
+                        ? "กำลังทำ"
+                        : order.status === "DONE"
+                        ? "ทำเสร็จแล้ว"
+                        : "ยกเลิก"}
+                    </p>
+                    {order.items?.map((item, jdx) => {
+                      return (
+                        <div key={jdx} className="flex justify-between">
+                          <div>{item.name}</div>
+                          <div>
+                            ฿{item.price} x {item.quantity}
+                          </div>
+                        </div>
+                      );
+                    })}
+                    รวม: {order.total_price} บาท
+                  </div>
                   {order.status === "WAITING" && (
-                    <button
-                      onClick={() => {
-                        const _data = JSON.stringify({
-                          order_id: order.order_id,
-                          status: "DONE",
-                        });
-                        const _config = {
-                          method: "post",
-                          url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/update-order-status",
-                          headers: {
-                            "Content-Type": "application/json",
-                          },
-                          data: _data,
-                        };
-                        axios(_config)
-                          .then(function () {
-                            setFetchState(!fetchState);
-                          })
-                          .catch(function (error) {
-                            console.log(error);
-                          });
-                      }}
-                      className="h-10 w-24 self-center rounded-lg bg-red-100 px-2 shadow-md hover:bg-red-200"
-                    >
-                      ทำเสร็จแล้ว
-                    </button>
+                    <div className="flex flex-col space-y-2">
+                      <button
+                        onClick={() => updateOrder(order, "DONE")}
+                        className="h-10 w-24 self-center rounded-lg bg-red-100 px-2 shadow-md hover:bg-red-200"
+                      >
+                        ทำเสร็จแล้ว
+                      </button>
+                      <button
+                        onClick={() => updateOrder(order, "CANCEL")}
+                        className="h-10 w-24 self-center rounded-lg bg-slate-100 px-2 shadow-md hover:bg-slate-200"
+                      >
+                        ยกเลิก
+                      </button>
+                    </div>
                   )}
                 </div>
+                <div className="mx-auto mt-4 w-11/12 border-b"></div>
               </div>
             );
           })}
