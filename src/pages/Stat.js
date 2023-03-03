@@ -9,7 +9,8 @@ export const Stat = () => {
     axios({
       method: "POST",
       // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders",
-      url: `${process.env.REACT_APP_BASE_API_URL}/get-orders`,
+      // url: `${process.env.REACT_APP_BASE_API_URL}/get-orders`,
+      url: `http://localhost:8000/binKitchen/get-orders`,
     })
       .then((response) => {
         // console.log(response.data);
@@ -31,11 +32,11 @@ export const Stat = () => {
     const menuItemsWithMenuId = menuItems
       // .filter((item) => item.menu_id === menuId)
       .reduce((accArray, item) => {
-        accArray[item.menu_id] = {
-          menu_id: item.menu_id,
-          price: item.price,
-          quantity: (accArray[item.menu_id]?.quantity ?? 0) + item.quantity,
-          name: item.name,
+        accArray[item.menu?.id] = {
+          menu_id: item.menu?.id,
+          price: item.menu?.price,
+          quantity: (accArray[item.menu?.id]?.quantity ?? 0) + item.quantity,
+          name: item.menu?.name,
         };
         return accArray;
       }, [])
