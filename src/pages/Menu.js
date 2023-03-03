@@ -26,7 +26,8 @@ export const Menu = () => {
   useEffect(() => {
     axios({
       method: "post",
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-menus",
+      url: "http://localhost:5555/foodOrdering/getMenu",
+      // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-menus",
     }).then((res) => {
       setFoodMenus(res.data);
     });
@@ -57,6 +58,7 @@ export const Menu = () => {
                         <img
                           src={menu.image}
                           className="h-full w-full rounded-lg object-cover"
+                          alt="menu_img"
                         />
                       </div>
                       <div className="max-[300px]:ml-6 ml-10 flex h-full w-8/12 flex-col justify-evenly">

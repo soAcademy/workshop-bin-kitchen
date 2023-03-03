@@ -1,4 +1,3 @@
-import axios from "axios";
 import { addOrder } from "../hooks";
 export const OrderPopUp = ({
   isOrderOpen,
@@ -10,9 +9,7 @@ export const OrderPopUp = ({
   setButtonClicked,
   setRemoveMenuName,
   setRemoveOrderPopup,
-  orders,
 }) => {
-  
   return (
     <div
       className={` pointer-events-auto z-30 flex min-h-[500px] w-full items-center justify-center duration-500
@@ -53,7 +50,7 @@ export const OrderPopUp = ({
           {/*List menu in the cart */}
           <div className="no-scrollbar h-[200px] space-y-1 overflow-y-auto">
             {Object.values(menuSelected)?.map((menu, idx) => {
-              console.log('menuSelected :>> ', menuSelected);
+              console.log("menuSelected :>> ", menuSelected);
               return (
                 <div
                   key={idx}
