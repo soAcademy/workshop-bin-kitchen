@@ -9,7 +9,7 @@ export const Navbar = () => {
   // SHOW/HIDE HAMBURGER MENU
   useEffect(() => {
     setClassName(
-      `bg-white fixed -top-14 w-full flex flex-col space-y-2 p-2 duration-500 md:hidden z-30 ${
+      `bg-white fixed -top-28 w-full flex flex-col space-y-2 p-2 duration-500 md:hidden z-30 ${
         isNavOpen ? "translate-y-full" : ""
         // isNavOpen ? "" : "-translate-y-full"
       }`
@@ -28,10 +28,12 @@ export const Navbar = () => {
             <div className="h-0.5 w-8 bg-gray-500"></div>
             <div className="h-0.5 w-8 bg-gray-500"></div>
           </span>
-          <span className="max-[300px]:text-lg pl-3 text-2xl ">ครัวคุณบิน</span>
+          <span className="max-[300px]:text-lg pl-3 text-2xl ">
+            ครัวคุณด๋อย
+          </span>
         </div>
         {/* DESKTOP MENU */}
-        <div className="DESKTOP-MENU mx-auto flex hidden space-x-8 md:block">
+        <div className="DESKTOP-MENU mx-auto hidden space-x-8 md:block">
           <Link to="/menu">
             <span
               className={`"decoration-transparent rounded" duration-500 hover:underline hover:decoration-black ${
@@ -95,12 +97,48 @@ export const Navbar = () => {
           </div>
         </Link>
         <Link to="/order">
-          <div className="rounded duration-500 hover:bg-gray-100">
+          <div
+            className={`rounded duration-500 hover:bg-gray-100 ${
+              location.pathname === "/order" || location.pathname === "/"
+                ? "underline"
+                : ""
+            }`}
+          >
             รายการสั่งอาหาร
           </div>
         </Link>
         <Link to="/stat">
-          <div className="rounded duration-500 hover:bg-gray-100">สถิติ</div>
+          <div
+            className={`rounded duration-500 hover:bg-gray-100 ${
+              location.pathname === "/stat" || location.pathname === "/"
+                ? "underline"
+                : ""
+            }`}
+          >
+            สถิติ
+          </div>
+        </Link>
+        <Link to="/faq">
+          <div
+            className={`rounded duration-500 hover:bg-gray-100 ${
+              location.pathname === "/faq" || location.pathname === "/"
+                ? "underline"
+                : ""
+            }`}
+          >
+            คำถามที่พบบ่อย
+          </div>
+        </Link>
+        <Link to="/admin">
+          <div
+            className={`rounded duration-500 hover:bg-gray-100 ${
+              location.pathname === "/admin" || location.pathname === "/"
+                ? "underline"
+                : ""
+            }`}
+          >
+            จัดการ
+          </div>
         </Link>
       </div>
       <div // DISPLAY SHADER WHEN HAMBURGER MENU IS OPENED
