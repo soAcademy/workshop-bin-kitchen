@@ -29,16 +29,18 @@ export const Menu = () => {
       url: "http://localhost:5555/foodOrdering/getMenu",
       // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-menus",
     }).then((res) => {
+      console.log("res.data", res.data);
       setFoodMenus(res.data);
     });
   }, []);
 
   // CREATE UNIQUE MENU CATEGORIES
   const category = foodMenus?.reduce((acc, e) => {
-    acc = [...acc, e.category];
+    acc = [...acc, e.category.name];
     return acc;
   }, []);
   const uniqueCategory = [...new Set(category)];
+  console.log("uniqueCategory", uniqueCategory);
 
   return (
     <div className="flex flex-col items-center justify-center gap-4 md:grid md:grid-cols-2 md:items-start xl:grid-cols-3">
@@ -46,10 +48,10 @@ export const Menu = () => {
         return (
           <div key={idx} className="relative z-10 w-full space-y-4 py-4">
             <div className="text-2xl font-semibold md:text-2xl lg:text-3xl">
-              เมนู{category}
+              {category}
             </div>
             {foodMenus
-              .filter((e) => e.category === category)
+              .filter((e) => e.category.name === category)
               .map((menu, jdx) => {
                 return (
                   <div key={jdx} className="w-full ">
@@ -108,7 +110,8 @@ export const Menu = () => {
                           menuSelected[menu.name] = {
                             id: menu.id,
                             name: menu.name,
-                            quantity: (menuSelected[menu.name]?.quantity ?? 0) + 1,
+                            quantity:
+                              (menuSelected[menu.name]?.quantity ?? 0) + 1,
                             price: menu.price,
                           };
                           setMenuSelected(menuSelected);
