@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar, Faqs, Home, P404, Order, Stat } from "./pages";
+import Admin from "./pages/Admin";
 
 const App = () => (
   <div className="no-scrollbar flex h-screen w-full flex-col">
@@ -12,6 +13,7 @@ const App = () => (
           <Route path="order" element={<Order />} />
           <Route path="stat" element={<Stat />} />
           <Route path="faq" element={<Faqs />} />
+          <Route path="admin" element={<Admin />} />
           <Route path="*" element={<P404 />} />
         </Routes>
       </div>

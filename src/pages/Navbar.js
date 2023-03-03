@@ -70,6 +70,15 @@ export const Navbar = () => {
               FAQ
             </span>
           </Link>
+          <Link to="/admin">
+            <span
+              className={`"decoration-transparent rounded" duration-500 hover:underline hover:decoration-black ${
+                location.pathname === "/admin" ? "underline" : ""
+              }`}
+            >
+              จัดการ
+            </span>
+          </Link>
         </div>
       </div>
       {/* HAMBURGER MENU */}
