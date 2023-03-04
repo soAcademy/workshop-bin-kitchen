@@ -14,17 +14,18 @@ export const Home = () => {
   const [openPop, setOpenPop] = useState(false);
   const [foodMenus, setFoodMenus] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [orders, setOrders] = React.useState([]);
+  const [orders, setOrders] = useState([]);
   console.log("order  = ", orders);
 
   useEffect(() => {
     axios({
       method: "post",
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-menus",
+      url: "http://localhost:3100/binKitchen/getMenus",
     }).then((response) => {
       console.log("Res.Data : ", response.data);
       setFoodMenus(response.data);
-      setCategories([...new Set(response.data?.map((item) => item.category))]);
+      setCategories([...new Set(response.data?.map((item) => item.categoryName))]);
+      console.log("Categories : ", [...new Set(response.data?.map((item) => item.categoryName))])
     });
   }, []);
 console.log("setOpenPop Home  : " , setOpenPop);
@@ -38,7 +39,7 @@ console.log("setOpenPop Home  : " , setOpenPop);
         setOpenPop={setOpenPop}
         orders={orders}
         setOrders={setOrders}
-        menus={foodMenus}
+        foodMenus={foodMenus}
         // categories={categories?.filter((r) => r === r.category)}
         categories={categories}
       />

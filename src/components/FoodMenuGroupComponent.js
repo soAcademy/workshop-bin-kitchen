@@ -2,7 +2,7 @@ import React from "react";
 import FoodMenuList from "../components/FoodMenuListComponent";
 
 const FoodMenuGroup = ({
-  menus,
+  foodMenus,
   categories,
   onBypassAddButtonClickedToMainPage,
   setOpenPop,
@@ -22,7 +22,7 @@ const FoodMenuGroup = ({
             console.log("menu group" + JSON.stringify(menuObj));
             onBypassAddButtonClickedToMainPage(menuObj);
           }}
-          menus={menus?.filter((menu) => menu.category === category)}
+          foodMenus={foodMenus?.filter((menu) => menu.categoryName === category)}
           category={category}
         />
       ))}

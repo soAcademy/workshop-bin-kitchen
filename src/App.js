@@ -5,6 +5,7 @@ import { Order } from "./pages/Order";
 import { Statistic } from "./pages/Statistic";
 import NavBar from "./components/NavBarComponent";
 import QandA from "./pages/QandA";
+import TestMUI from "./pages/TestMUI";
 
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
             <Route exact path="/statistic" element={<Statistic />} />
             <Route exact path="/order" element={<Order />} />
             <Route exact path="/qanda" element={<QandA />} />
+            <Route exact path="/testmui" element={<TestMUI/>} />
           </Routes>
 
         </div>

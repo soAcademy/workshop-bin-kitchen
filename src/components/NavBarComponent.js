@@ -9,6 +9,7 @@ const NavBar = () => {
     { id: "L2", name: "Order", link: "/order" },
     { id: "L3", name: "Statistic", link: "/statistic" },
     { id: "L4", name: "Q&A", link: "/qanda" },
+    { id: "L5", name: "TestMUI", link: "/testmui" },
   ];
 
   const [toggle, setToggle] = useState(false);

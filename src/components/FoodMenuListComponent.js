@@ -2,7 +2,7 @@ import React from "react";
 import FoodMenuItem from "./FoodMenuItem";
 
 const FoodMenuList = ({
-  menus,
+  foodMenus,
   category,
   onBypassAddButtonClicked,
   setOpenPop,
@@ -12,10 +12,10 @@ const FoodMenuList = ({
   return (
     <>
       {/* START MENU BOX */}
-      <div key={menus.id} className="flex-col mt-3">
+      <div key={foodMenus.id} className="flex-col mt-3">
         <h1 className="text-md md:text-lg lg:text-xl xl:text-2xl">{`เมนู${category}`}</h1>
         <div className="md:grid grid-flow-row grid-cols-3 gap-4 xl:grid-cols-4 xl:gab-2">
-          {menus?.map((menu) => (
+          {foodMenus?.map((menu) => (
             <FoodMenuItem
             orders={orders}
               setOrders={setOrders}
