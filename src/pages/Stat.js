@@ -12,7 +12,7 @@ export const Stat = () => {
   useEffect(() => {
     const _config = {
       method: "post",
-      url: "http://localhost:5555/foodOrdering/getOrders",
+      url: "https://backend-api-amber.vercel.app/foodOrdering/getOrders",
       // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders",
       headers: {},
     };
@@ -22,7 +22,7 @@ export const Stat = () => {
         setOrders(response.data);
       })
       .catch(function (error) {
-        console.log(error);
+        // console.log(error);
       });
   }, []);
   useEffect(() => {
@@ -73,7 +73,6 @@ export const Stat = () => {
           );
       })
       .sort((a, b) => a.total_value - b.total_value);
-    console.log("orders", orders);
     setTotalSale(_totalSale);
     setNumOrders({
       total: orders.length,

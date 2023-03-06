@@ -26,10 +26,10 @@ export const Menu = () => {
   useEffect(() => {
     axios({
       method: "post",
-      url: "http://localhost:5555/foodOrdering/getMenu",
+      url: "https://backend-api-amber.vercel.app/foodOrdering/getMenu",
       // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-menus",
     }).then((res) => {
-      console.log("res.data", res.data);
+      // console.log("res.data", res.data);
       setFoodMenus(res.data);
     });
   }, []);
@@ -40,7 +40,7 @@ export const Menu = () => {
     return acc;
   }, []);
   const uniqueCategory = [...new Set(category)];
-  console.log("uniqueCategory", uniqueCategory);
+  // console.log("uniqueCategory", uniqueCategory);
 
   return (
     <div className="flex flex-col items-center justify-center gap-4 md:grid md:grid-cols-2 md:items-start xl:grid-cols-3">

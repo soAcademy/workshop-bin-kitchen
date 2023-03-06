@@ -64,7 +64,7 @@ export const Order = () => {
 
     const config = {
       method: "post",
-      url: "http://localhost:5555/foodOrdering/createBill",
+      url: "https://backend-api-amber.vercel.app/foodOrdering/createBill",
       headers: {
         "Content-Type": "application/json",
       },
@@ -73,10 +73,10 @@ export const Order = () => {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
+        // console.log(JSON.stringify(response.data));
       })
       .catch(function (error) {
-        console.log(error);
+        // console.log(error);
       });
   };
 
@@ -87,7 +87,7 @@ export const Order = () => {
     });
     const _config = {
       method: "post",
-      url: "http://localhost:5555/foodOrdering/updateOrder",
+      url: "https://backend-api-amber.vercel.app/foodOrdering/updateOrder",
       // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/update-order-status",
       headers: {
         "Content-Type": "application/json",
@@ -99,7 +99,7 @@ export const Order = () => {
         setFetchState(!fetchState);
       })
       .catch(function (error) {
-        console.log(error);
+        // console.log(error);
       });
   };
 
@@ -109,7 +109,7 @@ export const Order = () => {
     });
     const _config = {
       method: "post",
-      url: "http://localhost:5555/foodOrdering/getOrders",
+      url: "https://backend-api-amber.vercel.app/foodOrdering/getOrders",
       // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders-by-table",
       headers: {
         "Content-Type": "application/json",
@@ -126,7 +126,7 @@ export const Order = () => {
         );
       })
       .catch(function (error) {
-        console.log(error);
+        // console.log(error);
       });
   }, [tableId, fetchState]);
 

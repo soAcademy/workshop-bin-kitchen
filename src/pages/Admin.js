@@ -16,7 +16,7 @@ const Admin = () => {
     });
     const config = {
       method: "post",
-      url: "http://localhost:5555/foodOrdering/addCategory",
+      url: "https://backend-api-amber.vercel.app/foodOrdering/addCategory",
       headers: {
         "Content-Type": "application/json",
       },
@@ -28,7 +28,7 @@ const Admin = () => {
         setResult(true);
       })
       .catch(function (error) {
-        console.log(error);
+        // console.log(error);
       });
   };
 
@@ -43,10 +43,9 @@ const Admin = () => {
       image: _url,
       categoryId: _categoryId,
     });
-    console.log("data", data);
     const config = {
       method: "post",
-      url: "http://localhost:5555/foodOrdering/addMenu",
+      url: "https://backend-api-amber.vercel.app/foodOrdering/addMenu",
       headers: {
         "Content-Type": "application/json",
       },
@@ -55,8 +54,40 @@ const Admin = () => {
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
         setResult(true);
+      })
+      .catch(function (error) {
+        // console.log("error");
+        setIsAddMenuFailed(true);
+      });
+  };
+
+  const handleFileChange = async (event) => {
+    const selectedFile = event.target.files[0];
+    setFile(selectedFile);
+    console.log('selectedFile', selectedFile)
+    const temporaryUrl = URL.createObjectURL(selectedFile);
+    setPreviewUrl(temporaryUrl);
+  };
+
+  const handleSubmit = async (event, input) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const config = {
+      method: "post",
+      url: "https://backend-api-amber.vercel.app/uploadImg",
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },  
+      data: formData,
+    };
+
+    axios(config)
+      .then(function (response) { 
+        console.log("responseAPI",response.data)
+        addMenu(input, response.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -64,39 +95,10 @@ const Admin = () => {
       });
   };
 
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    setFile(selectedFile);
-
-    const temporaryUrl = URL.createObjectURL(selectedFile);
-    setPreviewUrl(temporaryUrl);
-  };
-
-  const handleSubmit = (event, input) => {
-    event.preventDefault();
-
-    const formData = new FormData();
-    formData.append("image", file);
-
-    const config = {
-      method: "post",
-      url: "http://localhost:5555/uploadImg",
-      data: formData,
-    };
-
-    axios(config)
-      .then(function (response) {
-        addMenu(input, response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
   useEffect(() => {
     const config = {
       method: "post",
-      url: "http://localhost:5555/foodOrdering/getCategory",
+      url: "https://backend-api-amber.vercel.app/foodOrdering/getCategory",
       headers: {},
     };
 
@@ -105,7 +107,7 @@ const Admin = () => {
         setCategory(response.data);
       })
       .catch(function (error) {
-        console.log(error);
+        // console.log(error);
       });
   }, [fetchState]);
   return (
@@ -170,7 +172,7 @@ const Admin = () => {
       {selectedConfig === 1 && (
         <form
           className="mx-auto mt-4 flex flex-col justify-center p-6 md:w-1/2"
-          onSubmit={async (e) => {
+          onSubmit={(e) => {
             e.preventDefault();
             const input = e.target;
             handleSubmit(e, input);
@@ -224,11 +226,7 @@ const Admin = () => {
           >
             เพิ่มเมนู
           </button>
-          <input
-            className="hidden"
-            type="file"
-            onChange={(e) => console.log("e.target.files", e.target.files)}
-          ></input>
+
         </form>
       )}
       {/* {selectedConfig === 2 && (

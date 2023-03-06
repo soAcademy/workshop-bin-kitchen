@@ -11,7 +11,6 @@ export const Home = () => {
       กันมารุ่นสู่รุ่น จัดแต่งมาบนจาน พร้อมเสิร์ฟความอร่อยให้กับคุณ
     </p>
   );
-  // console.log(menu);
   return (
     <div className="font-kanit">
       <div className="relative top-16 mx-auto flex w-11/12 flex-col items-center justify-center py-4 md:top-20 ">
