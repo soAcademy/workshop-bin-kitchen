@@ -24,11 +24,14 @@ const Admin = () => {
     };
 
     axios(config)
-      .then(function () {
+      .then(function (response) {
         setResult(true);
+        document.getElementById("addCategory").reset();
       })
       .catch(function (error) {
         // console.log(error);
+        setIsAddMenuFailed(true);
+        document.getElementById("addCategory").reset();
       });
   };
 
@@ -55,10 +58,12 @@ const Admin = () => {
     axios(config)
       .then(function (response) {
         setResult(true);
+        document.getElementById("addMenu").reset();
       })
       .catch(function (error) {
         // console.log("error");
         setIsAddMenuFailed(true);
+        document.getElementById("addMenu").reset();
       });
   };
 
@@ -136,6 +141,7 @@ const Admin = () => {
       {selectedConfig === 0 && (
         <div>
           <form
+            id="addCategory"
             className="mx-auto mt-4 flex flex-col justify-center p-6 md:w-1/2"
             onSubmit={(e) => {
               e.preventDefault();
@@ -270,7 +276,6 @@ const Admin = () => {
           onClick={() => {
             setFetchState(!fetchState);
             setResult();
-            document.getElementById("addMenu").reset();
             setPreviewUrl();
           }}
           className="mx-auto w-20 rounded-lg bg-slate-50 p-2 shadow-lg hover:bg-slate-100 active:shadow-inner"
@@ -289,7 +294,6 @@ const Admin = () => {
           onClick={() => {
             setFetchState(!fetchState);
             setIsAddMenuFailed(false);
-            document.getElementById("addMenu").reset();
             setPreviewUrl();
           }}
           className="mx-auto w-20 rounded-lg bg-slate-50 p-2 shadow-lg hover:bg-slate-100 active:shadow-inner"

@@ -108,13 +108,13 @@ export const Order = () => {
     });
     const _config = {
       method: "post",
-      url: "https://food-backend.vercel.app/foodOrdering/getOrders",
+      url: "https://food-backend.vercel.app/foodOrdering/getOrdersForCheckout",
       headers: {
         "Content-Type": "application/json",
       },
       data: _data,
     };
-    axios(_config)
+    tableId && axios(_config)
       .then(function (response) {
         setOrders(
           response.data.filter(
