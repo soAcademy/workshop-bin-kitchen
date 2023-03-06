@@ -64,7 +64,7 @@ export const Order = () => {
 
     const config = {
       method: "post",
-      url: "https://backend-api-amber.vercel.app/foodOrdering/createBill",
+      url: "https://food-backend.vercel.app/foodOrdering/createBill",
       headers: {
         "Content-Type": "application/json",
       },
@@ -87,7 +87,7 @@ export const Order = () => {
     });
     const _config = {
       method: "post",
-      url: "https://backend-api-amber.vercel.app/foodOrdering/updateOrder",
+      url: "https://food-backend.vercel.app/foodOrdering/updateOrder",
       // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/update-order-status",
       headers: {
         "Content-Type": "application/json",
@@ -109,7 +109,7 @@ export const Order = () => {
     });
     const _config = {
       method: "post",
-      url: "https://backend-api-amber.vercel.app/foodOrdering/getOrders",
+      url: "https://food-backend.vercel.app/foodOrdering/getOrders",
       // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders-by-table",
       headers: {
         "Content-Type": "application/json",

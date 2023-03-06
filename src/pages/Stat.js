@@ -12,7 +12,7 @@ export const Stat = () => {
   useEffect(() => {
     const _config = {
       method: "post",
-      url: "https://backend-api-amber.vercel.app/foodOrdering/getOrders",
+      url: "https://food-backend.vercel.app/foodOrdering/getOrders",
       // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders",
       headers: {},
     };

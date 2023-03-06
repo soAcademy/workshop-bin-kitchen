@@ -30,7 +30,7 @@ export const addOrder = (menuSelected) => {
   // console.log("_data", _data);
   const _config = {
     method: "post",
-    url: "https://backend-api-amber.vercel.app/foodOrdering/addOrder",
+    url: "https://food-backend.vercel.app/foodOrdering/addOrder",
     // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/create-order",
     headers: {
       "Content-Type": "application/json",

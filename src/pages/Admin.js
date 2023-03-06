@@ -16,7 +16,7 @@ const Admin = () => {
     });
     const config = {
       method: "post",
-      url: "https://backend-api-amber.vercel.app/foodOrdering/addCategory",
+      url: "https://food-backend.vercel.app/foodOrdering/addCategory",
       headers: {
         "Content-Type": "application/json",
       },
@@ -45,7 +45,7 @@ const Admin = () => {
     });
     const config = {
       method: "post",
-      url: "https://backend-api-amber.vercel.app/foodOrdering/addMenu",
+      url: "https://food-backend.vercel.app/foodOrdering/addMenu",
       headers: {
         "Content-Type": "application/json",
       },
@@ -77,7 +77,7 @@ const Admin = () => {
 
     const config = {
       method: "post",
-      url: "https://backend-api-amber.vercel.app/uploadImg",
+      url: "https://food-backend.vercel.app/uploadImg",
       headers: {
         'Content-Type': 'multipart/form-data'
       },  
@@ -98,7 +98,7 @@ const Admin = () => {
   useEffect(() => {
     const config = {
       method: "post",
-      url: "https://backend-api-amber.vercel.app/foodOrdering/getCategory",
+      url: "https://food-backend.vercel.app/foodOrdering/getCategory",
       headers: {},
     };
 

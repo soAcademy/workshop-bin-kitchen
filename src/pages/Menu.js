@@ -26,7 +26,7 @@ export const Menu = () => {
   useEffect(() => {
     axios({
       method: "post",
-      url: "https://backend-api-amber.vercel.app/foodOrdering/getMenu",
+      url: "https://food-backend.vercel.app/foodOrdering/getMenu",
       // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-menus",
     }).then((res) => {
       // console.log("res.data", res.data);
