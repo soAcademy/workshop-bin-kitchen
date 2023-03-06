@@ -167,7 +167,7 @@ export const Order = () => {
             <p>
               {tableId && `โต๊ะ ${tableId}`} ยอดรวม ฿{totalPrice ?? 0}{" "}
             </p>
-            {tableId && (
+            {tableId && orders.length > 0 && (
               <button
                 onClick={() => setIsCheckOut(true)}
                 className="h-10 w-24 rounded-lg bg-red-100 px-2 shadow-md hover:bg-red-200"
