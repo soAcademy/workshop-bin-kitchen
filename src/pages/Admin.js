@@ -79,19 +79,20 @@ const Admin = () => {
       method: "post",
       url: "https://food-backend.vercel.app/uploadImg",
       headers: {
-        'Content-Type': 'multipart/form-data'
-      },  
+        "Content-Type": "multipart/form-data",
+      },
       data: formData,
     };
-
     axios(config)
-      .then(function (response) { 
+      .then(function (response) {
         // console.log("responseAPI",response.data)
         addMenu(input, response.data);
+        // event.target.reset();
       })
       .catch(function (error) {
         // console.log(error);
         setIsAddMenuFailed(true);
+        // event.target.reset();
       });
   };
 
@@ -171,6 +172,7 @@ const Admin = () => {
       )}
       {selectedConfig === 1 && (
         <form
+          id="addMenu"
           className="mx-auto mt-4 flex flex-col justify-center p-6 md:w-1/2"
           onSubmit={(e) => {
             e.preventDefault();
@@ -226,7 +228,6 @@ const Admin = () => {
           >
             เพิ่มเมนู
           </button>
-
         </form>
       )}
       {/* {selectedConfig === 2 && (
@@ -269,6 +270,8 @@ const Admin = () => {
           onClick={() => {
             setFetchState(!fetchState);
             setResult();
+            document.getElementById("addMenu").reset();
+            setPreviewUrl();
           }}
           className="mx-auto w-20 rounded-lg bg-slate-50 p-2 shadow-lg hover:bg-slate-100 active:shadow-inner"
         >
@@ -286,6 +289,8 @@ const Admin = () => {
           onClick={() => {
             setFetchState(!fetchState);
             setIsAddMenuFailed(false);
+            document.getElementById("addMenu").reset();
+            setPreviewUrl();
           }}
           className="mx-auto w-20 rounded-lg bg-slate-50 p-2 shadow-lg hover:bg-slate-100 active:shadow-inner"
         >

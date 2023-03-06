@@ -27,7 +27,7 @@ export const Menu = () => {
     axios({
       method: "post",
       url: "https://food-backend.vercel.app/foodOrdering/getMenu",
-      // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-menus",
+      // url: "http://localhost:5555/foodOrdering/getMenu",
     }).then((res) => {
       // console.log("res.data", res.data);
       setFoodMenus(res.data);
