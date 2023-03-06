@@ -21,13 +21,13 @@ export const addOrder = (menuSelected) => {
   const _totalPrice = _menuSelected.reduce((acc, i) => {
     return acc + Number(i.quantity) * Number(i.price);
   }, 0);
-  console.log("_items", _items);
+  // console.log("_items", _items);
   const _data = JSON.stringify({
     table_id: _tableId,
     total_price: _totalPrice,
     items: _items,
   });
-  console.log("_data", _data);
+  // console.log("_data", _data);
   const _config = {
     method: "post",
     url: "http://localhost:5555/foodOrdering/addOrder",
@@ -39,9 +39,9 @@ export const addOrder = (menuSelected) => {
   };
   axios(_config)
     .then(function (response) {
-      console.log("response.data :>> ", response.data);
+      // console.log("response.data :>> ", response.data);
     })
     .catch(function (error) {
-      console.log(error);
+      // console.log(error);
     });
 };

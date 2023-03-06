@@ -50,7 +50,7 @@ export const OrderPopUp = ({
           {/*List menu in the cart */}
           <div className="no-scrollbar h-[200px] space-y-1 overflow-y-auto">
             {Object.values(menuSelected)?.map((menu, idx) => {
-              console.log("menuSelected :>> ", menuSelected);
+              // console.log("menuSelected :>> ", menuSelected);
               return (
                 <div
                   key={idx}

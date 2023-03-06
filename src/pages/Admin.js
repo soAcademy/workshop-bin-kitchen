@@ -65,7 +65,7 @@ const Admin = () => {
   const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0];
     setFile(selectedFile);
-    console.log('selectedFile', selectedFile)
+    // console.log('selectedFile', selectedFile)
     const temporaryUrl = URL.createObjectURL(selectedFile);
     setPreviewUrl(temporaryUrl);
   };
@@ -86,11 +86,11 @@ const Admin = () => {
 
     axios(config)
       .then(function (response) { 
-        console.log("responseAPI",response.data)
+        // console.log("responseAPI",response.data)
         addMenu(input, response.data);
       })
       .catch(function (error) {
-        console.log(error);
+        // console.log(error);
         setIsAddMenuFailed(true);
       });
   };
