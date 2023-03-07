@@ -13,31 +13,56 @@ const Order = () => {
   }
   console.log("chooseTableId", chooseTableId);
 
-  const checkBill = () => {
-    return orderByTableFromAPI.reduce((acc, r) => acc + r.total_price);
-  };
+  // const checkBill = () => {
+  //   return orderByTableFromAPI?.reduce((acc, r) => acc + r.total_price);
+  // };
 
-  console.log(
-    "AAA",
-    orderByTableFromAPI.reduce((acc, r) => acc + r.total_price)
-  );
+  // console.log(
+  //   "AAA",
+  //   orderByTableFromAPI?.reduce((acc, r) => acc + r.total_price)
+  // );
 
-  console.log("checkBill", checkBill());
+  // console.log("checkBill", checkBill());
+
+  // const sentOrderIdDone = async (orderIdDone) => {
+  //   setLoading(true);
+  //   try {
+  //     await updateOrderStatus(orderIdDone);
+  //     await getOrderByTable(chooseTableId);
+  //     setLoading(false);
+  //   } catch (err) {
+  //     console.log("sentOrderIdDoneError", err);
+  //   }
 
   const sentOrderIdDone = (orderIdDone) => {
     const data = JSON.stringify({
-      order_id: orderIdDone,
+      id: orderIdDone,
       status: "DONE",
     });
 
     const config = {
       method: "post",
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/update-order-status",
+      url: "http://localhost:3100/function/updateOrder",
       headers: {
         "Content-Type": "application/json",
       },
       data: data,
     };
+
+    // const sentOrderIdDone = (orderIdDone) => {
+    //   const data = JSON.stringify({
+    //     order_id: orderIdDone,
+    //     status: "DONE",
+    //   });
+
+    //   const config = {
+    //     method: "post",
+    //     url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/update-order-status",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     data: data,
+    //   };
 
     setLoading(true);
     axios(config)
@@ -53,12 +78,12 @@ const Order = () => {
 
   const getOrderByTable = (chooseTableId) => {
     const data = JSON.stringify({
-      table_id: chooseTableId,
+      tableId: chooseTableId,
     });
 
     const config = {
       method: "post",
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders-by-table",
+      url: "http://localhost:3100/function/getOrder",
       headers: {
         "Content-Type": "application/json",
       },
@@ -74,6 +99,30 @@ const Order = () => {
         console.log("getOrderByTableErrorResp", error);
       });
   };
+
+  const totalPricePending = orderByTableFromAPI
+    .filter((r) => r.status === "PENDING")
+    .map((order) => {
+      const filteredData = order.BinKitchenOrderItem.reduce(
+        (acc, r) => acc + r.totalPrice,
+        0
+      );
+      return filteredData;
+    })
+    .reduce((acc, r) => acc + r, 0);
+  console.log("totalPricePending", totalPricePending);
+
+  const totalPriceDone = orderByTableFromAPI
+    .filter((r) => r.status === "DONE")
+    .map((order) => {
+      const filteredData = order.BinKitchenOrderItem.reduce(
+        (acc, r) => acc + r.totalPrice,
+        0
+      );
+      return filteredData;
+    })
+    .reduce((acc, r) => acc + r, 0);
+  console.log("totalPriceDone", totalPriceDone);
 
   return (
     <>
@@ -101,29 +150,29 @@ const Order = () => {
           กำลังทำ
         </div>
         {orderByTableFromAPI
-          .filter((r) => r.status === "WAITING")
+          .filter((r) => r.status === "PENDING")
           .map((order) => (
             <>
-              <div>{`หมายเลขคำสั่งซื้อ # ${order.order_id}`}</div>
+              <div>{`หมายเลขคำสั่งซื้อ # ${order.id}`}</div>
               <div className="mt-2">สถานะคำสั่งซื้อ : กำลังทำ</div>
-              {order.items.map((j) => (
+              {order.BinKitchenOrderItem.map((j) => (
                 <>
                   <div className="flex justify-between">
-                    <div>{j.name}</div>
-                    <div>{`฿${j.price} x ${j.quantity}`}</div>
+                    <div>{j.menu.name}</div>
+                    <div>{`฿${j.menu.price} x ${j.quantity}`}</div>
                   </div>
                 </>
               ))}
 
               <div className="flex justify-end">
-                <div className="mt-2">{`รวม ฿${order.total_price}`}</div>
+                <div className="mt-2">{`รวม ฿${totalPricePending}`}</div>
               </div>
               <div className="flex justify-end">
                 <button
                   className={`rounded p-2 my-2 transition-all ${
                     loading ? "bg-blue-500 " : "bg-red-200 "
                   }`}
-                  onClick={() => sentOrderIdDone(order.order_id)}
+                  onClick={() => sentOrderIdDone(order.id)}
                 >
                   {`${loading ? "กำลังทำรายการ..." : "ทำเสร็จแล้ว"}`}
                 </button>
@@ -138,19 +187,19 @@ const Order = () => {
           .filter((r) => r.status === "DONE")
           .map((order) => (
             <>
-              <div>{`หมายเลขคำสั่งซื้อ # ${order.order_id}`}</div>
+              <div>{`หมายเลขคำสั่งซื้อ # ${order.id}`}</div>
               <div>สถานะคำสั่งซื้อ : ทำเสร็จแล้ว</div>
-              {order.items.map((j) => (
+              {order.BinKitchenOrderItem.map((j) => (
                 <>
                   <div className="flex justify-between">
-                    <div>{j.name}</div>
-                    <div>{`฿${j.price} x ${j.quantity}`}</div>
+                    <div>{j.menu.name}</div>
+                    <div>{`฿${j.menu.price} x ${j.quantity}`}</div>
                   </div>
                 </>
               ))}
 
               <div className="flex justify-end">
-                <div className="mt-2">{`รวม ฿${order.total_price}`}</div>
+                <div className="mt-2">{`รวม ฿${totalPriceDone}`}</div>
               </div>
             </>
           ))}

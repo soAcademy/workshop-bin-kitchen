@@ -13,24 +13,34 @@ export const Home = () => {
   console.log("cart", cart);
   console.log("tableId", tableId);
 
+  // useEffect(() => {
+  //   axios({
+  //     method: "post",
+  //     url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-menus",
+  //   }).then((res) => {
+  //     console.log("foodMenu", res.data);
+  //     setFoodMenus(res.data);
+  //   });
+  // }, []);
+
   useEffect(() => {
     axios({
       method: "post",
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-menus",
+      url: "http://localhost:3100/function/getMenu",
     }).then((res) => {
-      console.log(res.data);
+      console.log("foodMenu", res.data);
       setFoodMenus(res.data);
     });
   }, []);
 
   const cartAdjustData = {
-    table_id: tableId,
-    items: cart.map((r) => {
+    tableId: tableId,
+    orderItem: cart.map((r) => {
       return {
-        menu_id: r.id,
-        price: r.price,
+        menuId: r.id,
         quantity: r.qty,
-        total_price: r.price * r.qty,
+        price: r.price,
+        totalPrice: r.price * r.qty,
       };
     }),
   };
@@ -59,12 +69,21 @@ export const Home = () => {
 
     const config = {
       method: "post",
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/create-order",
+      url: "http://localhost:3100/function/createOrder",
       headers: {
         "Content-Type": "application/json",
       },
       data: data,
     };
+
+    // const config = {
+    //   method: "post",
+    //   url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/create-order",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   data: data,
+    // };
 
     axios(config)
       .then(function (response) {
@@ -111,7 +130,7 @@ export const Home = () => {
             cart={cart}
             setCart={setCart}
             foodMenus={foodMenus}
-            categories={[...new Set(foodMenus?.map((r) => r.category))]}
+            categories={[...new Set(foodMenus?.map((r) => r.categoryName))]}
             toggleCartPopup={toggleCartPopup}
             setToggleCartPopup={setToggleCartPopup}
           />

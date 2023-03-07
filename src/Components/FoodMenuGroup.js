@@ -6,16 +6,20 @@ const FoodMenuGroup = (props) => {
   //   console.log("foodMenus", foodMenus);
 
   // const FoodMenuGroup = ({ foodMenus, categories }) => {
+
+  const { cart, toggleCartPopup, setCart, setToggleCartPopup, foodMenus } =
+    props;
+
   return props.categories?.map((category) => (
     <>
       <div className="ml-4 mt-4 font-bold">{`รายการ${category}`}</div>
       <FoodMenuList
-        cart={props.cart}
-        setCart={props.setCart}
+        cart={cart}
+        setCart={setCart}
         category={category}
-        foodMenus={props.foodMenus.filter((r) => r.category === category)}
-        toggleCartPopup={props.toggleCartPopup}
-        setToggleCartPopup={props.setToggleCartPopup}
+        foodMenus={foodMenus.filter((r) => r.categoryName === category)}
+        toggleCartPopup={toggleCartPopup}
+        setToggleCartPopup={setToggleCartPopup}
       />
     </>
   ));

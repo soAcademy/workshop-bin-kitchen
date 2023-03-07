@@ -55,8 +55,8 @@ const CartPopup = (props) => {
   return (
     <>
       {toggleCartPopup && (
-        <div className="z-10 bg-gray-500/30 backdrop-blur-sm w-full fixed flex items-end h-full">
-          <div className="m-4 p-4 border border-gray-300 rounded bg-white z-30 w-full">
+        <div className="mx-auto bottom-0 fixed w-full">
+          <div className="p-4 border border-gray-300 rounded m-2 bg-white ">
             <div className="flex justify-between">
               <div>สั่งอาหาร</div>
               <div>

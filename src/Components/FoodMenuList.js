@@ -5,28 +5,29 @@ const FoodMenuList = (props) => {
 
   // const FoodMenuList = ({ foodMenus, category }) => {
   // console.log(props);
+  const { cart, setCart, foodMenus, setToggleCartPopup } = props;
 
   const checkDupItem = (item) => {
-    if (props.cart.length > 0) {
-      if (props.cart.filter((r) => r.id === item.id).length > 0) {
-        const bb = props.cart.map((r) => {
+    if (cart.length > 0) {
+      if (cart.filter((r) => r.id === item.id).length > 0) {
+        const bb = cart.map((r) => {
           if (r.id === item.id) {
             return { ...r, qty: r.qty + 1 };
           } else {
             return r;
           }
         });
-        props.setCart(bb);
+        setCart(bb);
       } else {
-        props.setCart([...props.cart, { ...item, qty: 1 }]);
+        setCart([...cart, { ...item, qty: 1 }]);
       }
     } else {
-      props.setCart([{ ...item, qty: 1 }]);
+      setCart([{ ...item, qty: 1 }]);
     }
   };
 
   return (
-    props.foodMenus
+    foodMenus
       // .filter((item) => item.category === props.category)
       .map((item) => (
         <>
@@ -45,7 +46,7 @@ const FoodMenuList = (props) => {
               <button
                 className="bg-red-200 rounded px-6 py-2 mt-10"
                 onClick={() => {
-                  props.setToggleCartPopup(true);
+                  setToggleCartPopup(true);
                   // console.log("item", item);
 
                   // props.setCart([...props.cart, { ...item, qty: 1 }]);

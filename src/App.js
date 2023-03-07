@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import Order from "./pages/Order";
 import Stats from "./pages/Stats";
+import Faq from "./pages/Faq";
 import { Home } from "./pages/Home";
 import { GiHamburgerMenu } from "react-icons/gi";
 
@@ -11,16 +12,13 @@ const App = () => {
   return (
     <BrowserRouter>
       {toggle && (
-        <div className="flex justify-between fixed w-full h-full mt-20">
-          <div className="w-1/2"></div>
-          <div
-            className="bg-black opacity-75 md:opacity-0 w-1/2 h-full"
-            onClick={() => setToggle(!toggle)}
-          ></div>
-        </div>
+        <div
+          className="bg-black opacity-75 w-full h-full fixed top-0 z-30 md:opacity-0"
+          onClick={() => setToggle(!toggle)}
+        ></div>
       )}
 
-      <div className="h-20 bg-white drop-shadow-md fixed w-full flex">
+      <div className="h-20 bg-white drop-shadow-md fixed w-full flex z-30">
         <div className="my-6 md:invisible w-full">
           <button className="text-3xl px-8" onClick={() => setToggle(!toggle)}>
             <GiHamburgerMenu />
@@ -54,11 +52,20 @@ const App = () => {
                   สถิติ
                 </Link>
               </div>
+              <div className="pt-4">
+                <Link
+                  to="/faq"
+                  className="z-10 bg-white my-auto text-xl text-center hover:text-gray-400"
+                  onClick={() => setToggle(!toggle)}
+                >
+                  คำถามที่พบบ่อย
+                </Link>
+              </div>
             </div>
           )}
         </div>
         <div className="invisible md:visible w-full">
-          <div className="flex justify-between my-6 mr-14">
+          <div className="flex justify-between my-6 mr-10">
             <Link to="/" className="text-xl hover:drop-shadow hover:underline">
               เมนูอาหาร
             </Link>
@@ -76,6 +83,13 @@ const App = () => {
             >
               สถิติ
             </Link>
+
+            <Link
+              to="/faq"
+              className="text-xl hover:drop-shadow hover:underline"
+            >
+              คำถามที่พบบ่อย
+            </Link>
           </div>
         </div>
       </div>
@@ -84,6 +98,7 @@ const App = () => {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/order" element={<Order />} />
         <Route exact path="/stats" element={<Stats />} />
+        <Route exact path="/faq" element={<Faq />} />
         <Route
           exact
           path="*"
