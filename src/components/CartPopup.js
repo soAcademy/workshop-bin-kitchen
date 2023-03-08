@@ -1,5 +1,5 @@
 import axios from "axios";
-import {useState} from "react";
+import { useState } from "react";
 const CartPopup = (props) => {
   console.log("cartpopup", props);
   const {
@@ -13,24 +13,63 @@ const CartPopup = (props) => {
   const [receipt, setReceipt] = useState(undefined);
 
   const submitOrder = () => {
+    // const data = {
+    //   table_id: tableId,
+    //   items: cart.map((r) => ({
+    //     menu_id: r.id,
+    //     price: r.price,
+    //     quantity: r.quantity,
+    //     total_price: r.quantity*r.price,
+    //   })),
+    // };
     const data = {
-      table_id: tableId,
-      items: cart.map((r) => ({
-        menu_id: r.id,
-        price: r.price,
+      tableId: Number(tableId),
+      status: "PENDING",
+      items: cart?.map((r) => ({
+        id: Number(r.id),
         quantity: r.quantity,
-        total_price: r.quantity*r.price,
+        totalPrice: Number(r.quantity*r.price),
       })),
     };
     console.log(data);
 
     axios({
-      method:"post",
-      url:"https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/create-order",
-      data:data,
+      method: "post",
+      // url:"https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/create-order",
+      url: "http://localhost:3000/binKitchen/createOrder",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
     }).then((response) => {
-      console.log("response" , response.data);
-    })
+      console.log("response", response.data);
+      setCart([])
+    }).catch((error) => {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log("error data", error.response.data);
+        console.log("error status", error.response.status);
+        console.log("error headers", error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in node.js
+        console.log("error Request", error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }
+      console.log("error config", error.config);
+    });
+    
+    
+    
+    
+    
+    
+    
+    
   };
 
   return (
@@ -98,7 +137,8 @@ const CartPopup = (props) => {
               <div className="flex">
                 <button
                   onClick={() => submitOrder()}
-                  className="button bg-red-200 w-5/6 px-5 py-2 mx-auto mt-12 font-bold text-xl rounded-lg"
+                  type="submit"
+                  className="button bg-red-200 active:bg-red-500 w-5/6 px-5 py-2 mx-auto mt-12 font-bold text-xl rounded-lg"
                 >
                   Order
                 </button>

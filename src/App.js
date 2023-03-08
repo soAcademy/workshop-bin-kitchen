@@ -1,4 +1,4 @@
-import Home from "./pages/Home";
+import Home2 from "./pages/Home2";
 import OrderList from "./pages/OrderList";
 import Stat from "./pages/Stat";
 import React from "react";
@@ -18,9 +18,9 @@ const App = () => {
       <BrowserRouter>
         <NavBar />
         <Routes>
-          <Route exact path="" element={<Home info={info} />} />
+          <Route exact path="" element={<Home2 info={info} />} />
           <Route exact path="kitchen">
-            <Route exact path="main" element={<Home info={info} />} />
+            <Route exact path="main" element={<Home2 info={info} />} />
             <Route exact path="order" element={<OrderList />} />
             <Route exact path="stat" element={<Stat />} />
             {/* <Route exact path="hobbies" element={<Hobbies />} /> */}

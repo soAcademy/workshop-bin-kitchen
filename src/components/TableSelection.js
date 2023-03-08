@@ -16,26 +16,27 @@ const TableSelection = (props) => {
         ))}
       </div>
       {orders.map((order) => {
-        console.log(order.order_id, order)
+        console.log(order.id, order)
         return (
           <div>
-            <div className="text-neutral-50"> หมายเลขคำสั่ง#{order.order_id}</div>
-            <div className="text-neutral-50">โต็ะ:{order.table_id}</div>
+            <div className="text-neutral-50"> หมายเลขคำสั่ง#{order.id}</div>
+            <div className="text-neutral-50">โต็ะ:{order.tableId}</div>
             <div className="text-neutral-50">สถานะ:{order.status}</div>
   
             <div>
               {order.items.map((item) => (
                 <div>
                   <div className="flex bg-red-300">
-                    <div className=" flex-auto">{item.name}</div>
-                    <div className="mr-6">{item.price}</div>
+                    <div className=" flex-auto">{item.menu.name}</div>
+                    <div className="mr-6">{item.menu.price}</div>
+                    <div className="mr-6"> x {item.quantity}</div>
                   </div>
-                  <div className="text-neutral-50">รวม: {item.total_price}</div>
+                  <div className="text-neutral-50">รวม: {item.totalPrice}</div>
                 </div>
               ))}
             </div>
-            {order.status === "WAITING" && (
-            <button className="text-neutral-50 bg-red-300 h-12 w-24 button px-2" onClick={(() => updateOrderStatus(order.order_id))}>ทำเสร็จแล้ว</button>
+            {order.status === "PENDING" && (
+            <button className="text-neutral-50 bg-red-300 h-12 w-24 button px-2" onClick={(() => updateOrderStatus(order.id))}>ทำเสร็จแล้ว</button>
             )}
           </div>
         )

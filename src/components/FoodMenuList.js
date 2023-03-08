@@ -12,7 +12,7 @@ const FoodMenuList = (props) => {
     return (
     <div>
       <h1 className="font-bold p-2 lg:text-4xl text-2xl text-center text-yellow-300 w-[100px] rounded-lg m-2">
-        {props.category}
+        {props.categoryName}
         {/* from FoodMenuGroup line 7 */}
       </h1>
 

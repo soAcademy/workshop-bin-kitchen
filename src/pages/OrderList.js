@@ -12,8 +12,9 @@ const OrderList = () => {
   useEffect(() => {
     axios({
       method: "post",
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders-by-table",
-      data: { table_id: tableId },
+      // url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/get-orders-by-table",
+      url: "http://localhost:3000/binKitchen/getOrder",
+      data: { tableId: tableId },
     })
       .then((response) => {
         console.log("orderByTableId", response.data);
@@ -24,15 +25,15 @@ const OrderList = () => {
       });
   }, [tableId, toggle]);
 
-  const updateOrderStatus = (orderId) => {
+  const updateOrderStatus = (orderId) => { 
       // console.log("orderId", orderId);
     axios({
       method: "post",
-      url: "https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/update-order-status",
-      data: { order_id: orderId, status: "DONE" },
+      url: "http://localhost:3000/binKitchen/updateOrder",
+      data: { id: orderId, status: "DONE" },
     })
       .then((response) => {
-        console.log("https://sprinttech-food-menu-api-iinykauowa-uc.a.run.app/update-order-status", response)
+        console.log("http://localhost:3000/binKitchen/updateOrder", response)
         setToggle(!toggle)
       })
       .catch((err) => {
